@@ -1,14 +1,18 @@
 <?php
-    namespace Tests;
-    use PHPUnit\Framework\TestCase;
-    require_once '../src/Analyzer.php';
+namespace Tests;
+
+use PHPUnit\Framework\TestCase;
+use Analyzer\Analyzer;
+
+require_once '../src/Analyzer.php';
+
+class AnalyzerTest extends TestCase
+{
     
-    class AnalyzerTest extends TestCase{
-        
-        public function testTestMe(){
-            $analyzer = new \Analyzer();
-            $analyzer->analyze("../src/test.php");
-            $this->assertTrue($analyzer->testMe("searchNonASCIIChars") >0);
-        }
+    public function testTestMe()
+    {
+        $analyzer = new Analyzer();
+        $analyzer->analyze("../src/test.php");
+        $this->assertTrue($analyzer->testMe("searchNonASCIIChars") >0);
     }
-?>
+}
