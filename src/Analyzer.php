@@ -1,5 +1,5 @@
 <?php
-namespace Analyzer;
+namespace AnalyzerNS;
 
 class Analyzer
 {

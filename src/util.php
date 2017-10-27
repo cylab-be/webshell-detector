@@ -1,4 +1,6 @@
 <?php
+namespace Analyzer;
+
 /**
  * Apply the strpos function with an array of parameters
  * @param string $haystack

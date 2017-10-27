@@ -1,10 +1,10 @@
 <?php
 namespace Tests;
 
-use PHPUnit\Framework\TestCase;
-use Analyzer\Analyzer;
+require __DIR__ . "/../src/Analyzer.php";
 
-require_once '../src/Analyzer.php';
+use PHPUnit\Framework\TestCase;
+use AnalyzerNS\Analyzer;
 
 class AnalyzerTest extends TestCase
 {
