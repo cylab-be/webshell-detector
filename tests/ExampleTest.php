@@ -1,11 +1,10 @@
 <?php
 
 namespace Tests;
-
 use PHPUnit\Framework\TestCase;
 
-class ExampleTest extends TestCase
-{
+class ExampleTest extends TestCase{
+    
     /**
      * A basic test example.
      *
@@ -16,3 +15,4 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
     }
 }
+?>
