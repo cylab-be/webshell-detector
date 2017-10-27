@@ -12,7 +12,7 @@ class AnalyzerTest extends TestCase
     public function testTestMe()
     {
         $analyzer = new Analyzer();
-        $analyzer->analyze("../src/test.php");
+        $analyzer->analyze(__DIR__."/../src/test.php");
         $this->assertTrue($analyzer->testMe("searchNonASCIIChars") >0);
     }
 }
