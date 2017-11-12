@@ -4,7 +4,11 @@ namespace Tests;
 require_once __DIR__."/../src/util.php";
 
 use PHPUnit\Framework\TestCase;
-use \AnalyzerNS as util;
+use function \AnalyzerNS\removeAllWhiteSpaces;
+use function \AnalyzerNS\removeWhiteSpacesOutsideString;
+use function AnalyzerNS\removeCRLF;
+use function AnalyzerNS\removeMultiWhiteSpaces;
+
 
 class UtilTest extends TestCase
 {
@@ -21,28 +25,28 @@ class UtilTest extends TestCase
     public function testRemoveCRLF()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(util\removeCRLF($string) !== $string);
+            $this->assertTrue(removeCRLF($string) !== $string);
         }
     }
     
     public function testRemoveMultiWhiteSpaces()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(util\removeMultiWhiteSpaces($string) !== $string);
+            $this->assertTrue(removeMultiWhiteSpaces($string) !== $string);
         }
     }
     
     public function testRemoveAllWhiteSpaces()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(util\removeAllWhiteSpaces($string) !== $string);
+            $this->assertTrue(removeAllWhiteSpaces($string) !== $string);
         }
     }
     
     public function testRemoveWhiteSpacesOutsideString()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(util\removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
+            $this->assertTrue(removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
         }
     }
 }
