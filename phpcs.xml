@@ -3,6 +3,7 @@
  <description>The coding standard for our project.</description>
  <file>src</file>
  <file>tests</file>
+ <exclude-pattern>/tests/res/*</exclude-pattern>
  <arg value="np"/>
  <rule ref="PSR2"/>
 </ruleset>
