@@ -4,7 +4,7 @@ namespace Tests;
 require_once __DIR__."/../src/util.php";
 
 use PHPUnit\Framework\TestCase;
-use function AnalyzerNS\removeAllWhiteSpaces;
+use function \AnalyzerNS\removeAllWhiteSpaces;
 
 class UtilTest extends TestCase
 {
