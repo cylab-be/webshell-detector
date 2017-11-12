@@ -1,11 +1,14 @@
 <?php
 namespace AnalyzerNS;
 
+require_once 'util.php';
+
 class Analyzer
 {
     
     private $fileName;
     private $fileContent;
+    private $tokens;
     
     public function analyze($pFileName)
     {
@@ -14,10 +17,11 @@ class Analyzer
         } else {
             $this->fileName= $pFileName;
             $this->fileContent = file_get_contents($this->fileName);
+            $this->tokens = token_get_all($this->fileContent);
+            //print_r($this->tokens);
         }
     }
-    
-    
+   
     /**
      * //FIXME kill properly
      * @param string $message
@@ -25,6 +29,24 @@ class Analyzer
     private function kill($message)
     {
         die($message);
+    }
+    
+    /**
+     * Basic. Searches dangerous function names allowing to execute commands
+     * @return boolean. True if dangerous functions are found.
+     */
+    private function searchExecCmdFunctions()
+    {
+        $funcs = array("exec", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
+        if (strposOnArray($this->fileContent, $funcs) === false) {
+            foreach ($this->tokens as $token) {
+                if (!is_array($token) && $token === "`") {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
     }
     
     /**

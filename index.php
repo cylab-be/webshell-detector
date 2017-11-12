@@ -1,6 +1,6 @@
 <?php
     
-    require_once 'const.php';
+    require_once 'src/const.php';
     require_once 'src/util.php';
 
     //FIXME remove it
@@ -33,7 +33,7 @@
             return "Symlink are not allowed";
         }
         if(strposOnArray($pFileName, array(" ", '"', "'", "&", "/", "\\", "?", "#", chr(0)))){
-            $this->kill("File name contains almost one bad char");
+            $this->kill("File name contains at least one bad char");
         }
         return 1;
     }

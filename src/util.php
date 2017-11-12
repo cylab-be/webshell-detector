@@ -1,5 +1,5 @@
 <?php
-namespace Analyzer;
+namespace AnalyzerNS;
 
 /**
  * Apply the strpos function with an array of parameters
@@ -18,4 +18,56 @@ function strposOnArray($haystack, $arrayOfWords)
         }
         return false;
     }
+    return true;
+}
+
+/**
+ * Removes all carriage returns and/or line feeds
+ * @param $string
+ * @return NULL|$string
+ */
+function removeCRLF($string)
+{
+    return $string ? str_replace(PHP_EOL, '', $string) : null;
+}
+
+/**
+* Removes whites spaces if the are repeateds
+* @param $string
+* @return NULL|string without repeated white spaces
+*/
+function removeMultiWhiteSpaces($string)
+{
+    return $string ? preg_replace('/\s{2,}/', ' ', $string) : null;
+}
+
+/**
+ * Removes all whites spaces
+ * @param $string
+ * @return NULL|string whitout any white spaces
+ */
+function removeAllWhiteSpaces($string)
+{
+    return $string ? preg_replace('/\s+/', ' ', $string) : null;
+}
+
+/**
+ * Removew white spaces outside strings
+ * @param $string
+ * @return NULL|string
+ */
+function removeWhiteSpacesOutsideString($tokens)
+{
+    if (!$tokens) {
+        return null;
+    }
+    $retString = '';
+    foreach ($tokens as $x) {
+        if (!is_array($x)) {
+            $retString.=$x;
+        } else {
+            $retString.=(is_integer($x[0]) && $x[0] == T_WHITESPACE ? ' ':$x[1]);
+        }
+    }
+    return $retString;
 }
