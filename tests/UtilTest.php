@@ -1,7 +1,7 @@
 <?php
 namespace Tests;
 
-require __DIR__."/../src/util.php";
+require_once __DIR__."/../src/util.php";
 
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +41,7 @@ class UtilTest extends TestCase
     public function testRemoveWhiteSpacesOutsideString()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
+            $this->assertTrue(AnalyzerNS\removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
         }
     }
 }
