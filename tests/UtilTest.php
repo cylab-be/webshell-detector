@@ -21,28 +21,28 @@ class UtilTest extends TestCase
     public function testRemoveCRLF()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(removeCRLF($string) !== $string);
+            $this->assertTrue(\AnalyzerNS\removeCRLF($string) !== $string);
         }
     }
     
     public function testRemoveMultiWhiteSpaces()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(removeMultiWhiteSpaces($string) !== $string);
+            $this->assertTrue(\AnalyzerNS\removeMultiWhiteSpaces($string) !== $string);
         }
     }
     
     public function testRemoveAllWhiteSpaces()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(removeAllWhiteSpaces($string) !== $string);
+            $this->assertTrue(\AnalyzerNS\removeAllWhiteSpaces($string) !== $string);
         }
     }
     
     public function testRemoveWhiteSpacesOutsideString()
     {
         foreach ($this->strings as $string) {
-            $this->assertTrue(removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
+            $this->assertTrue(\AnalyzerNS\removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
         }
     }
 }
