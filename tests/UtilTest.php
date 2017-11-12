@@ -1,7 +1,7 @@
 <?php
 namespace Tests;
 
-//require_once __DIR__."/../src/util.php";
+require_once __DIR__."/../src/util.php";
 
 use PHPUnit\Framework\TestCase;
 use function AnalyzerNS\removeAllWhiteSpaces;
