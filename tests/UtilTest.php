@@ -9,7 +9,6 @@ use function \AnalyzerNS\removeWhiteSpacesOutsideString;
 use function AnalyzerNS\removeCRLF;
 use function AnalyzerNS\removeMultiWhiteSpaces;
 
-
 class UtilTest extends TestCase
 {
     private $strings = ["<?php\n
