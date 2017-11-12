@@ -6,7 +6,7 @@ require __DIR__ . "/../src/SignaturesAnalyzer.php";
 use PHPUnit\Framework\TestCase;
 use AnalyzerNS\SignaturesAnalyzer;
 
-class AnalyzerTest extends TestCase
+class SignaturesAnalyzerTest extends TestCase
 {
     
     public function testTestMe()
