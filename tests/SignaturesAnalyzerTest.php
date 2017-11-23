@@ -9,9 +9,11 @@ use AnalyzerNS\SignaturesAnalyzer;
 class SignaturesAnalyzerTest extends TestCase
 {
     
-    public function testTestMe()
+    
+    public function testScanFile()
     {
         $analyzer = new SignaturesAnalyzer();
-        $this->assertTrue($analyzer->scanFile(file_get_contents(__DIR__."/res/c.php")) == null);
+        //$this->assertTrue($analyzer->scanFile(file_get_contents(__DIR__."/res/c.php")) != null);
+        $this->assertTrue($analyzer->scanFile(file_get_contents(__DIR__."/res/enc_c.php")) != null);
     }
 }

@@ -1,6 +1,19 @@
 <?php
 namespace AnalyzerNS;
 
+function printTokens($pTokens)
+{
+    if (!isset($pTokens) || !is_array($pTokens)) {
+        return;
+    }
+    foreach ($pTokens as $token) {
+        if (is_array($token)) {
+            echo token_name($token[0]).': '.$token[1].PHP_EOL;
+        } else {
+            echo $token[0].PHP_EOL;
+        }
+    }
+}
 /**
  * Apply the strpos function with an array of parameters
  * @param string $haystack
