@@ -11,15 +11,15 @@ class SignaturesAnalyzer
         $key = null;
         foreach ($pFingerprints as $fingerprint => $shell) {
             if (preg_match($fingerprint, $pFileContent)) {
-                if ($fingerprint == "/version/") {
+                if ($fingerprint != "/version/") {
+                    $key = $shell;
                     break;
                 }
-                $key = $shell;
-                break;
             }
         }
         return $key;
     }
+    
     
     /**
      * TEST: comes from PHP-Webshell Detector, will be updated. Only for testing
@@ -55,22 +55,51 @@ class SignaturesAnalyzer
         }
         //Level 2+: the shell was encoded at least once
         $tokens = token_get_all($pFileContent);
-        //printTokens($tokens);
-        $strings = [];
-        $level = 1;
-        foreach ($tokens as $element) {
-            if (is_array($element) && $element[0] == T_CONSTANT_ENCAPSED_STRING) {
-                array_push($strings, $element[1]);
+        $decode = ["base64_decode", "gzuncompress", "gzinflate"];
+        $code = [];
+        $times = 0;
+        $parenthesis = 0;
+        foreach ($tokens as $token) {
+            if (is_array($token)) {
+                if ($token[0] === T_STRING && in_array($token[1], $decode)) {
+                    array_push($code, $token[1]);
+                    $times += 1;
+                } elseif ($token[0] === T_CONSTANT_ENCAPSED_STRING && count($code) != 0) {
+                    if (end($code) === "(") {
+                        array_push($code, $token[1]);
+                    }
+                }
+                //TODO check if a variable is passed as param
+            } elseif ($token === "(") {
+                array_push($code, "(");
+                $parenthesis += 1;
+            } elseif ($token === ")") {
+                if ($parenthesis != 0) {
+                    array_push($code, ")");
+                    $parenthesis -= 1;
+                }
+                if ($parenthesis == 0) {
+                    $encoded = "";
+                    foreach ($code as $instr) {
+                        $encoded.=$instr;
+                    }
+                    eval("\$decoded=".$encoded.";");
+                    if (isset($decoded)) {
+                        $flag = $this->compareFingerprints($fp_regex, $decoded);
+                        if ($flag != null) {
+                            return $flag;
+                        }
+                        $flag = $this->compareFingerprints($fp_regex, base64_encode($decoded));
+                        if ($flag != null) {
+                            return $flag;
+                        }
+                    }
+                }
             }
         }
-        for ($level = 1; $level < 10; $level++) {
-            for ($i = 0; $i < count($strings); $i++) {
-                $flag = $this->compareFingerprints($fp_regex, $strings[$i]);
-                if ($flag != null) {
-                    return $flag;
-                }
-                $strings[$i] = base64_decode($strings[$i] + '===');
-            }
+        if ($times > ENCODE_MAX) {
+            //was encode too many times -> probably dangerous
+            return true;
         }
     }
     

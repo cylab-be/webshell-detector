@@ -13,7 +13,13 @@ class SignaturesAnalyzerTest extends TestCase
     public function testScanFile()
     {
         $analyzer = new SignaturesAnalyzer();
-        //$this->assertTrue($analyzer->scanFile(file_get_contents(__DIR__."/res/c.php")) != null);
-        $this->assertTrue($analyzer->scanFile(file_get_contents(__DIR__."/res/enc_c.php")) != null);
+        file_put_contents(__DIR__."/res/enc_c.php", "<?php\n\$a=base64_decode(gzuncompress( base64_decode(\"".base64_encode(gzcompress(base64_encode(file_get_contents(__DIR__."/res/c_str.txt"))))."\".\"===\")));");
+        $flag1 = $analyzer->scanFile(file_get_contents(__DIR__."/res/c.php"));
+        $flag2 = $analyzer->scanFile(file_get_contents(__DIR__."/res/enc_c.php"));
+        echo PHP_EOL.$flag1;
+        echo PHP_EOL.$flag2;
+        echo PHP_EOL;
+        $this->assertTrue($flag1 != null);
+        $this->assertTrue($flag2 != null);
     }
 }
