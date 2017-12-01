@@ -143,19 +143,8 @@ class SignaturesAnalyzer implements Analyzer
         return $varState;
     }
 
-    /**
-     * Anonymous call
-     *
-     * @param  string $func name
-     * @return mixed return value of the routine
-     */
-    public function testMe($func)
+    public function analyze($string)
     {
-        return $this->$func();
-    }
-
-    public function analyze($fileName)
-    {
-        return $this->scanFile(file_get_contents($fileName));
+        return $this->scanFile($string);
     }
 }
