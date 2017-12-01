@@ -1,8 +1,9 @@
 <?php
+
 namespace RUCD\WebshellDetector;
 
-class Detector
-{
+class Detector {
+
     private $anayzers = [];
 
     public function __construct() {
@@ -10,6 +11,31 @@ class Detector
         $this->anayzers[] = new SignaturesAnalyzer();
     }
 
+    /**
+     * Recursively scan a directory, and scan all files.
+     *
+     * @param type $directory
+     */
+    public function analyzeDirectory($directory) {
+
+    }
+
+    /**
+     * Analyze a file.
+     * @param type $filename
+     * @return type
+     */
+    public function analyzeFile($filename) {
+        return $this->analyzeString(file_get_contents($filename));
+    }
+
+    /**
+     * Analyze a string and return a score between 0 (harmless) and 1 (highly
+     * suspicious).
+     *
+     * @param type $string
+     * @return type
+     */
     public function analyzeString($string) {
 
         $scores = [];
@@ -20,6 +46,7 @@ class Detector
     }
 
     private function aggregate($scores) {
-        return $scores[0];
+        // For now, perform a simple average
+        return array_sum($scores) / count($scores);
     }
 }
