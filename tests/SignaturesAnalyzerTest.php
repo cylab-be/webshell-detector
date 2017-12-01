@@ -10,20 +10,14 @@ class SignaturesAnalyzerTest extends TestCase
     public function testScanFile()
     {
         $analyzer = new SignaturesAnalyzer();
-        file_put_contents(
-            __DIR__."/res/enc_c.php", "<?php
-        \$a=\"".base64_encode(file_get_contents(__DIR__."/res/c_str.txt"))."\";
-        \$a.=\"===\";
-        \$b=base64_decode(\$a);
-        echo \$b;"
-        );
-        //file_put_contents(__DIR__."/res/enc_c.php", "<?php\n\$a=base64_decode(gzuncompress( base64_decode(\"".base64_encode(gzcompress(base64_encode(file_get_contents(__DIR__."/res/c_str.txt"))))."\".\"===\")));");
-        $flag1 = $analyzer->analyze(__DIR__."/res/c.php");
-        $flag2 = $analyzer->analyze(__DIR__."/res/enc_c.php");
-        echo PHP_EOL.'Flag 1: '.$flag1;
-        echo PHP_EOL.'Flag 2: '.$flag2;
-        echo PHP_EOL;
+        $flag1 = $analyzer->analyze(
+                file_get_contents(__DIR__ . "/res/c.php"));
+        $flag2 = $analyzer->analyze(
+                file_get_contents(__DIR__ . "/res/enc_c.php"));
         $this->assertTrue($flag1 != null);
         $this->assertTrue($flag2 != null);
+        $this->assertTrue(is_double($flag1), "Result should be a number");
+        $this->assertTrue($flag1 >= 0, "Result should be >= 0");
+        $this->assertTrue($flag <= 1, "Result should be <= 1");
     }
 }

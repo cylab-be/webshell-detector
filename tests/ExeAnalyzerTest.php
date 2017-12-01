@@ -10,7 +10,11 @@ class ExeAnalyzerTest extends TestCase
     public function testTestMe()
     {
         $analyzer = new ExeAnalyzer();
-        $analyzer->analyze(__DIR__."/res/test.php");
-        $this->assertTrue($analyzer->testMe("searchExecCmdFunctions") >0);
+        $result = $analyzer->analyze(
+                file_get_contents(__DIR__."/res/test.php"));
+
+        $this->assertTrue(
+                $result >= 0 && $result <= 1,
+                "result should be >= 0 and <= 1");
     }
 }

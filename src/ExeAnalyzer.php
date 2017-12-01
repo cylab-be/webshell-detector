@@ -3,29 +3,10 @@ namespace RUCD\WebshellDetector;
 
 class ExeAnalyzer implements Analyzer
 {
-    private $fileName;
-    private $fileContent;
-    private $tokens;
 
-    public function analyze($pFileName)
+    public function analyze($string)
     {
-        if (!$pFileName || !is_string($pFileName)) {
-            $this->kill("No file");
-        } else {
-            $this->fileName= $pFileName;
-            $this->fileContent = file_get_contents($this->fileName);
-            $this->tokens = token_get_all($this->fileContent);
-        }
-    }
-
-    /**
-     * //FIXME kill properly
-     *
-     * @param string $message
-     */
-    private function kill($message)
-    {
-        die($message);
+        return $this->searchExecCmdFunctions($string);
     }
 
     /**
@@ -33,11 +14,12 @@ class ExeAnalyzer implements Analyzer
      *
      * @return boolean. True if dangerous functions are found.
      */
-    private function searchExecCmdFunctions()
+    private function searchExecCmdFunctions($string)
     {
+        $tokens = token_get_all($string);
         $funcs = array("exec", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
-        if (Util::strposOnArray($this->fileContent, $funcs) === false) {
-            foreach ($this->tokens as $token) {
+        if (Util::strposOnArray($string, $funcs) === false) {
+            foreach ($tokens as $token) {
                 if (!is_array($token) && $token === "`") {
                     return true;
                 }
@@ -61,16 +43,5 @@ class ExeAnalyzer implements Analyzer
             }
         }
         return $count/strlen($this->fileContent);
-    }
-
-    /**
-     * Wrapper for tests
-     *
-     * @param  $func
-     * @return ? value of the called function
-     */
-    public function testMe($func)
-    {
-        return $this->$func();
     }
 }
