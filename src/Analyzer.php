@@ -5,6 +5,11 @@ require_once 'const.php';
 
 interface Analyzer
 {
-    public function analyze($fileName);
-    public function testMe($func);
+    /**
+     * Analyze a string and return a score between 0 (harmless) and 1 (highly
+     * suspicious).
+     *
+     * @param type $string
+     */
+    public function analyze($string);
 }
