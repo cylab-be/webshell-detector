@@ -1,8 +1,6 @@
 <?php
 namespace RUCD\WebshellDetector;
 
-require_once 'const.php';
-
 interface Analyzer
 {
     /**

@@ -3,6 +3,10 @@ namespace RUCD\WebshellDetector;
 
 class SignaturesAnalyzer implements Analyzer
 {
+
+    const ENCODE_MAX = 10;
+    const FINGERPRINTS_FILE = "shelldetect.db";
+
     private function compareFingerprints($pFingerprints, $pFileContent)
     {
         $key = null;
@@ -114,7 +118,7 @@ class SignaturesAnalyzer implements Analyzer
     private function getFingerprints()
     {
         $res = [];
-        $fileName = __DIR__.'/../res/'.FINGERPRINTS_FILE;
+        $fileName = __DIR__.'/../res/'. self::FINGERPRINTS_FILE;
         if (file_exists($fileName)) {
             $res = unserialize(base64_decode(file_get_contents($fileName)));
         }
@@ -126,7 +130,7 @@ class SignaturesAnalyzer implements Analyzer
         $varState = '';
         for ($i = 0; $i < $position; $i++) {
             $token = $tokens[$i];
-            if (is_array($token) && $token[0] === T_VARIABLE && $token[1] === $varName && $i < count($tokens)-2 
+            if (is_array($token) && $token[0] === T_VARIABLE && $token[1] === $varName && $i < count($tokens)-2
                 && is_array($tokens[$i+2]) && $tokens[$i+2][0] === T_CONSTANT_ENCAPSED_STRING
             ) {
                 if ($tokens[$i+1] === "=") {
