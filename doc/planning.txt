@@ -1,6 +1,8 @@
 27.10~10.11 Découverte des outils de développement, recherche de différentes techniques de recherche. Développement de quelques routines de détection basiques
 11.11~24.11 Développement plus approfondi: cas d'une détection basée sur les signatures. Début de l'élaboration d'une architecture plus précise
-25.11~15.12 Début du développement du module concernant l'entropie, l'indentation, et éventuellement l'obfuscation
+25.11~15.12 Début du développement du module concernant l'entropie, l'indentation, et éventuellement l'obfuscation.
+Restructuration du code avec création de l'interface et suppression des imports
+Recherche sur le Fuzzy hashing
 16.12~29.12 Evaluation de l'efficacité des techniques mises en place et renforcement des moyens de détection (ou inveresement si trop de faux positifs)
 30.12~12.01 Recherche sur les méthodes de détection basée sur la sémantique et sur les règles YARA. Début du développement selon des éléments
 13.01~02.02 Début du développement d'un module de détection cherchant des patterns simples: routines dangereuses, code obfusqué, fonctions anonymes,

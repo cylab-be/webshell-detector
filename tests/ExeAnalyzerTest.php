@@ -1,17 +1,17 @@
 <?php
 namespace Tests;
 
-require __DIR__ . "/../src/Analyzer.php";
+require __DIR__ . "/../src/ExeAnalyzer.php";
 
 use PHPUnit\Framework\TestCase;
-use AnalyzerNS\Analyzer;
+use AnalyzerNS\ExeAnalyzer;
 
-class AnalyzerTest extends TestCase
+class ExeAnalyzerTest extends TestCase
 {
     
     public function testTestMe()
     {
-        $analyzer = new Analyzer();
+        $analyzer = new ExeAnalyzer();
         $analyzer->analyze(__DIR__."/res/test.php");
         $this->assertTrue($analyzer->testMe("searchExecCmdFunctions") >0);
     }
