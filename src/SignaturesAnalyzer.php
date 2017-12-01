@@ -104,7 +104,7 @@ class SignaturesAnalyzer implements Analyzer
                 array_push($code, ";");
             }
         }
-        if ($times > ENCODE_MAX) {
+        if ($times > self::ENCODE_MAX) {
             //was encoded too many times -> probably dangerous
             return true;
         }
