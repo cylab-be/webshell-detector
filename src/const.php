@@ -1,5 +1,5 @@
 <?php
-namespace AnalyzerNS;
+namespace RUCD\WebshellDetector;
 
 const MAX_FILE_SIZE = 20000;
 const ENCODE_MAX = 10;

@@ -1,14 +1,12 @@
 <?php
-namespace Tests;
-
-require __DIR__ . "/../src/SignaturesAnalyzer.php";
+namespace RUCD\WebshellDetector;
 
 use PHPUnit\Framework\TestCase;
-use AnalyzerNS\SignaturesAnalyzer;
+use RUCD\WebshellDetector\SignaturesAnalyzer;
 
 class SignaturesAnalyzerTest extends TestCase
 {
-    
+
     public function testScanFile()
     {
         $analyzer = new SignaturesAnalyzer();

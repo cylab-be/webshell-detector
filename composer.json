@@ -1,6 +1,29 @@
 {
+    "name": "rucd/webshell-detector",
+    "type": "library",
+    "description": "Webshell detector",
+    "keywords": [],
+    "homepage": "https://github.com/RUCD/webshell-detector",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Enzo Borel",
+            "email": "borelenzo@gmail.com"
+        },
+        {
+            "name": "Thibault Debatty",
+            "email": "thibault.debatty@gmail.com"
+        }
+    ],
+    "require": {
+    },
     "require-dev": {
         "phpunit/phpunit": "^6.2",
         "squizlabs/php_codesniffer": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "RUCD\\WebshellDetector\\": "src"
+        }
     }
 }

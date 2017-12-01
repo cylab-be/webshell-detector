@@ -1,14 +1,12 @@
 <?php
-namespace Tests;
-
-require __DIR__ . "/../src/ExeAnalyzer.php";
+namespace RUCD\WebshellDetector;
 
 use PHPUnit\Framework\TestCase;
-use AnalyzerNS\ExeAnalyzer;
+use RUCD\WebshellDetector\ExeAnalyzer;
 
 class ExeAnalyzerTest extends TestCase
 {
-    
+
     public function testTestMe()
     {
         $analyzer = new ExeAnalyzer();

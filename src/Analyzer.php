@@ -1,8 +1,7 @@
 <?php
-namespace AnalyzerNS;
+namespace RUCD\WebshellDetector;
 
 require_once 'const.php';
-require_once 'util.php';
 
 interface Analyzer
 {

@@ -1,14 +1,12 @@
 <?php
-namespace AnalyzerNS;
-
-require_once 'Analyzer.php';
+namespace RUCD\WebshellDetector;
 
 class ExeAnalyzer implements Analyzer
 {
     private $fileName;
     private $fileContent;
     private $tokens;
-    
+
     public function analyze($pFileName)
     {
         if (!$pFileName || !is_string($pFileName)) {
@@ -19,7 +17,7 @@ class ExeAnalyzer implements Analyzer
             $this->tokens = token_get_all($this->fileContent);
         }
     }
-    
+
     /**
      * //FIXME kill properly
      * @param string $message
@@ -28,7 +26,7 @@ class ExeAnalyzer implements Analyzer
     {
         die($message);
     }
-    
+
     /**
      * Basic. Searches dangerous function names allowing to execute commands
      * @return boolean. True if dangerous functions are found.
@@ -36,7 +34,7 @@ class ExeAnalyzer implements Analyzer
     private function searchExecCmdFunctions()
     {
         $funcs = array("exec", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
-        if (strposOnArray($this->fileContent, $funcs) === false) {
+        if (Util::strposOnArray($this->fileContent, $funcs) === false) {
             foreach ($this->tokens as $token) {
                 if (!is_array($token) && $token === "`") {
                     return true;
@@ -46,7 +44,7 @@ class ExeAnalyzer implements Analyzer
         }
         return true;
     }
-    
+
     /**
      * Searches for non-ASCII characters, often used in obfuscated files
      * @return number
@@ -61,7 +59,7 @@ class ExeAnalyzer implements Analyzer
         }
         return $count/strlen($this->fileContent);
     }
-    
+
     /**
      * Wrapper for tests
      * @param $func

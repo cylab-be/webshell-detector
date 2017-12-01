@@ -1,7 +1,5 @@
 <?php
-namespace AnalyzerNS;
-
-require_once 'Analyzer.php';
+namespace RUCD\WebshellDetector;
 
 class SignaturesAnalyzer implements Analyzer
 {
@@ -18,8 +16,8 @@ class SignaturesAnalyzer implements Analyzer
         }
         return $key;
     }
-    
-    
+
+
     /**
      * TEST: comes from PHP-Webshell Detector, will be updated. Only for testing
      * @param string $pFileContent
@@ -42,7 +40,7 @@ class SignaturesAnalyzer implements Analyzer
             }
             $fp_regex['/' . preg_quote($fingerprint, '/') . '/'] = $shell;
         }
-        
+
         //Level 1: the shell is not hidden
         $flag = $this->compareFingerprints($fp_regex, $pFileContent);
         if ($flag != null) {
@@ -106,7 +104,7 @@ class SignaturesAnalyzer implements Analyzer
             return true;
         }
     }
-    
+
     /**
      * Reads the file containing signatures
      * @return array|mixed
@@ -120,7 +118,7 @@ class SignaturesAnalyzer implements Analyzer
         }
         return $res;
     }
-    
+
     private function getStringVar($varName, $tokens, $position)
     {
         $varState = '';
@@ -137,7 +135,7 @@ class SignaturesAnalyzer implements Analyzer
         }
         return $varState;
     }
-    
+
     /**
      * Anonymous call
      * @param string $func name
@@ -147,7 +145,7 @@ class SignaturesAnalyzer implements Analyzer
     {
         return $this->$func();
     }
-    
+
     public function analyze($fileName)
     {
         return $this->scanFile(file_get_contents($fileName));
