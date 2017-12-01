@@ -20,6 +20,7 @@ class ExeAnalyzer implements Analyzer
 
     /**
      * //FIXME kill properly
+     *
      * @param string $message
      */
     private function kill($message)
@@ -29,6 +30,7 @@ class ExeAnalyzer implements Analyzer
 
     /**
      * Basic. Searches dangerous function names allowing to execute commands
+     *
      * @return boolean. True if dangerous functions are found.
      */
     private function searchExecCmdFunctions()
@@ -47,6 +49,7 @@ class ExeAnalyzer implements Analyzer
 
     /**
      * Searches for non-ASCII characters, often used in obfuscated files
+     *
      * @return number
      */
     private function searchNonASCIIChars()
@@ -62,7 +65,8 @@ class ExeAnalyzer implements Analyzer
 
     /**
      * Wrapper for tests
-     * @param $func
+     *
+     * @param  $func
      * @return ? value of the called function
      */
     public function testMe($func)

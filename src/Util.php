@@ -19,8 +19,9 @@ class Util
     }
     /**
      * Apply the strpos function with an array of parameters
-     * @param string $haystack
-     * @param array $arrayOfWords words to search in the haystack
+     *
+     * @param  string $haystack
+     * @param  array  $arrayOfWords words to search in the haystack
      * @return int|boolean
      */
     public static function strposOnArray($haystack, $arrayOfWords)
@@ -39,7 +40,8 @@ class Util
 
     /**
      * Removes all carriage returns and/or line feeds
-     * @param $string
+     *
+     * @param  $string
      * @return NULL|$string
      */
     public static function removeCRLF($string)
@@ -48,10 +50,11 @@ class Util
     }
 
     /**
-    * Removes whites spaces if the are repeateds
-    * @param $string
-    * @return NULL|string without repeated white spaces
-    */
+     * Removes whites spaces if the are repeateds
+     *
+     * @param  $string
+     * @return NULL|string without repeated white spaces
+     */
     public static function removeMultiWhiteSpaces($string)
     {
         return $string ? preg_replace('/\s{2,}/', ' ', $string) : null;
@@ -59,7 +62,8 @@ class Util
 
     /**
      * Removes all whites spaces
-     * @param $string
+     *
+     * @param  $string
      * @return NULL|string whitout any white spaces
      */
     public static function removeAllWhiteSpaces($string)
@@ -69,7 +73,8 @@ class Util
 
     /**
      * Removew white spaces outside strings
-     * @param $string
+     *
+     * @param  $string
      * @return NULL|string
      */
     public static function removeWhiteSpacesOutsideString($tokens)

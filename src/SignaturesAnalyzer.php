@@ -20,7 +20,8 @@ class SignaturesAnalyzer implements Analyzer
 
     /**
      * TEST: comes from PHP-Webshell Detector, will be updated. Only for testing
-     * @param string $pFileContent
+     *
+     * @param  string $pFileContent
      * @return NULL|NULL|array|mixed
      */
     public function scanFile($pFileContent)
@@ -107,6 +108,7 @@ class SignaturesAnalyzer implements Analyzer
 
     /**
      * Reads the file containing signatures
+     *
      * @return array|mixed
      */
     private function getFingerprints()
@@ -124,8 +126,9 @@ class SignaturesAnalyzer implements Analyzer
         $varState = '';
         for ($i = 0; $i < $position; $i++) {
             $token = $tokens[$i];
-            if (is_array($token) && $token[0] === T_VARIABLE && $token[1] === $varName && $i < count($tokens)-2 &&
-                is_array($tokens[$i+2]) && $tokens[$i+2][0] === T_CONSTANT_ENCAPSED_STRING) {
+            if (is_array($token) && $token[0] === T_VARIABLE && $token[1] === $varName && $i < count($tokens)-2 
+                && is_array($tokens[$i+2]) && $tokens[$i+2][0] === T_CONSTANT_ENCAPSED_STRING
+            ) {
                 if ($tokens[$i+1] === "=") {
                     $varState=substr($tokens[$i+2][1], 0, strlen($tokens[$i+2][1])-1);
                 } elseif (is_array($tokens[$i+1]) && $tokens[$i+1][0] === T_CONCAT_EQUAL) {
@@ -138,7 +141,8 @@ class SignaturesAnalyzer implements Analyzer
 
     /**
      * Anonymous call
-     * @param string $func name
+     *
+     * @param  string $func name
      * @return mixed return value of the routine
      */
     public function testMe($func)
