@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . "/../vendor/autoload.php";
+
+use RUCD\WebshellDetector\Detector;
+
+if ($argc != 2) {
+    echo "Usage: " . $argv[0] . " <filename>\n";
+    exit();
+}
+
+$filename = $argv[1];
+
+$detector = new Detector();
+echo $detector->analyzeFile($filename) . "\n";
