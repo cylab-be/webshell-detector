@@ -1,6 +1,11 @@
 #!/usr/bin/env php
 <?php
-require_once __DIR__ . "/../vendor/autoload.php";
+
+## To run the binary after you clone the repository
+include_once __DIR__ . "/../vendor/autoload.php";
+
+## To run the binary installed with composer
+include_once __DIR__ . "/../../../vendor/autoload.php";
 
 use RUCD\WebshellDetector\Detector;
 

@@ -25,14 +25,14 @@ echo $detector->analyzeFile("strange_file.php");
 ```composer global require rucd/webshell-detector```
 
 This will install webshell-detector to your global vendor binaries directory
-(usually **~/.composer/vendor/bin**). If this directory is part of your path,
+(usually **~/.config/composer/vendor/bin**). If this directory is part of your path,
 you can run it directly:
 
 ```webshell-detector <filename>```
 
 Or, if the global vendor binaries directory is not part of your path:
 
-```~/.composer/vendor/bin/webshell-detector <filename>```
+```~/.config/composer/vendor/bin/webshell-detector <filename>```
 
 
 
