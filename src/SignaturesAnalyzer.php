@@ -190,10 +190,17 @@ class SignaturesAnalyzer implements Analyzer
      * 
      * @see \RUCD\WebshellDetector\Analyzer::analyze()
      * 
-     * @return mixed
+     * @return double The score of the file
      */
     public function analyze($filename)
     {
-        return $this->scanFile($filename);
+        $ret = $this->scanFile($filename);
+        if ($ret === null) {
+            return 0;
+        }
+        if ($ret === true) {
+            return 0.5;
+        }
+        return 0.75;
     }
 }

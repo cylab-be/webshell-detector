@@ -44,21 +44,28 @@ class ExeAnalyzer implements Analyzer
      * 
      * @param string $string The string to analyze
      *
-     * @return boolean. True if dangerous functions are found.
+     * @return int. Number of dangerous functions
      */
     private function _searchExecCmdFunctions($string)
     {
+        $count = 0;
         $tokens = token_get_all($string);
+        if (count($tokens) === 0) {
+            return 0;
+        }
         $funcs = array("exec", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
-        if (Util::strposOnArray($string, $funcs) === false) {
-            foreach ($tokens as $token) {
-                if (!is_array($token) && $token === "`") {
-                    return true;
+        foreach ($tokens as $token) {
+            foreach ($funcs as $func) {
+                if ((is_array($token) && $token[1] === $func)) {
+                    $count++;
                 }
             }
-            return false;
+            if (!is_array($token) && $token === "`") {
+                $count+=0.5;
+            }
         }
-        return true;
+        
+        return $count/count($tokens);
     }
     
 }
