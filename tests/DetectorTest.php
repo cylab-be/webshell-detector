@@ -1,18 +1,43 @@
 <?php
+/**
+ * Class DetectorTest
+ *
+ * @file     DetectorTest
+ * @category None
+ * @package  Tests
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 namespace RUCD\WebshellDetector;
 
 use PHPUnit\Framework\TestCase;
-use RUCD\WebshellDetector\Detector;
 
+/**
+ * Class DetectorTest extending TestCase. Performs tests on the class Detector
+ *
+ * @file     DetectorTest
+ * @category None
+ * @package  Tests
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 class DetectorTest extends TestCase
 {
 
+    /**
+     * Performs a test on the routine Detector::analyzeString
+     * 
+     * @return void
+     */
     public function testAnalyzeString()
     {
         $detector = new Detector();
         $this->assertTrue(
-                $detector->analyzeString('<?php exe("something") ?>') > 0,
-                "The detector should return a score > 0 as the test contains"
-                . "the exe function");
+            $detector->analyzeString('<?php exe("something") ?>') > 0,
+            "The detector should return a score > 0 as the test contains"
+            . "the exe function"
+        );
     }
 }

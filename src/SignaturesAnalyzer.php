@@ -1,13 +1,41 @@
 <?php
+/**
+ * File SignaturesAnalyzer
+ *
+ * @file     SignaturesAnalyzer
+ * @category None
+ * @package  Source
+ * @author   Enzo Borel <borelenzo@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 namespace RUCD\WebshellDetector;
-
+/**
+ * Class SignaturesAnalyzer implementing Analyzer
+ * Performs an analysis of the file, looking for known web shells signatures
+ *
+ * @file     SignaturesAnalyzer
+ * @category None
+ * @package  Source
+ * @author   Enzo Borel <borelenzo@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 class SignaturesAnalyzer implements Analyzer
 {
 
     const ENCODE_MAX = 10;
     const FINGERPRINTS_FILE = "shelldetect.db";
 
-    private function compareFingerprints($pFingerprints, $pFileContent)
+    /**
+     * Iterates over the array of signatures and checks if a pattern matches
+     * 
+     * @param array  $pFingerprints Array of signatures
+     * @param string $pFileContent  The content of a file
+     * 
+     * @return NULL|string Returns the first mathing signature, NULL if nothing matches
+     */
+    private function _compareFingerprints($pFingerprints, $pFileContent)
     {
         $key = null;
         foreach ($pFingerprints as $fingerprint => $shell) {
@@ -25,15 +53,17 @@ class SignaturesAnalyzer implements Analyzer
     /**
      * TEST: comes from PHP-Webshell Detector, will be updated. Only for testing
      *
-     * @param  string $pFileContent
-     * @return NULL|NULL|array|mixed
+     * @param string $pFileContent The content of a file
+     * 
+     * @return NULL|string|boolean Returns NULL if the file content doesn't exist, a string if a flag is found, or true if
+     * the file is probably dangerous (too much encoded)
      */
     public function scanFile($pFileContent)
     {
         if ($pFileContent == null || !strlen($pFileContent)) {
             return null;
         }
-        $fingerprints = $this->getFingerprints();
+        $fingerprints = $this->_getFingerprints();
         if ($fingerprints == null || !count($fingerprints)) {
             return null;
         }
@@ -47,11 +77,11 @@ class SignaturesAnalyzer implements Analyzer
         }
 
         //Level 1: the shell is not hidden
-        $flag = $this->compareFingerprints($fp_regex, $pFileContent);
+        $flag = $this->_compareFingerprints($fp_regex, $pFileContent);
         if ($flag != null) {
             return $flag;
         }
-        $flag = $this->compareFingerprints($fp_regex, base64_encode($pFileContent));
+        $flag = $this->_compareFingerprints($fp_regex, base64_encode($pFileContent));
         if ($flag != null) {
             return $flag;
         }
@@ -72,7 +102,7 @@ class SignaturesAnalyzer implements Analyzer
                         array_push($code, $token[1]);
                     }
                 } else if ($token[0] === T_VARIABLE && count($code) != 0 && end($code) === "(") {
-                    array_push($code, $this->getStringVar($token[1], $tokens, $i));
+                    array_push($code, $this->_getStringVar($token[1], $tokens, $i));
                 }
             } elseif ($token === "(" && count($code)) {
                 array_push($code, "(");
@@ -89,11 +119,11 @@ class SignaturesAnalyzer implements Analyzer
                         echo $encoded;
                         eval("\$decoded=".$encoded.";");
                         if (isset($decoded)) {
-                            $flag = $this->compareFingerprints($fp_regex, $decoded);
+                            $flag = $this->_compareFingerprints($fp_regex, $decoded);
                             if ($flag != null) {
                                 return $flag;
                             }
-                            $flag = $this->compareFingerprints($fp_regex, base64_encode($decoded));
+                            $flag = $this->_compareFingerprints($fp_regex, base64_encode($decoded));
                             if ($flag != null) {
                                 return $flag;
                             }
@@ -113,9 +143,9 @@ class SignaturesAnalyzer implements Analyzer
     /**
      * Reads the file containing signatures
      *
-     * @return array|mixed
+     * @return array An array containing shells signatures
      */
-    private function getFingerprints()
+    private function _getFingerprints()
     {
         $res = [];
         $fileName = __DIR__.'/../res/'. self::FINGERPRINTS_FILE;
@@ -125,7 +155,16 @@ class SignaturesAnalyzer implements Analyzer
         return $res;
     }
 
-    private function getStringVar($varName, $tokens, $position)
+    /**
+     * Tries to rebuild the value of a given variable
+     * 
+     * @param string $varName  The name of the variable
+     * @param array  $tokens   Tokens found in the file
+     * @param int    $position The current position of the variable of the array of tokens
+     * 
+     * @return string The current state of the variable at the given position
+     */
+    private function _getStringVar($varName, $tokens, $position)
     {
         $varState = '';
         for ($i = 0; $i < $position; $i++) {
@@ -142,9 +181,19 @@ class SignaturesAnalyzer implements Analyzer
         }
         return $varState;
     }
-
-    public function analyze($string)
+    
+    /**
+     * Performs an analysis on a file
+     * {@inheritDoc}
+     * 
+     * @param string $filename The name of the file
+     * 
+     * @see \RUCD\WebshellDetector\Analyzer::analyze()
+     * 
+     * @return mixed
+     */
+    public function analyze($filename)
     {
-        return $this->scanFile($string);
+        return $this->scanFile($filename);
     }
 }

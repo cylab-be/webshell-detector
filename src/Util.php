@@ -1,9 +1,35 @@
 <?php
+/**
+ * File Util
+ *
+ * @file     Util
+ * @category None
+ * @package  Source
+ * @author   Enzo Borel <borelenzo@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 namespace RUCD\WebshellDetector;
 
+/**
+ * Class Util. Contains some utilitarian routines
+ *
+ * @file     Util
+ * @category None
+ * @package  Source
+ * @author   Enzo Borel <borelenzo@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 class Util
 {
-
+    /**
+     * Prints the array of tokens
+     * 
+     * @param array $pTokens The array of tokens to print
+     * 
+     * @return void
+     */
     public static function printTokens($pTokens)
     {
         if (!isset($pTokens) || !is_array($pTokens)) {
@@ -17,11 +43,13 @@ class Util
             }
         }
     }
+    
     /**
      * Apply the strpos function with an array of parameters
      *
-     * @param  string $haystack
-     * @param  array  $arrayOfWords words to search in the haystack
+     * @param string $haystack     The string where the research is performed
+     * @param array  $arrayOfWords words to search in the haystack
+     * 
      * @return int|boolean
      */
     public static function strposOnArray($haystack, $arrayOfWords)
@@ -41,7 +69,8 @@ class Util
     /**
      * Removes all carriage returns and/or line feeds
      *
-     * @param  $string
+     * @param string $string The string to analyze
+     * 
      * @return NULL|$string
      */
     public static function removeCRLF($string)
@@ -52,7 +81,8 @@ class Util
     /**
      * Removes whites spaces if the are repeateds
      *
-     * @param  $string
+     * @param string $string The string to analyze
+     * 
      * @return NULL|string without repeated white spaces
      */
     public static function removeMultiWhiteSpaces($string)
@@ -63,7 +93,8 @@ class Util
     /**
      * Removes all whites spaces
      *
-     * @param  $string
+     * @param string $string The string to analyze
+     * 
      * @return NULL|string whitout any white spaces
      */
     public static function removeAllWhiteSpaces($string)
@@ -72,9 +103,10 @@ class Util
     }
 
     /**
-     * Removew white spaces outside strings
+     * Remove white spaces outside strings
      *
-     * @param  $string
+     * @param array $tokens List of tokens
+     * 
      * @return NULL|string
      */
     public static function removeWhiteSpacesOutsideString($tokens)
@@ -91,5 +123,21 @@ class Util
             }
         }
         return $retString;
+    }
+    
+    /**
+     * Searches for non-ASCII characters, often used in obfuscated files
+     *
+     * @return number The number of non-ASCII chars in the string
+     */
+    public static function searchNonASCIIChars()
+    {
+        $count = 0;
+        for ($i = 0; $i < strlen($this->fileContent); $i++) {
+            if (ord($this->fileContent[$i]) > 0x7f) {
+                $count++;
+            }
+        }
+        return $count/strlen($this->fileContent);
     }
 }

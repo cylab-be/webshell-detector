@@ -1,20 +1,52 @@
 <?php
+/**
+ * Class ExeAnalyzer
+ *
+ * @file     ExeAnalyzer
+ * @category None
+ * @package  Source
+ * @author   Enzo Borel <borelenzo@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 namespace RUCD\WebshellDetector;
-
+/**
+ * Class ExeAnalyzer implementing Analyzer
+ * Performs an analysis of the file, looking dangerous routines
+ *
+ * @file     ExeAnalyzer
+ * @category None
+ * @package  Source
+ * @author   Enzo Borel <borelenzo@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 class ExeAnalyzer implements Analyzer
 {
 
+    /**
+     * Performs an analysis on the given string, regarding dangerous routine
+     * {@inheritDoc}
+     * 
+     * @param string $string The string to analyze
+     * 
+     * @see \RUCD\WebshellDetector\Analyzer::analyze()
+     * 
+     * @return int The score of the given string
+     */
     public function analyze($string)
     {
-        return $this->searchExecCmdFunctions($string);
+        return $this->_searchExecCmdFunctions($string);
     }
 
     /**
      * Basic. Searches dangerous function names allowing to execute commands
+     * 
+     * @param string $string The string to analyze
      *
      * @return boolean. True if dangerous functions are found.
      */
-    private function searchExecCmdFunctions($string)
+    private function _searchExecCmdFunctions($string)
     {
         $tokens = token_get_all($string);
         $funcs = array("exec", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
@@ -28,20 +60,5 @@ class ExeAnalyzer implements Analyzer
         }
         return true;
     }
-
-    /**
-     * Searches for non-ASCII characters, often used in obfuscated files
-     *
-     * @return number
-     */
-    private function searchNonASCIIChars()
-    {
-        $count = 0;
-        for ($i = 0; $i < strlen($this->fileContent); $i++) {
-            if (ord($this->fileContent[$i]) > 0x7f) {
-                $count++;
-            }
-        }
-        return $count/strlen($this->fileContent);
-    }
+    
 }

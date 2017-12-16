@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * Bootstrap file
+ * 
+ * @file     Bootstrap
+ * @category None
+ * @package  Tests
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 require_once __DIR__ . "/../vendor/autoload.php";
 
 /**
@@ -11,7 +20,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
  *
  *      new \Foo\Bar\Baz\Qux;
  *
- * @param  string $class The fully-qualified class name.
+ * @param string $class The fully-qualified class name.
+ * 
  * @return void
  */
 spl_autoload_register(

@@ -1,31 +1,67 @@
 <?php
-
+/**
+ * File Detector
+ *
+ * @file     Dectector
+ * @category None
+ * @package  Source
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 namespace RUCD\WebshellDetector;
+/**
+ * Class Detector. Entry point containing all analyzers
+ *
+ * @file     Dectector
+ * @category None
+ * @package  Source
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
+class Detector
+{
 
-class Detector {
+    private $_analyzers = [];
 
-    private $anayzers = [];
-
-    public function __construct() {
-        $this->anayzers[] = new ExeAnalyzer();
-        $this->anayzers[] = new SignaturesAnalyzer();
+    /**
+     * Contructor of Detector. Initializes analyzers
+     */
+    public function __construct()
+    {
+        $this->_analyzers[] = new ExeAnalyzer();
+        $this->_analyzers[] = new SignaturesAnalyzer();
     }
 
     /**
      * Recursively scan a directory, and scan all files.
      *
-     * @param type $directory
+     * @param string $directory Name of the directory to scan
+     * 
+     * @return array The array containing all scores
      */
-    public function analyzeDirectory($directory) {
-
+    public function analyzeDirectory($directory)
+    {
+        $scores = [];
+        if (is_dir($directory)) {
+            $files = scandir($directory);
+            foreach ($files as $file) {
+                array_push($scores, $this->analyzeFile($file));
+            }
+        }
+        return $scores;
     }
 
     /**
-     * Analyze a file.
-     * @param type $filename
-     * @return type
+     * Analyzes a file.
+     * 
+     * @param string $filename The name of the file to read
+     * 
+     * @return float The final score of the file
      */
-    public function analyzeFile($filename) {
+    public function analyzeFile($filename)
+    {
         return $this->analyzeString(file_get_contents($filename));
     }
 
@@ -33,19 +69,29 @@ class Detector {
      * Analyze a string and return a score between 0 (harmless) and 1 (highly
      * suspicious).
      *
-     * @param type $string
-     * @return type
+     * @param string $string The string to analyzer
+     * 
+     * @return float The score
      */
-    public function analyzeString($string) {
+    public function analyzeString($string)
+    {
 
         $scores = [];
-        foreach ($this->anayzers as $analyzer) {
+        foreach ($this->_analyzers as $analyzer) {
             $scores[] = $analyzer->analyze($string);
         }
-        return $this->aggregate($scores);
+        return $this->_aggregate($scores);
     }
 
-    private function aggregate($scores) {
+    /**
+     * Returns a mark regarding the harmfulness of submitted scores
+     * 
+     * @param array $scores The computed scores
+     * 
+     * @return float The final score
+     */
+    private function _aggregate($scores)
+    {
         // For now, perform a simple average
         return array_sum($scores) / count($scores);
     }
