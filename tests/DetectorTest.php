@@ -40,4 +40,19 @@ class DetectorTest extends TestCase
             . "the exe function"
         );
     }
+    
+    /**
+     * Performs a test on the routine Detector::analyzeDirectory
+     *
+     * @return void
+     */
+    public function testAnalyzeDirectory()
+    {
+        $detector = new Detector();
+        $scores = $detector->analyzeDirectory(__DIR__."/res/");
+        var_dump($scores);
+        $this->assertTrue(
+            count($scores) > 0
+        );
+    }
 }

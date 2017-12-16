@@ -26,9 +26,9 @@ interface Analyzer
      * Analyze a string and return a score between 0 (harmless) and 1 (highly
      * suspicious).
      *
-     * @param string $filename Name of the file to read
+     * @param string $filecontent Content of the file to analyze
      * 
      * @return mixed The value retuned by the implementation of the routine
      */
-    public function analyze($filename);
+    public function analyze($filecontent);
 }

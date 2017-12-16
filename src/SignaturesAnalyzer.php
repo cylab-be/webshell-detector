@@ -183,18 +183,18 @@ class SignaturesAnalyzer implements Analyzer
     }
     
     /**
-     * Performs an analysis on a file
+     * Performs an analysis on a file regarding signatures of known signatures
      * {@inheritDoc}
      * 
-     * @param string $filename The name of the file
+     * @param string $filecontent The content of the file to analyze
      * 
      * @see \RUCD\WebshellDetector\Analyzer::analyze()
      * 
      * @return double The score of the file
      */
-    public function analyze($filename)
+    public function analyze($filecontent)
     {
-        $ret = $this->scanFile($filename);
+        $ret = $this->scanFile($filecontent);
         if ($ret === null) {
             return 0;
         }

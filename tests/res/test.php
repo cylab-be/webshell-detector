@@ -1,8 +1,7 @@
 <?php
-
 function test()
 {
-    echo "ok";
+echo "ok";
 }
 $Æ = "test";
 echo $Æ;

@@ -32,6 +32,7 @@ class Detector
     {
         $this->_analyzers[] = new ExeAnalyzer();
         $this->_analyzers[] = new SignaturesAnalyzer();
+        $this->_analyzers[] = new EntropyAnalyzer();
     }
 
     /**
@@ -46,8 +47,12 @@ class Detector
         $scores = [];
         if (is_dir($directory)) {
             $files = scandir($directory);
+            echo "Scanning directory: ".$directory.PHP_EOL;
             foreach ($files as $file) {
-                array_push($scores, $this->analyzeFile($file));
+                if ($file !== ".." && $file !== ".") {
+                    echo $directory.$file.PHP_EOL;
+                    array_push($scores, $this->analyzeFile($directory.$file));
+                }
             }
         }
         return $scores;
