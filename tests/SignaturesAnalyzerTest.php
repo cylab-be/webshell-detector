@@ -44,6 +44,6 @@ class SignaturesAnalyzerTest extends TestCase
         $this->assertTrue($flag2 != null);
         $this->assertTrue(is_double($flag1), "Result should be a number");
         $this->assertTrue($flag1 >= 0, "Result should be >= 0");
-        $this->assertTrue($flag <= 1, "Result should be <= 1");
+        $this->assertTrue($flag1 <= 1, "Result should be <= 1");
     }
 }

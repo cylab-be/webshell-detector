@@ -35,7 +35,7 @@ class DetectorTest extends TestCase
     {
         $detector = new Detector();
         $this->assertTrue(
-            $detector->analyzeString('<?php exe("something") ?>') > 0,
+            $detector->analyzeString(file_get_contents(__DIR__.'/res/c.php').PHP_EOL.'exe("something")') > 0,
             "The detector should return a score > 0 as the test contains"
             . "the exe function"
         );

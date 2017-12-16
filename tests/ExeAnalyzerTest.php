@@ -37,6 +37,7 @@ class ExeAnalyzerTest extends TestCase
             file_get_contents(__DIR__."/res/test.php")
         );
 
+        echo "****".$result;
         $this->assertTrue(
             $result >= 0 && $result <= 1,
             "result should be >= 0 and <= 1"

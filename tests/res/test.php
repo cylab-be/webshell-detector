@@ -6,5 +6,5 @@ function test()
 }
 $Æ = "test";
 echo $Æ;
-echo "ls -\`al\`";
+$exec= `ls -al`;
 exec("date");
