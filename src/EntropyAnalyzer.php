@@ -59,7 +59,7 @@ class EntropyAnalyzer implements Analyzer
     private function _computeEntropy($fileContent)
     {
         if ($fileContent == null || !is_string($fileContent)) {
-            return -1;
+            return self::EXIT_ERROR;
         }
         $letters = str_split($fileContent);
         $freqs = $this->_getFrequencies($letters);

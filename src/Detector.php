@@ -33,6 +33,7 @@ class Detector
         $this->_analyzers[] = new ExeAnalyzer();
         $this->_analyzers[] = new SignaturesAnalyzer();
         $this->_analyzers[] = new EntropyAnalyzer();
+        $this->_analyzers[] = new FuzzyHashingAnalyzer();
     }
 
     /**

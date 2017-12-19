@@ -22,6 +22,8 @@ namespace RUCD\WebshellDetector;
  */
 interface Analyzer
 {
+    const EXIT_ERROR = -1;
+    
     /**
      * Analyze a string and return a score between 0 (harmless) and 1 (highly
      * suspicious).

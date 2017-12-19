@@ -1,0 +1,6 @@
+- faire en sorte que toutes les "analyze" retourne une valeur dans [0; 1]?
+- renvoyer max, moyenne pour le fuzzy hashing?
+- update README.md ?
+- update binaire ?
+- comment calculer les scores (simple moyenne pour le moment); Voir à la fin?
+- documentation adéquate ?
