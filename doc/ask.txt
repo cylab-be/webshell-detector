@@ -1,4 +1,5 @@
 - faire en sorte que toutes les "analyze" retourne une valeur dans [0; 1]?
+- distance appropriée entre deu strings ?
 - renvoyer max, moyenne pour le fuzzy hashing?
 - update README.md ?
 - update binaire ?

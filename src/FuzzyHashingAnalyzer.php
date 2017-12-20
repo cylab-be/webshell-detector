@@ -12,7 +12,7 @@
 namespace RUCD\WebshellDetector;
 
 use webd\language\SpamSum;
-use webd\language\LCS;
+use webd\language\StringDistance;
 /**
  * Class FuzzyHashingAnalyzer. Computes a hash using a Context-Triggered Piecewise Hashing algorithm.
  * This kind a algorithm can be used to detect similar files. Whereas hash functions like MD5 or SHA-256 will produce
@@ -31,14 +31,14 @@ class FuzzyHashingAnalyzer implements Analyzer
     const FUZZY_HASH_FILE = "shells_fuzzyhash.txt";
     const MIN_FUZZY_SCORE = 20;
     
-    private $_spasum;
+    private $_spamsum;
     
     /**
      * Constructor of the class FuzzyHashingAnalyzer
      */
     public function __construct()
     {
-        $this->_spasum = new SpamSum;
+        $this->_spamsum = new SpamSum;
     }
     
     /**
@@ -54,15 +54,17 @@ class FuzzyHashingAnalyzer implements Analyzer
     public function analyze($filecontent)
     {
         $filename = __DIR__."/../res/". self::FUZZY_HASH_FILE;
-        if (file_exists($filename) && $filecontent != null && is_string($filecontent)) {
+        if ($filecontent != null && is_string($filecontent) && file_exists($filename)) {
             $hashes = file($filename, FILE_IGNORE_NEW_LINES);
-            $currhash = $this->_spasum->HashString($filecontent)->__toString();
+            $currhash = $this->_spamsum->HashString($filecontent)->__toString();
             if ($currhash != null) {
-                $score = 0;
-                $match = 0;
+                $score = 0.0;
+                $match = 0.0;
+                echo PHP_EOL.$currhash.PHP_EOL;
                 foreach ($hashes as $hash) {
-                    $lcs = new LCS($hash, $currhash);
-                    $tmpscore = 100-$lcs->distance();
+                    echo $currhash.PHP_EOL;
+                    $tmpscore = 100-StringDistance::Levenshtein($hash, $currhash);
+                    echo $tmpscore.PHP_EOL;
                     if ($tmpscore > self::MIN_FUZZY_SCORE) {
                         $score += $tmpscore;
                         $match++;

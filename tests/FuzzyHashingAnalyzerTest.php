@@ -12,7 +12,6 @@
 namespace RUCD\WebshellDetector;
 
 use PHPUnit\Framework\TestCase;
-use webd\language\SpamSum;
 /**
  * Class FuzzyHashingAnalyzerTest. Performs tests on the class FuzzyHashingAnalyzer
  *
@@ -33,13 +32,14 @@ class FuzzyHashingAnalyzerTest extends TestCase
     public function testFuzzyHashing()
     {
         $detector = new FuzzyHashingAnalyzer(); 
-        $spamsum = new SpamSum();
-        /*$hash = $spamsum->Hash(file_get_contents(__DIR__.'/res/c.php'))->__toString();
+        /*$spamsum = new SpamSum();
+        $hash = $spamsum->Hash(file_get_contents(__DIR__.'/res/c.php'))->__toString();
         $hash1 = $spamsum->Hash(file_get_contents(__DIR__.'/res/c_str.txt'))->__toString();
-        file_put_contents(__DIR__.'/../res/shells_fuzzyhash.txt', $hash.PHP_EOL.$hash1);*/
+        $hash2 = $spamsum->Hash(file_get_contents(__DIR__.'/res/test.php'))->__toString();
+        file_put_contents(__DIR__.'/../res/shells_fuzzyhash.txt', $hash.PHP_EOL.$hash1.PHP_EOL.$hash2);*/
         $val = $detector->analyze(file_get_contents(__DIR__.'/res/c.php'));
         echo "Score: ".$val;
-        $this->assertTrue($val > 20 && $val <= 100);
+        $this->assertTrue($val > FuzzyHashingAnalyzer::MIN_FUZZY_SCORE && $val <= 100);
     }
     
 }

@@ -43,9 +43,6 @@
         if(is_string($res)){
             die($res);
         }
-        else{
-            echo "OK"; //TODO remove it
-        }
     }
 ?>
 <html>

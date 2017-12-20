@@ -25,7 +25,7 @@ class SignaturesAnalyzer implements Analyzer
 {
 
     const ENCODE_MAX = 10;
-    const FINGERPRINTS_FILE = "shelldetect.db";
+    const FINGERPRINTS_FILE = "shells.txt";
 
     /**
      * Iterates over the array of signatures and checks if a pattern matches
@@ -150,7 +150,15 @@ class SignaturesAnalyzer implements Analyzer
         $res = [];
         $fileName = __DIR__.'/../res/'. self::FINGERPRINTS_FILE;
         if (file_exists($fileName)) {
-            $res = unserialize(base64_decode(file_get_contents($fileName)));
+            $lines = file($fileName, FILE_IGNORE_NEW_LINES);
+            for ($i = 0; $i < count($lines)-1; $i+=2) {
+                $res[] = $lines[$i];
+                $res[$lines[$i]] = $lines[$i+1];
+                /*if (substr($lines[$i+1], -1) !== "]") {
+                    //version
+                    echo $lines[$i].PHP_EOL.$lines[$i+1].PHP_EOL.'****************'.PHP_EOL;
+                }*/
+            }
         }
         return $res;
     }
