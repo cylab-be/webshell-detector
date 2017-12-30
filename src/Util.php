@@ -128,16 +128,21 @@ class Util
     /**
      * Searches for non-ASCII characters, often used in obfuscated files
      *
-     * @return number The number of non-ASCII chars in the string
+     * @param string $string The search to analyze
+     * 
+     * @return number The percentage of non-ASCII chars in the string
      */
-    public static function searchNonASCIIChars()
+    public static function searchNonASCIIChars($string)
     {
+        if ($string === null || !is_string($string)) {
+            return Analyzer::EXIT_ERROR;
+        }
         $count = 0;
-        for ($i = 0; $i < strlen($this->fileContent); $i++) {
-            if (ord($this->fileContent[$i]) > 0x7f) {
+        for ($i = 0; $i < strlen($string); $i++) {
+            if (ord($string[$i]) > 0x7f) {
                 $count++;
             }
         }
-        return $count/strlen($this->fileContent);
+        return $count/strlen($string);
     }
 }

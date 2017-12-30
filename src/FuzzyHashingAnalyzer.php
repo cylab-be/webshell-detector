@@ -29,7 +29,6 @@ use webd\language\StringDistance;
 class FuzzyHashingAnalyzer implements Analyzer
 {
     const FUZZY_HASH_FILE = "shells_fuzzyhash.txt";
-    const MIN_FUZZY_SCORE = 20;
     
     private $_spamsum;
     
@@ -59,18 +58,15 @@ class FuzzyHashingAnalyzer implements Analyzer
             $currhash = $this->_spamsum->HashString($filecontent)->__toString();
             if ($currhash != null) {
                 $score = 0.0;
-                $match = 0.0;
-                echo PHP_EOL.$currhash.PHP_EOL;
+                $match = '';
                 foreach ($hashes as $hash) {
-                    echo $currhash.PHP_EOL;
-                    $tmpscore = 100-StringDistance::Levenshtein($hash, $currhash);
-                    echo $tmpscore.PHP_EOL;
-                    if ($tmpscore > self::MIN_FUZZY_SCORE) {
-                        $score += $tmpscore;
-                        $match++;
+                    $tmpscore = StringDistance::Levenshtein($hash, $currhash);
+                    if ($tmpscore > $score) {
+                        $score = $tmpscore;
+                        $match = $hash;
                     }
                 }
-                return $match ? $score/$match : 0;
+                return $score ? $score/max(strlen($currhash), strlen($match)) : 0;
             }
         }
         return self::EXIT_ERROR;

@@ -33,13 +33,19 @@ class EntropyAnalyzerTest extends TestCase
     public function testTestMe()
     {
         $analyzer = new EntropyAnalyzer();
-        $result = $analyzer->analyze(
-            file_get_contents(__DIR__."/res/test.php")
-        );
-        echo "Entropy: ".$result.PHP_EOL;
-        $this->assertTrue(
-            $result >= 0,
-            "result should be >= 0"
-        );
+        $dir = __DIR__."/res/";
+        $files = scandir($dir);
+        foreach ($files as $file) {
+            if ($file === "." || $file === "..")
+                continue;
+            $result = $analyzer->analyze(
+                file_get_contents($dir.$file)
+            );
+            echo PHP_EOL."Entropy: $result File: $file";
+            $this->assertTrue(
+                $result >= 0,
+                "result should be >= 0"
+            );
+        }
     }
 }

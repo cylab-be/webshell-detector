@@ -33,14 +33,14 @@ class ExeAnalyzerTest extends TestCase
     public function testTestMe()
     {
         $analyzer = new ExeAnalyzer();
-        $result = $analyzer->analyze(
-            file_get_contents(__DIR__."/res/test.php")
-        );
-
-        echo "****".$result;
-        $this->assertTrue(
-            $result >= 0 && $result <= 1,
-            "result should be >= 0 and <= 1"
-        );
+        $dir = __DIR__ . "/res/";
+        $files = scandir($dir);
+        foreach ($files as $file) {
+            if ($file === "." || $file === "..")
+                continue;
+            $result = $analyzer->analyze(file_get_contents($dir . $file));
+            echo PHP_EOL . "Result: $result File $file";
+            $this->assertTrue($result >= 0 && $result <= 1, "result should be >= 0 and <= 1");
+        }
     }
 }

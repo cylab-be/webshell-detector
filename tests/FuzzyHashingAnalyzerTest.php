@@ -12,10 +12,14 @@
 namespace RUCD\WebshellDetector;
 
 use PHPUnit\Framework\TestCase;
+use webd\language\SpamSum;
+
 /**
- * Class FuzzyHashingAnalyzerTest. Performs tests on the class FuzzyHashingAnalyzer
+ * Class FuzzyHashingAnalyzerTest.
+ * Performs tests on the class FuzzyHashingAnalyzer
  *
- * @file     FuzzyHashingAnalyzerTest
+ * @file FuzzyHashingAnalyzerTest
+ *
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
@@ -24,22 +28,45 @@ use PHPUnit\Framework\TestCase;
  */
 class FuzzyHashingAnalyzerTest extends TestCase
 {
+
     /**
      * Runs the routine FuzzyHashingAnalyzer::analyze
-     * 
+     *
      * @return void
      */
     public function testFuzzyHashing()
     {
-        $detector = new FuzzyHashingAnalyzer(); 
-        /*$spamsum = new SpamSum();
-        $hash = $spamsum->Hash(file_get_contents(__DIR__.'/res/c.php'))->__toString();
-        $hash1 = $spamsum->Hash(file_get_contents(__DIR__.'/res/c_str.txt'))->__toString();
-        $hash2 = $spamsum->Hash(file_get_contents(__DIR__.'/res/test.php'))->__toString();
-        file_put_contents(__DIR__.'/../res/shells_fuzzyhash.txt', $hash.PHP_EOL.$hash1.PHP_EOL.$hash2);*/
-        $val = $detector->analyze(file_get_contents(__DIR__.'/res/c.php'));
-        echo "Score: ".$val;
-        $this->assertTrue($val > FuzzyHashingAnalyzer::MIN_FUZZY_SCORE && $val <= 100);
+        $detector = new FuzzyHashingAnalyzer();
+        // $this->writeInFile();
+        $dir = __DIR__ . "/res/";
+        $files = scandir($dir);
+        foreach ($files as $file) {
+            if ($file === "." || $file === "..")
+                continue;
+            $val = $detector->analyze(file_get_contents($dir . $file));
+            echo PHP_EOL . "Score: $val File $file";
+            $this->assertTrue($val > 0 && $val <= 100);
+        }
     }
-    
+
+    /**
+     * Writes spamsum hashes in the resource file
+     * 
+     * @return void
+     */
+    public function writeInFile()
+    {
+        $dir = __DIR__ . "/res/";
+        $files = scandir($dir);
+        $spamsum = new SpamSum();
+        $towrite = '';
+        foreach ($files as $file) {
+            if ($file == "." || $file === "..")
+                continue;
+            $text = file_get_contents($dir . $file);
+            $res = $spamsum->Hash($text)->__toString();
+            $towrite .= $res . PHP_EOL;
+        }
+        file_put_contents(__DIR__ . '/../res/shells_fuzzyhash.txt', $towrite);
+    }
 }
