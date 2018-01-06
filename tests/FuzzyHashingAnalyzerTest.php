@@ -37,15 +37,15 @@ class FuzzyHashingAnalyzerTest extends TestCase
     public function testFuzzyHashing()
     {
         $detector = new FuzzyHashingAnalyzer();
-        // $this->writeInFile();
+        //$this->writeInFile();
         $dir = __DIR__ . "/res/";
         $files = scandir($dir);
         foreach ($files as $file) {
             if ($file === "." || $file === "..")
                 continue;
             $val = $detector->analyze(file_get_contents($dir . $file));
-            echo PHP_EOL . "Score: $val File $file";
-            $this->assertTrue($val > 0 && $val <= 100);
+            echo PHP_EOL . "Score: $val File $file"; //should print 0 except for harmless.php and test.php since hashes are based on these files
+            $this->assertTrue($val >= 0 && $val <= 100);
         }
     }
 
@@ -61,7 +61,7 @@ class FuzzyHashingAnalyzerTest extends TestCase
         $spamsum = new SpamSum();
         $towrite = '';
         foreach ($files as $file) {
-            if ($file == "." || $file === "..")
+            if ($file == "." || $file === ".." || $file === "test.php" || $file === "harmless.php")
                 continue;
             $text = file_get_contents($dir . $file);
             $res = $spamsum->Hash($text)->__toString();

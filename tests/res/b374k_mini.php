@@ -2659,8 +2659,7 @@ elseif (isset($_REQUEST['x']) && ($_REQUEST['x'] == 'info')) {
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700'
 	rel='stylesheet' type='text/css'>
 <style type='text/css'>
-<?
-php
+<?php
 	 $s_css = gzinflate(base64_decode($s_style));
 $s_css = str_replace('fgcolor', $s_color, $s_css);
 echo $s_css;

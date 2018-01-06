@@ -40,8 +40,9 @@ class SignaturesAnalyzerTest extends TestCase
         foreach ($files as $file) {
             if ($file === "." || $file === "..")
                 continue;
+            echo PHP_EOL . "File $file";
             $result = $analyzer->analyze(file_get_contents($dir . $file));
-            echo PHP_EOL . "Result: $result File $file";
+            echo " Result: $result";
             $this->assertTrue($result >= 0 && $result <= 1, "result should be >= 0 and <= 1");
         }
     }

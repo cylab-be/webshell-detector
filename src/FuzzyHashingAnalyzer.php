@@ -57,16 +57,16 @@ class FuzzyHashingAnalyzer implements Analyzer
             $hashes = file($filename, FILE_IGNORE_NEW_LINES);
             $currhash = $this->_spamsum->HashString($filecontent)->__toString();
             if ($currhash != null) {
-                $score = 0.0;
+                $score = 1000;
                 $match = '';
                 foreach ($hashes as $hash) {
                     $tmpscore = StringDistance::Levenshtein($hash, $currhash);
-                    if ($tmpscore > $score) {
+                    if ($tmpscore < $score) {
                         $score = $tmpscore;
                         $match = $hash;
                     }
                 }
-                return $score ? $score/max(strlen($currhash), strlen($match)) : 0;
+                return $score/max(strlen($currhash), strlen($match));
             }
         }
         return self::EXIT_ERROR;

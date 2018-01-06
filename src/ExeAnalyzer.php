@@ -36,7 +36,8 @@ class ExeAnalyzer implements Analyzer
      */
     public function analyze($string)
     {
-        return $this->_searchExecCmdFunctions($string);
+        $ret = $this->_searchExecCmdFunctions($string);
+        return $ret ? $ret : $this->_searchExecCmdFunctions(preg_replace('/<\?\n/', '<?php'.PHP_EOL, $string));
     }
 
     /**
@@ -49,23 +50,24 @@ class ExeAnalyzer implements Analyzer
     private function _searchExecCmdFunctions($string)
     {
         $count = 0;
+        $nbroutines = 0;
         $tokens = token_get_all($string);
         if (count($tokens) === 0) {
             return 0;
         }
         $funcs = array("exec", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
         foreach ($tokens as $token) {
-            foreach ($funcs as $func) {
-                if ((is_array($token) && $token[1] === $func)) {
-                    $count++;
+            if (is_array($token) && $token[0] === T_STRING) {
+                $nbroutines++;
+                foreach ($funcs as $func) {
+                    if ($token[1] === $func) {
+                        $count++;
+                    }
                 }
             }
-            if (!is_array($token) && $token === "`") {
+            elseif ($token === "`")
                 $count+=0.5;
-            }
         }
-        
-        return $count/count($tokens);
+        return $nbroutines ? $count/$nbroutines : 0.0;
     }
-    
 }

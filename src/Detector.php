@@ -48,11 +48,12 @@ class Detector
         $scores = [];
         if (is_dir($directory)) {
             $files = scandir($directory);
-            echo "Scanning directory: ".$directory.PHP_EOL;
+            echo PHP_EOL."Scanning directory: ".$directory.PHP_EOL;
             foreach ($files as $file) {
                 if ($file !== ".." && $file !== ".") {
-                    echo $directory.$file.PHP_EOL;
-                    array_push($scores, $this->analyzeFile($directory.$file));
+                    $score = $this->analyzeFile($directory.$file);
+                    echo "File: $file - Score: $score".PHP_EOL;
+                    array_push($scores, $score);
                 }
             }
         }

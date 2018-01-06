@@ -111,18 +111,16 @@ class Util
      */
     public static function removeWhiteSpacesOutsideString($tokens)
     {
+        $res = [];
         if (!$tokens) {
             return null;
         }
-        $retString = '';
         foreach ($tokens as $x) {
-            if (!is_array($x)) {
-                $retString.=$x;
-            } else {
-                $retString.=(is_integer($x[0]) && $x[0] == T_WHITESPACE ? ' ':$x[1]);
-            }
+            if (is_array($x) && $x[0] === T_WHITESPACE)
+                continue;
+            $res[] = $x;
         }
-        return $retString;
+        return $res;
     }
     
     /**
