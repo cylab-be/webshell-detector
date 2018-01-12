@@ -49,12 +49,20 @@ class Detector
         if (is_dir($directory)) {
             $files = scandir($directory);
             echo PHP_EOL."Scanning directory: ".$directory.PHP_EOL;
+            $dirs = [];
             foreach ($files as $file) {
                 if ($file !== ".." && $file !== ".") {
-                    $score = $this->analyzeFile($directory.$file);
-                    echo "File: $file - Score: $score".PHP_EOL;
-                    array_push($scores, $score);
+                    if (is_dir($directory.$file)) {
+                        array_push($dirs, $directory.$file.'/');
+                    } elseif (preg_match('/\.php$/', $file)) {
+                        $score = $this->analyzeFile($directory.$file);
+                        echo "File: $file - Score: $score".PHP_EOL;
+                        array_push($scores, $score);
+                    }
                 }
+            }
+            foreach ($dirs as $dir) {
+                $this->analyzeDirectory($dir);
             }
         }
         return $scores;

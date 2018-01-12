@@ -27,25 +27,30 @@ class EntropyAnalyzerTest extends TestCase
     
     /**
      * Performs test on a the object EntropyAnalyzerTest
+     * 
+     * @param string $dir Name of the directory, by default __DIR__/res/
      *
      * @return void
      */
-    public function testTestMe()
+    public function testEntropyAnalyzer($dir = __DIR__."/res/")
     {
         $analyzer = new EntropyAnalyzer();
-        $dir = __DIR__."/res/";
         $files = scandir($dir);
+        $dirs = [];
+        echo PHP_EOL."Scanning $dir";
         foreach ($files as $file) {
             if ($file === "." || $file === "..")
                 continue;
-            $result = $analyzer->analyze(
-                file_get_contents($dir.$file)
-            );
-            echo PHP_EOL."Entropy: $result File: $file";
-            $this->assertTrue(
-                $result >= 0,
-                "result should be >= 0"
-            );
+            if (is_dir($dir.$file)) {
+                array_push($dirs, $dir.$file.'/');
+            } elseif (preg_match('/\.php$/', $file)) {
+                $result = $analyzer->analyze(file_get_contents($dir.$file));
+                echo PHP_EOL."Entropy: $result File: $file";
+                $this->assertTrue($result >= 0, "Result should be >= 0");
+            }
+        }
+        foreach ($dirs as $d) {
+            $this->testEntropyAnalyzer($d);
         }
     }
 }

@@ -31,21 +31,32 @@ class FuzzyHashingAnalyzerTest extends TestCase
 
     /**
      * Runs the routine FuzzyHashingAnalyzer::analyze
+     * 
+     * @param string $directory Name of the directory, by default __DIR__/res/
      *
      * @return void
      */
-    public function testFuzzyHashing()
+    public function testFuzzyHashing($directory = __DIR__.'/res/')
     {
         $detector = new FuzzyHashingAnalyzer();
         //$this->writeInFile();
-        $dir = __DIR__ . "/res/";
-        $files = scandir($dir);
+        $files = scandir($directory);
+        $dirs = [];
+        echo PHP_EOL."Scanning $directory";
         foreach ($files as $file) {
             if ($file === "." || $file === "..")
                 continue;
-            $val = $detector->analyze(file_get_contents($dir . $file));
-            echo PHP_EOL . "Score: $val File $file"; //should print 0 except for harmless.php and test.php since hashes are based on these files
-            $this->assertTrue($val >= 0 && $val <= 100);
+            if (is_dir($directory.$file)) {
+                array_push($dirs, $directory.$file.'/');
+            } elseif (preg_match('/\.php$/', $file)) {
+                $result = $detector->analyze(file_get_contents($directory.$file));
+                echo PHP_EOL."Score: $result File: $file";
+                $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
+                //normally harmless.php and test.php should return 0
+            }
+        }
+        foreach ($dirs as $dir) {
+            $this->testFuzzyHashing($dir);
         }
     }
 
@@ -61,7 +72,7 @@ class FuzzyHashingAnalyzerTest extends TestCase
         $spamsum = new SpamSum();
         $towrite = '';
         foreach ($files as $file) {
-            if ($file == "." || $file === ".." || $file === "test.php" || $file === "harmless.php")
+            if (!preg_match('/\.php$/', $file) || $file === "harmless.php")
                 continue;
             $text = file_get_contents($dir . $file);
             $res = $spamsum->Hash($text)->__toString();

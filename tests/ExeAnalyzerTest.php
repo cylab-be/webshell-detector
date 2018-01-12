@@ -27,20 +27,30 @@ class ExeAnalyzerTest extends TestCase
 
     /**
      * Performs test on a the object ExeAnalyzer
+     *
+     * @param string $directory Name of the directory, by default __DIR__/res/
      * 
      * @return void
      */
-    public function testTestMe()
+    public function testExeAnalyzer($directory = __DIR__ . "/res/")
     {
         $analyzer = new ExeAnalyzer();
-        $dir = __DIR__ . "/res/";
-        $files = scandir($dir);
+        $files = scandir($directory);
+        $dirs = [];
+        echo PHP_EOL."Scanning $directory";
         foreach ($files as $file) {
             if ($file === "." || $file === "..")
                 continue;
-            $result = $analyzer->analyze(file_get_contents($dir . $file));
-            echo PHP_EOL . "Result: $result File $file";
-            $this->assertTrue($result >= 0 && $result <= 1, "result should be >= 0 and <= 1");
+            if (is_dir($directory.$file)) {
+                array_push($dirs, $directory.$file.'/');
+            } elseif (preg_match('/\.php$/', $file)) {
+                $result = $analyzer->analyze(file_get_contents($directory.$file));
+                echo PHP_EOL."Score: $result File: $file";
+                $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
+            }
+        }
+        foreach ($dirs as $dir) {
+            $this->testExeAnalyzer($dir);
         }
     }
 }
