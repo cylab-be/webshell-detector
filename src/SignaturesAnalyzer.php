@@ -57,8 +57,7 @@ class SignaturesAnalyzer implements Analyzer
      *
      * @param string $pFileContent The content of a file
      * 
-     * @return NULL|string|boolean Returns NULL if the file content doesn't exist, a string if a flag is found, or true if
-     * the file is probably dangerous (too much encoded)
+     * @return NULL|string Returns NULL if the file content doesn't exist, a string if a flag is found
      */
     public function scanFile($pFileContent)
     {
@@ -84,32 +83,29 @@ class SignaturesAnalyzer implements Analyzer
         if ($flag != null)
             return $flag;
         $tokens = token_get_all($pFileContent);
-        $times = 0;
         $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode"];
         foreach ($tokens as $token) {
-            if (is_array($token) && ($token[0] === T_CONSTANT_ENCAPSED_STRING || $token[0] === T_ENCAPSED_AND_WHITESPACE)) {
-                $str = substr($token[1], 1, strlen($token[1])-1);
-                $flag = $this->_compareFingerprints($fp_regex, $str);
-                if ($flag != null)
-                    return $flag;
-                foreach ($decode as $decodefunc) {
-                    $param = $flag = null;
-                    try {
-                        $param = $decodefunc($str);
-                    } catch (Exception $e) {
-                        continue;
-                    }
-                    if ($param != null)
-                        $flag = $this->_compareFingerprints($fp_regex, $param);
+            if (is_array($token)) {
+                if ($token[0] === T_CONSTANT_ENCAPSED_STRING || $token[0] === T_ENCAPSED_AND_WHITESPACE) {
+                    $str = substr($token[1], 1, strlen($token[1])-1);
+                    $flag = $this->_compareFingerprints($fp_regex, $str);
                     if ($flag != null)
                         return $flag;
+                    foreach ($decode as $decodefunc) {
+                        $param = $flag = null;
+                        try {
+                            $param = $decodefunc($str);
+                        } catch (Exception $e) {
+                            continue;
+                        }
+                        if ($param != null) {
+                            $flag = $this->_compareFingerprints($fp_regex, $param);
+                            if ($flag != null)
+                                return $flag;
+                        }
+                    }
                 }
-            } elseif (is_array($token) && $token[0] === T_STRING && in_array($token[1], $decode)) {
-                $times++;
             }
-        }
-        if ($times > self::ENCODE_MAX) {
-            return true;
         }
     }
 
@@ -148,12 +144,6 @@ class SignaturesAnalyzer implements Analyzer
     public function analyze($filecontent)
     {
         $ret = $this->scanFile($filecontent);
-        if ($ret === null) {
-            return 0;
-        }
-        if ($ret === true) {
-            return 0.5;
-        }
-        return 0.75;//FIXME return 1 ? 
+        return $ret === null ? 0: 1; 
     }
 }

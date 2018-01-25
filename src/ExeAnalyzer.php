@@ -65,6 +65,8 @@ class ExeAnalyzer implements Analyzer
                     }
                 }
             }
+            elseif ($token[0] === T_EVAL)
+                $count++;
             elseif ($token === "`")
                 $count+=0.5;
         }

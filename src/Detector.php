@@ -34,6 +34,7 @@ class Detector
         $this->_analyzers[] = new SignaturesAnalyzer();
         $this->_analyzers[] = new EntropyAnalyzer();
         $this->_analyzers[] = new FuzzyHashingAnalyzer();
+        $this->_analyzers[] = new ObfuscationAnalyzer();
     }
 
     /**
@@ -55,8 +56,9 @@ class Detector
                     if (is_dir($directory.$file)) {
                         array_push($dirs, $directory.$file.'/');
                     } elseif (preg_match('/\.php$/', $file)) {
-                        $score = $this->analyzeFile($directory.$file);
-                        echo "File: $file - Score: $score".PHP_EOL;
+                        echo PHP_EOL."File $file";
+                        $score = $this->analyzeString(file_get_contents($directory.$file));
+                        echo PHP_EOL."Score: $score".PHP_EOL;
                         array_push($scores, $score);
                     }
                 }
@@ -69,18 +71,6 @@ class Detector
     }
 
     /**
-     * Analyzes a file.
-     * 
-     * @param string $filename The name of the file to read
-     * 
-     * @return float The final score of the file
-     */
-    public function analyzeFile($filename)
-    {
-        return $this->analyzeString(file_get_contents($filename));
-    }
-
-    /**
      * Analyze a string and return a score between 0 (harmless) and 1 (highly
      * suspicious).
      *
@@ -90,10 +80,11 @@ class Detector
      */
     public function analyzeString($string)
     {
-
         $scores = [];
         foreach ($this->_analyzers as $analyzer) {
+            echo PHP_EOL."Runs ".get_class($analyzer).": ";
             $scores[] = $analyzer->analyze($string);
+            echo end($scores);
         }
         return $this->_aggregate($scores);
     }

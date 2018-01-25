@@ -38,4 +38,17 @@ class DetectorTest extends TestCase
             count($scores) > 0
         );
     }
+    
+    /**
+     * Performs test on a single file
+     * 
+     * @return void
+     
+    public function testAnalyzeFile()
+    {
+        $detector = new Detector();
+        $score = $detector->analyzeString(file_get_contents(__DIR__."/res/php-webshells-master/OTHER/php-findsock-shell.php"));
+        $this->assertTrue($score > 0);
+    }
+     */
 }
