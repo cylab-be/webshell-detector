@@ -50,7 +50,7 @@ class ExeAnalyzer implements Analyzer
         $retAnonymous = $this->_searchAnonymousFunctions($tokens);
         $retVarFunc = $this->_searchVariableFunctions($tokens);
         echo PHP_EOL."Exec: $retExec \nAnonymous: $retAnonymous \nVariable Func: $retVarFunc";
-        return (($retExec * 2 + $retAnonymous + $retVarFunc) / 4) / $nbFunc;
+        return $nbFunc ? (($retExec * 2 + $retAnonymous + $retVarFunc) / 4) / $nbFunc : 0;
     }
 
     /**
