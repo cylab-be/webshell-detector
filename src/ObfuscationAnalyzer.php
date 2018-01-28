@@ -52,21 +52,21 @@ class ObfuscationAnalyzer implements Analyzer
         $scores[0][1] = self::LOW;
         $scores[1][0] = $this->_getLongestString($filecontent);
         $scores[1][1] = self::LOW;
-        $scores[2][0] = $this->_searchEncodingRoutines($tokens);
+        $scores[2][0] = $this->_searchDecodingRoutines($tokens);
         $scores[2][1] = self::MEDIUM;
         return $this->_computeScore($scores);
     }
     
     /**
-     * Searches enconding routines (base64, gzip etc)
+     * Searches decoding routines (base64, gzip etc)
      * 
      * @param array $tokens Tokens contained in the text
      * 
      * @return number Ratio of encoding routines
      */
-    private function _searchEncodingRoutines($tokens)
+    private function _searchDecodingRoutines($tokens)
     {
-        $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode"];
+        $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode", "hex2bin", "convert_uudecode", "str_rot13"];
         $func = 0;
         $decodeFunc = 0;
         foreach ($tokens as $token) {

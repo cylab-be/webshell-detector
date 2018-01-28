@@ -31,7 +31,7 @@ class ExeAnalyzerTest extends TestCase
      * @param string $directory Name of the directory, by default __DIR__/res/
      * 
      * @return void
-    
+     */
     public function testExeAnalyzer($directory = __DIR__ . "/res/")
     {
         $analyzer = new ExeAnalyzer();
@@ -53,18 +53,19 @@ class ExeAnalyzerTest extends TestCase
             $this->testExeAnalyzer($dir);
         }
     }
-     */
+    
     
     /**
      * Performs test on a single file
      *
      * @return void
-     */
-    public function testAnalyzeFile()
+     
+    public function testExeAnalyzerSingleFile()
     {
         $detector = new ExeAnalyzer();
         $score = $detector->analyze(file_get_contents(__DIR__."/res/test.php"));
         $this->assertTrue($score >= 0 && $score <= 1);
         echo PHP_EOL."Score: $score";
-    } 
+    }
+     */ 
 }

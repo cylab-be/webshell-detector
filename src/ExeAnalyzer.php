@@ -50,11 +50,11 @@ class ExeAnalyzer implements Analyzer
         $retAnonymous = $this->_searchAnonymousFunctions($tokens);
         $retVarFunc = $this->_searchVariableFunctions($tokens);
         echo PHP_EOL."Exec: $retExec \nAnonymous: $retAnonymous \nVariable Func: $retVarFunc";
-        return $nbFunc ? (($retExec * 2 + $retAnonymous + $retVarFunc) / 4) / $nbFunc : 0;
+        return $nbFunc ? (($retExec * 3 + $retAnonymous + 2 * $retVarFunc) / 6) / $nbFunc : 0; //FIXME change weight ?
     }
 
     /**
-     * Basic. Searches dangerous function names allowing to execute commands
+     * Searches dangerous function names allowing to execute commands
      * 
      * @param array $tokens Tokens of the code to analyze
      *
@@ -113,7 +113,6 @@ class ExeAnalyzer implements Analyzer
             "set_exception_handler", 
             "usort");
         foreach ($tokens as $token) {
-            //echo (is_array($token) ? $token[1] : $token).PHP_EOL;
             if (is_array($token) && $token[0] === T_STRING) {
                 if (in_array($token[1], $funcs))
                     $count++;
@@ -124,11 +123,11 @@ class ExeAnalyzer implements Analyzer
     
     /**
      * Looks for variable functions, such as:
-     * $foo = function() {...}
+     * $foo = function() {...};
      * $foo()
      * OR
      * $foo = 'some_function_name';
-     * $foo()
+     * $foo();
      * 
      * @param array $tokens Tokens of the code
      * 
@@ -136,46 +135,45 @@ class ExeAnalyzer implements Analyzer
      */
     private function _searchVariableFunctions($tokens)
     {
-        $state = 0;
+        $stack = array([0, ""]);
         $matches = 0;
         $nestedParenthesis = 0;
-        //$stateStr = '';
         for ($i = 0; $i < count($tokens); $i++) {
             $token = $tokens[$i];
-            if ($state == 0 && is_array($token) && $token[0] === T_VARIABLE) {
-                //look for variable
-                $state = 1;
-                //$stateStr.= $token[1];
-            } elseif ($state == 1) {
+            if (end($stack)[0] === 0 && is_array($token) && $token[0] === T_VARIABLE) {
+                $stack[key($stack)][0] = 1; //push variable
+                $stack[key($stack)][1].= $token[1];
+            } elseif (end($stack)[0] === 2) {
+                if (is_array($token) && $token[0] === T_VARIABLE) {
+                    $stack[] = [1, $token[1]]; //new nested variable
+                } else {
+                    if ($token === "(")
+                        $nestedParenthesis++;
+                    elseif ($token === ")") {
+                        if ($nestedParenthesis != 0)
+                            $nestedParenthesis--;
+                        else {
+                            array_pop($stack); //echo PHP_EOL.array_pop($stack)[1].")";
+                            $matches++;
+                            if (empty($stack))
+                                $stack = array([0, ""]);
+                        }
+                    }
+                }
+            } elseif (end($stack)[0] === 1) {
                 //look for left parenthesis
                 if (is_array($token) && $token[0] === T_WHITESPACE)
                     continue;
                 elseif ($token === "(") {
-                    $state = 2;
-                    //$stateStr.='(';
+                    $stack[key($stack)][0] = 2;
+                    $stack[key($stack)][1].='(';
                 } else {
-                    $state = 0;
-                    //$stateStr = '';
-                }
-            } elseif ($state == 2) {
-                //look for param
-                if (is_array($token) && $token[0] === T_WHITESPACE)
-                    continue;
-                elseif ($token === "(")
-                    $nestedParenthesis++;
-                elseif ($token === ")") {
-                    if ($nestedParenthesis != 0)
-                        $nestedParenthesis--;
-                    else {
-                        $state = 0;
-                        //echo PHP_EOL.$stateStr.")";
-                        //$stateStr = '';
-                        $matches++;
-                    }
+                    array_pop($stack);
+                    if (empty($stack))
+                        $stack = array([0, ""]);
                 }
             }
         }
-        //TODO can't handle nested func
         return $matches;
     }
 }
