@@ -46,14 +46,15 @@ class ObfuscationAnalyzer implements Analyzer
         if ($filecontent === null || ! is_string($filecontent)) {
             return self::EXIT_ERROR;
         }
+        $filecontent = Util::extendOpenTag($filecontent);
         $tokens = token_get_all($filecontent);
         $scores = [];
         $scores[0][0] = Util::searchNonASCIIChars($filecontent);
-        $scores[0][1] = self::LOW;
-        $scores[1][0] = $this->_getLongestString($filecontent);
+        $scores[0][1] = self::MEDIUM;
+        $scores[1][0] = $this->_getLongestString($tokens);
         $scores[1][1] = self::LOW;
         $scores[2][0] = $this->_searchDecodingRoutines($tokens);
-        $scores[2][1] = self::MEDIUM;
+        $scores[2][1] = self::SEVERE;
         return $this->_computeScore($scores);
     }
     
@@ -66,30 +67,29 @@ class ObfuscationAnalyzer implements Analyzer
      */
     private function _searchDecodingRoutines($tokens)
     {
-        $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode", "hex2bin", "convert_uudecode", "str_rot13"];
+        $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode", "hex2bin", "convert_uudecode", "str_rot13", "strrev"];
         $func = 0;
         $decodeFunc = 0;
         foreach ($tokens as $token) {
-            if (is_array($token) && $token[0] == T_STRING) {
+            if (is_array($token) && $token[0] === T_STRING) {
                 $func++;
                 if (in_array($token[1], $decode)) {
                     $decodeFunc++;
                 }
             }
         }
-        return $func ? $decodeFunc/$func : 0;
+        return $func ? $decodeFunc/$func : 0.0;
     }
         
     /**
      * Looks for the longest encapsulated string in the code 
      * 
-     * @param string $string The code to analyze
+     * @param array $tokens Tokens of the code to analyze
      * 
      * @return number the ratio compared to the average
      */
-    private function _getLongestString($string)
+    private function _getLongestString($tokens)
     {
-        $tokens = token_get_all($string);
         $maxsize = 0.0;
         $sumsize = 0.0;
         $nbstrings = 0.0;
@@ -103,12 +103,22 @@ class ObfuscationAnalyzer implements Analyzer
                 }
             }
         }
-        if ($nbstrings === 0.0 || $sumsize === 0.0) {
-            return 0;
+        if ($nbstrings === 0.0 || $sumsize === 0.0) return 0;
+        if ($nbstrings === 1.0) return 1;
+        
+        //std deviation
+        $avg = $sumsize / $nbstrings;
+        $sum = 0.0;
+        foreach ($tokens as $token) {
+            if (is_array($token) && ($token[0] === T_CONSTANT_ENCAPSED_STRING || $token[0] === T_ENCAPSED_AND_WHITESPACE)) {
+                $sum += pow(strlen($token[1]) - $avg, 2);
+            }
         }
-        if ($nbstrings == 1) return 1;
-        $scale = ($maxsize / ($sumsize / $nbstrings)) - 1;
-        return $scale > 1 ? 1 : $scale; // FIXME may be too restrictive
+        $std_deviation = sqrt($sum / $nbstrings);
+        //echo PHP_EOL."Std dev: $std_deviation, avg: $avg, max $maxsize nbStrings $nbstrings sum $sum";
+        $scale = (($maxsize - $avg)/ $std_deviation) -1;
+        //echo " scale $scale".PHP_EOL;
+        return $scale > 1 ? 1 : $scale < 0 ? 0.0 : $scale; // FIXME may be too restrictive
     }
 
     /**
@@ -128,6 +138,6 @@ class ObfuscationAnalyzer implements Analyzer
                 $sumweight += $scores[$i][1];
             }
         }
-        return $sumweight ? $score / $sumweight : 0;
+        return $sumweight ? $score / $sumweight : 0.0;
     }
 }

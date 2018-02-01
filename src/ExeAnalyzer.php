@@ -36,8 +36,7 @@ class ExeAnalyzer implements Analyzer
      */
     public function analyze($string)
     {
-        $string = preg_replace('/<\?\n/', '<?php'.PHP_EOL, $string);
-        $tokens = token_get_all($string);
+        $tokens = token_get_all(Util::extendOpenTag($string));
         if (count($tokens) === 0)
             return 0;
         $nbFunc = 0;

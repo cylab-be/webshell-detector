@@ -82,7 +82,7 @@ class SignaturesAnalyzer implements Analyzer
         $flag = $this->_compareFingerprints($fp_regex, base64_encode($pFileContent));
         if ($flag != null)
             return $flag;
-        $tokens = token_get_all($pFileContent);
+        $tokens = token_get_all(Util::extendOpenTag($pFileContent));
         $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode"];
         foreach ($tokens as $token) {
             if (is_array($token)) {

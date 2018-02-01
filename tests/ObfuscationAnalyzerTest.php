@@ -46,12 +46,27 @@ class ObfuscationAnalyzerTest extends TestCase
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
+                echo "File $file ";
                 $result = $analyzer->analyze(file_get_contents($directory.$file));
-                echo PHP_EOL."Score: $result File: $file";
+                echo " Score: $result".PHP_EOL;
                 $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
             }
         }
         foreach ($dirs as $dir)
             $this->testObfuscationAnalyzer($dir);
     }
+    
+    /**
+     * Peforms test on a single file
+     * 
+     * @return void
+     * 
+    public function testObfuscationSingleFile()
+    {
+        $analyzer = new ObfuscationAnalyzer();
+        $result = $analyzer->analyze(file_get_contents(__DIR__.'/res/php-webshells-master/Uploader.php'));
+        echo PHP_EOL."Score: $result";
+        $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
+    }
+     */
 }

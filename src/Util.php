@@ -24,6 +24,19 @@ namespace RUCD\WebshellDetector;
 class Util
 {
     /**
+     * Sometimes, a PHP code starts only with '<?' and token_get_all cannot perform parsing properly (the code will be 
+     * considered as HTML code). So we extend the open tag
+     * 
+     * @param string $string The PHP code
+     * 
+     * @return string The code with an extended open tag
+     */
+    public static function extendOpenTag($string)
+    {
+        return preg_replace('/<\?[\s*|\n]/', '<?php'.PHP_EOL, $string);
+    }
+    
+    /**
      * Prints the array of tokens
      * 
      * @param array $pTokens The array of tokens to print

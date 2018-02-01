@@ -54,7 +54,6 @@ class ExeAnalyzerTest extends TestCase
         }
     }
     
-    
     /**
      * Performs test on a single file
      *
