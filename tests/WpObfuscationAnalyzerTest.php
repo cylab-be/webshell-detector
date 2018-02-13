@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
  * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
  * @link     https://github.com/RUCD/webshell-detector
  */
-class WpEntropyTest extends TestCase
+class WpObfuscationAnalyzerTest extends TestCase
 {
     
     /**
