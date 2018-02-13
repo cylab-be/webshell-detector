@@ -48,7 +48,7 @@ class FuzzyHashingAnalyzer implements Analyzer
      * 
      * @see \RUCD\WebshellDetector\Analyzer::analyze()
      * 
-     * @return -1 if an error occures, 0 if nothing matches, the score between 0 and 100 otherwise
+     * @return number between 0 (theoretically, nothing matched) and 1 (exact match)
      */
     public function analyze($filecontent)
     {
@@ -66,7 +66,8 @@ class FuzzyHashingAnalyzer implements Analyzer
                         $match = $hash;
                     }
                 }
-                return $score/max(strlen($currhash), strlen($match));
+                echo PHP_EOL."Score $score";
+                return 1-($score/max(strlen($currhash), strlen($match)));
             }
         }
         return self::EXIT_ERROR;

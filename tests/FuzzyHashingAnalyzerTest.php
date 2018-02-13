@@ -36,10 +36,11 @@ class FuzzyHashingAnalyzerTest extends TestCase
      *
      * @return void
      */
-    public function testFuzzyHashing($directory = __DIR__.'/res/')
+    public function testFuzzyHashing($directory = __DIR__.'/res/webshells_modified/')
     {
         $detector = new FuzzyHashingAnalyzer();
-        //$this->writeInFile();
+        /*$this->writeInFile();
+        exit();*/
         $files = scandir($directory);
         $dirs = [];
         echo PHP_EOL."Scanning $directory";
@@ -52,7 +53,6 @@ class FuzzyHashingAnalyzerTest extends TestCase
                 $result = $detector->analyze(file_get_contents($directory.$file));
                 echo PHP_EOL."Score: $result File: $file";
                 $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
-                //normally harmless.php and test.php should return 0
             }
         }
         foreach ($dirs as $dir) {
@@ -63,21 +63,35 @@ class FuzzyHashingAnalyzerTest extends TestCase
     /**
      * Writes spamsum hashes in the resource file
      * 
+     * @param string $dir Name of the the directory to scan
+     * 
      * @return void
      */
-    public function writeInFile()
+    public function writeInFile($dir = __DIR__ . "/res/")
     {
-        $dir = __DIR__ . "/res/";
         $files = scandir($dir);
         $spamsum = new SpamSum();
         $towrite = '';
+        $dirs = [];
         foreach ($files as $file) {
-            if (!preg_match('/\.php$/', $file) || $file === "harmless.php")
+            if ($file === "." || $file === ".." || $file === "harmless.php" || $file === "test.php")
                 continue;
-            $text = file_get_contents($dir . $file);
-            $res = $spamsum->Hash($text)->__toString();
-            $towrite .= $res . PHP_EOL;
+            elseif (is_dir($dir.$file) && $dir.$file !== 'wordpress')
+                array_push($dirs, $dir.$file.'/');
+            elseif (preg_match('/\.php$/', $file)) {
+                $text = file_get_contents($dir . $file);
+                $res = $spamsum->Hash($text)->__toString();
+                $towrite .= $res . PHP_EOL;
+            }
         }
-        file_put_contents(__DIR__ . '/../res/shells_fuzzyhash.txt', $towrite);
+        $filepath = __DIR__ . '/../res/shells_fuzzyhash.txt';
+        if (file_exists($filepath)) {
+            file_put_contents($filepath, $towrite, FILE_APPEND);
+        } else {
+            file_put_contents($filepath, $towrite);
+        }
+        foreach ($dirs as $dir) {
+            $this->writeInFile($dir);
+        }
     }
 }

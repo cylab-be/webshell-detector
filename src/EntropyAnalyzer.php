@@ -34,29 +34,39 @@ namespace RUCD\WebshellDetector;
  */
 class EntropyAnalyzer implements Analyzer
 {
+    const ENTROPY_MIN = 4.027;
+    const ENTROPY_MAX = 5.518;
+    
     /**
      * Performs an analysis on a file regarding entropy
      * {@inheritDoc}
      * 
-     * @param string $filecontent The content of the file to analyze
+     * @param string $fileContent Code to analyze
      * 
      * @see \RUCD\WebshellDetector\Analyzer::analyze()
      * 
      * @return int The score of the file
      */
-    public function analyze($filecontent)
+    public function analyze($fileContent)
     {
-        return $this->_computeEntropy($filecontent);
+        $entropy = $this->computeEntropy($fileContent);
+        if ($entropy == self::EXIT_ERROR)
+            return $entropy;
+        if ($entropy >= self::ENTROPY_MAX)
+            return 1;
+        elseif ($entropy <= self::ENTROPY_MIN)
+            return 0;
+        return ($entropy - self::ENTROPY_MIN) / (self::ENTROPY_MAX - self::ENTROPY_MIN);
     }
     
     /**
-     * Computes entropy of a given string
+     * Computes the entropy of a text
      * 
-     * @param string $fileContent The content of the file to analyze
+     * @param string $fileContent The code to analyze
      * 
-     * @return float The computed entropy, -1 if the parameter isn't a string or is null
+     * @return number The entropy
      */
-    private function _computeEntropy($fileContent)
+    public function computeEntropy($fileContent)
     {
         if ($fileContent == null || !is_string($fileContent)) {
             return self::EXIT_ERROR;
@@ -68,8 +78,7 @@ class EntropyAnalyzer implements Analyzer
             $rel_freq = $freq/count($letters);
             $entropy += $rel_freq * log($rel_freq, 2);
         }
-        $entropy *= -1;
-        return $entropy;
+        return -$entropy; 
     }
     
     /**

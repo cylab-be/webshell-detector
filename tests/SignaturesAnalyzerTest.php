@@ -33,7 +33,7 @@ class SignaturesAnalyzerTest extends TestCase
      * 
      * @return void
      */
-    public function testScanFile($directory = __DIR__.'/res/')
+    public function testScanFile($directory = __DIR__.'/res/php-webshells-master/')
     {
         $analyzer = new SignaturesAnalyzer();
         $files = scandir($directory);

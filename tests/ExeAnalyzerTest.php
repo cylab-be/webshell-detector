@@ -32,7 +32,7 @@ class ExeAnalyzerTest extends TestCase
      * 
      * @return void
      */
-    public function testExeAnalyzer($directory = __DIR__ . "/res/")
+    public function testExeAnalyzer($directory = __DIR__ . "/res/php-webshells-master/")
     {
         $analyzer = new ExeAnalyzer();
         $files = scandir($directory);
@@ -45,7 +45,9 @@ class ExeAnalyzerTest extends TestCase
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
                 $result = $analyzer->analyze(file_get_contents($directory.$file));
-                echo PHP_EOL."Score: $result File: $file";
+                if ($result != 0) {
+                    echo PHP_EOL."Score: $result File: $file";
+                }
                 $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
             }
         }

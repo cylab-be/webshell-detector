@@ -23,6 +23,21 @@ namespace RUCD\WebshellDetector;
  */
 class Util
 {
+
+    /**
+     * Computes the average of an array
+     * 
+     * @param array $array The array of numbers to analyze
+     * 
+     * @return number The average
+     */
+    public static function average($array)
+    {
+        if (!is_array($array) || count($array) == 0)
+            return 0;
+        return floatval(array_sum($array))/count($array);
+    }
+    
     /**
      * Sometimes, a PHP code starts only with '<?' and token_get_all cannot perform parsing properly (the code will be 
      * considered as HTML code). So we extend the open tag
@@ -34,6 +49,22 @@ class Util
     public static function extendOpenTag($string)
     {
         return preg_replace('/<\?[\s*|\n]/', '<?php'.PHP_EOL, $string);
+    }
+    
+    /**
+     * Reduce and sort an an array, keeping the most meaningful values
+     * 
+     * @param array $array The array to analyze
+     * 
+     * @return array The new "meaningful" array
+     */
+    public static function getMeaningfulArray($array)
+    {
+        $array = array_filter($array);
+        sort($array);
+        $a = intval(count($array)*0.1);
+        $b = intval(count($array)*0.9);
+        return array_slice($array, $a, $b - $a);
     }
     
     /**
@@ -141,7 +172,7 @@ class Util
      *
      * @param string $string The search to analyze
      * 
-     * @return number The percentage of non-ASCII chars in the string
+     * @return number Number of non-ASCII chars in the string
      */
     public static function searchNonASCIIChars($string)
     {
@@ -154,6 +185,26 @@ class Util
                 $count++;
             }
         }
-        return $count/strlen($string);
+        return $count;
+    }
+    
+    /**
+     * Computes the standard deviation of an array of numbers
+     * 
+     * @param array $array Array of numbers
+     * 
+     * @return number The standard deviation
+     */
+    public static function standardDeviation($array)
+    {
+        if (!is_array($array) || count($array) == 0) {
+            return 0.0;
+        }
+        $avg = floatval(array_sum($array))/count($array);
+        $variance = 0.0;
+        foreach ($array as $var) {
+            $variance += pow($var - $avg, 2);
+        }
+        return sqrt($variance/count($array));
     }
 }

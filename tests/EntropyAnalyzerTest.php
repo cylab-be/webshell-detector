@@ -32,7 +32,7 @@ class EntropyAnalyzerTest extends TestCase
      *
      * @return void
      */
-    public function testEntropyAnalyzer($dir = __DIR__."/res/")
+    public function testEntropyAnalyzer($dir = __DIR__."/res/php-webshells-master/")
     {
         $analyzer = new EntropyAnalyzer();
         $files = scandir($dir);
@@ -44,7 +44,7 @@ class EntropyAnalyzerTest extends TestCase
             if (is_dir($dir.$file)) {
                 array_push($dirs, $dir.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
-                $result = $analyzer->analyze(file_get_contents($dir.$file));
+                $result = $analyzer->analyze($dir.$file);
                 echo PHP_EOL."Entropy: $result File: $file";
                 $this->assertTrue($result >= 0, "Result should be >= 0");
             }

@@ -23,6 +23,18 @@ namespace RUCD\WebshellDetector;
  */
 class ExeAnalyzer implements Analyzer
 {
+    
+    const MIN_EXEC = 1;
+    
+    const MAX_EXEC = 3;
+    
+    const MIN_ANONYMOUS = 1;
+    
+    const MAX_ANONYMOUS = 6;
+   
+    const MIN_VARFUNC = 1;
+    
+    const MAX_VARFUNC = 3;
 
     /**
      * Performs an analysis on the given string, regarding dangerous routine
@@ -36,20 +48,49 @@ class ExeAnalyzer implements Analyzer
      */
     public function analyze($string)
     {
+        $scores = $this->getScores($string);
+        $exec = $scores[0];
+        $anonymous = $scores[1];
+        $varfunc = $scores[2];
+        
+        if ($exec < self::MIN_EXEC)
+            $exec = 0;
+        elseif ($exec > self::MAX_EXEC)
+            $exec = 1;
+        else 
+            $exec = ($exec - self::MIN_EXEC) / (self::MAX_EXEC - self::MIN_EXEC);
+        
+        if ($anonymous < self::MIN_ANONYMOUS)
+            $anonymous = 0;
+        elseif ($anonymous > self::MAX_ANONYMOUS)
+            $anonymous = 1;
+        else
+            $anonymous = ($anonymous - self::MIN_ANONYMOUS) / (self::MAX_ANONYMOUS - self::MIN_ANONYMOUS);
+        
+        if ($varfunc < self::MIN_VARFUNC)
+            $varfunc = 0;
+        elseif ($varfunc > self::MAX_VARFUNC)
+            $varfunc = 1;
+        else
+            $varfunc = ($varfunc - self::MIN_VARFUNC) / (self::MAX_VARFUNC - self::MIN_VARFUNC);
+        
+        return ($exec * 2 + $varfunc + $anonymous)/5.0;
+    }
+    
+    /**
+     * Get scores as an 3-array
+     * 
+     * @param string $string The code to analyze
+     * 
+     * @return \RUCD\WebshellDetector\int.[]|number[]
+     */
+    public function getScores($string)
+    {
         $tokens = token_get_all(Util::extendOpenTag($string));
-        if (count($tokens) === 0)
-            return 0;
-        $nbFunc = 0;
-        foreach ($tokens as $token) {
-            if (is_array($token) && $token[0] === T_STRING)
-                $nbFunc++;
-        }
-        //Util::printTokens($tokens);
         $retExec = $this->_searchExecCmdFunctions($tokens);
         $retAnonymous = $this->_searchAnonymousFunctions($tokens);
         $retVarFunc = $this->_searchVariableFunctions($tokens);
-        echo PHP_EOL."Exec: $retExec \nAnonymous: $retAnonymous \nVariable Func: $retVarFunc";
-        return $nbFunc ? (($retExec * 3 + $retAnonymous + 2 * $retVarFunc) / 6) / $nbFunc : 0; //FIXME change weight ?
+        return array($retExec, $retAnonymous, $retVarFunc);
     }
 
     /**
