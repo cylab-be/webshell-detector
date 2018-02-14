@@ -1,0 +1,26 @@
+{
+    "chmod": "0755",
+    "directories": [
+        "src",
+        "res"
+    ],
+    "files": [
+        "vendor/herrera-io/phar-update/res/schema.json"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": [
+                "Tests",
+                "tests",
+                "herrera-io/annotations",
+                "herrera-io/box"
+            ],
+            "in": "vendor"
+        }
+    ],
+    "git-version": "package_version",
+    "main": "src/Main.php",
+    "output": "bin/webshell-detector.phar",
+    "stub": true
+}
