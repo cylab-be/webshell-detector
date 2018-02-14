@@ -23,7 +23,8 @@
 	},
 	"require" : {
 		"webd/language" : "dev-master",
-		"symfony/finder": "^3.4"
+		"symfony/finder": "^3.4",
+		"symfony/console": "^4.0"
 	},
 	"bin" : [
 		"bin/webshell-detector"
