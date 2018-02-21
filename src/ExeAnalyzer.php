@@ -193,7 +193,7 @@ class ExeAnalyzer implements Analyzer
                         if ($nestedParenthesis != 0)
                             $nestedParenthesis--;
                         else {
-                            array_pop($stack); //echo PHP_EOL.array_pop($stack)[1].")";
+                            array_pop($stack);
                             $matches++;
                             if (empty($stack))
                                 $stack = array([0, ""]);

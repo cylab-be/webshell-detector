@@ -93,11 +93,7 @@ class SignaturesAnalyzer implements Analyzer
                         return $flag;
                     foreach ($decode as $decodefunc) {
                         $param = $flag = null;
-                        try {
-                            $param = $decodefunc($str);
-                        } catch (Exception $e) {
-                            continue;
-                        }
+                        $param = @$decodefunc($str);
                         if ($param != null) {
                             $flag = $this->_compareFingerprints($fp_regex, $param);
                             if ($flag != null)
@@ -122,10 +118,6 @@ class SignaturesAnalyzer implements Analyzer
             $lines = file($fileName, FILE_IGNORE_NEW_LINES);
             for ($i = 0; $i < count($lines)-1; $i+=2) {
                 $res[$lines[$i]] = $lines[$i+1];
-                /*if (substr($lines[$i+1], -1) !== "]") {
-                    //version
-                    echo $lines[$i].PHP_EOL.$lines[$i+1].PHP_EOL.'****************'.PHP_EOL;
-                }*/
             }
         }
         return $res;

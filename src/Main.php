@@ -1,15 +1,23 @@
 #!/usr/bin/env php
 
 <?php
-
-// autoload for external libraries
+/**
+ * File Main.php. Entry point
+ *
+ * @file     Main
+ * @category None
+ * @package  Source
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 require __DIR__ . '/../vendor/autoload.php';
 
-// autoload for our classes
 require __DIR__ . '/autoload.php';
 
 use Symfony\Component\Console\Application;
 
 $application = new Application();
 $application->add(new RUCD\WebshellDetector\AnalyzeDirectoryCommand());
+$application->add(new RUCD\WebshellDetector\AnalyzeFileCommand());
 $application->run();

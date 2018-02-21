@@ -47,7 +47,7 @@ class ObfuscationAnalyzerTest extends TestCase
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
                 echo "File $file ";
-                $result = $analyzer->analyze($directory.$file);
+                $result = $analyzer->analyze(file_get_contents($directory.$file));
                 echo " Score: $result".PHP_EOL;
                 $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
             }

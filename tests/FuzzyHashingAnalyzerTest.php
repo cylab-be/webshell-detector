@@ -80,6 +80,7 @@ class FuzzyHashingAnalyzerTest extends TestCase
                 array_push($dirs, $dir.$file.'/');
             elseif (preg_match('/\.php$/', $file)) {
                 $text = file_get_contents($dir . $file);
+                $text = Util::removeAllWhiteSpaces($text);
                 $res = $spamsum->Hash($text)->__toString();
                 $towrite .= $res . PHP_EOL;
             }

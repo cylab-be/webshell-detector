@@ -1,8 +1,8 @@
 <?php
 /**
- * File AnalyzeDirectoryCommand
+ * File AnalyzeFileCommand
  *
- * @file     AnalyzeDirectoryCommand
+ * @file     AnalyzeFileCommand
  * @category None
  * @package  Source
  * @author   Thibault Debatty <thibault.debatty@gmail.com>
@@ -16,58 +16,59 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 /**
- * Class AnalyzeDirectoryCommand. Defines the command analyze:directory
+ * Class AnalyzeFileCommand. Defines the command analyze:file
  *
- * @file     AnalyzeDirectoryCommand
+ * @file     AnalyzeFileCommand
  * @category None
  * @package  Source
  * @author   Thibault Debatty <thibault.debatty@gmail.com>
  * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
  * @link     https://github.com/RUCD/webshell-detector
  */
-class AnalyzeDirectoryCommand extends Command
+class AnalyzeFileCommand extends Command
 {
     /**
      * Configures the command analyze:directory
      * {@inheritDoc}
-     * 
+     *
      * @see \Symfony\Component\Console\Command\Command::configure()
-     * 
+     *
      * @return void
      */
     protected function configure()
     {
         $this
-            ->setName('analyze:directory')
-            ->setDescription('Analyze a directory.')
-            ->addArgument('directory', InputArgument::REQUIRED, 'The directory to analyze');
+            ->setName('analyze:file')
+            ->setDescription('Analyze a file.')
+            ->addArgument('file', InputArgument::REQUIRED, 'The file to analyze');
     }
-
+    
     /**
      * Runs the command analyze:directory
      * {@inheritDoc}
-     * 
+     *
      * @param InputInterface  $input  stdin reader
      * @param OutputInterface $output stdout writer
-     * 
+     *
      * @see \Symfony\Component\Console\Command\Command::execute()
-     * 
+     *
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $directory = $input->getArgument('directory');
+        $file = $input->getArgument('file');
         $detector = new Detector();
-        if ($directory[strlen($directory)-1] !== "/")
-            $directory.="/";
-        if (file_exists(__DIR__.$directory))
-            $directory = __DIR__.$directory;
-        $result = $detector->analyzeDirectory($directory);
-        if (is_string($result)) {
-            $output->writeln($result);
+        if (substr($file, strlen($file)-4) === ".php") {
+            if (file_exists(__DIR__.$file))
+                $file1 = __DIR__.$file;
+            $result = $detector->analyzeString(file_get_contents($file1));
+            if (is_string($result)) {
+                $output.write($result);
+            } else {
+                $output->write("File $file - Score: $result");
+            }
         } else {
-            foreach ($result as $key => $value)
-                $output->write("File $key - Score: $value".PHP_EOL);
+            $output->write("File $file doesn't exist");
         }
     }
 }

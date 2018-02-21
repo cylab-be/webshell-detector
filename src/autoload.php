@@ -1,5 +1,14 @@
 <?php
-
+/**
+ * File autoload.php
+ *
+ * @file     autoload
+ * @category None
+ * @package  Source
+ * @author   Thibault Debatty <thibault.debatty@gmail.com>
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @link     https://github.com/RUCD/webshell-detector
+ */
 spl_autoload_register(
     function ($class) {
 

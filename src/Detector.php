@@ -49,23 +49,22 @@ class Detector
         $scores = [];
         if (is_dir($directory)) {
             $files = scandir($directory);
-            echo PHP_EOL."Scanning directory: ".$directory.PHP_EOL;
             $dirs = [];
             foreach ($files as $file) {
                 if ($file !== ".." && $file !== ".") {
                     if (is_dir($directory.$file)) {
                         array_push($dirs, $directory.$file.'/');
                     } elseif (preg_match('/\.php$/', $file)) {
-                        echo PHP_EOL."File $file";
                         $score = $this->analyzeString(file_get_contents($directory.$file));
-                        echo PHP_EOL."Score: $score".PHP_EOL;
-                        array_push($scores, $score);
+                        $scores[str_replace(__DIR__, "", $directory.$file)] = $score;
                     }
                 }
             }
             foreach ($dirs as $dir) {
                 $this->analyzeDirectory($dir);
             }
+        } else {
+            return "$directory doesn't exist or in not a directory";
         }
         return $scores;
     }
@@ -82,9 +81,7 @@ class Detector
     {
         $scores = [];
         foreach ($this->_analyzers as $analyzer) {
-            echo PHP_EOL."Runs ".get_class($analyzer).": ";
             $scores[] = $analyzer->analyze($string);
-            echo end($scores);
         }
         return $this->_aggregate($scores);
     }
