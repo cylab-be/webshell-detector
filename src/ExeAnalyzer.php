@@ -24,7 +24,7 @@ namespace RUCD\WebshellDetector;
 class ExeAnalyzer implements Analyzer
 {
     
-    const MIN_EXEC = 1;
+    const MIN_EXEC = 0;
     
     const MAX_EXEC = 3;
     
@@ -74,7 +74,7 @@ class ExeAnalyzer implements Analyzer
         else
             $varfunc = ($varfunc - self::MIN_VARFUNC) / (self::MAX_VARFUNC - self::MIN_VARFUNC);
         
-        return ($exec * 2 + $varfunc + $anonymous)/5.0;
+        return ($exec * 3 + $varfunc + $anonymous * 2)/6.0;
     }
     
     /**

@@ -58,10 +58,11 @@ class AnalyzeFileCommand extends Command
     {
         $file = $input->getArgument('file');
         $detector = new Detector();
-        if (substr($file, strlen($file)-4) === ".php") {
-            if (file_exists(__DIR__.$file))
-                $file1 = __DIR__.$file;
-            $result = $detector->analyzeString(file_get_contents($file1));
+        if (!file_exists($file)) {
+            $file = getcwd().'/'.$file;
+        }
+        if (substr($file, strlen($file)-4) === ".php" && file_exists($file)) {
+            $result = $detector->analyzeString(file_get_contents($file));
             if (is_string($result)) {
                 $output.write($result);
             } else {

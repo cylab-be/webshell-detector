@@ -60,14 +60,17 @@ class AnalyzeDirectoryCommand extends Command
         $detector = new Detector();
         if ($directory[strlen($directory)-1] !== "/")
             $directory.="/";
-        if (file_exists(__DIR__.$directory))
-            $directory = __DIR__.$directory;
-        $result = $detector->analyzeDirectory($directory);
-        if (is_string($result)) {
-            $output->writeln($result);
+        $tmp = getcwd().'/'.$directory;
+        if (file_exists($tmp)) {
+            $result = $detector->analyzeDirectory($tmp);
+            if (is_string($result)) {
+                $output->writeln($result);
+            } else {
+                foreach ($result as $key => $value)
+                    $output->write("File $key - Score: $value".PHP_EOL);
+            }
         } else {
-            foreach ($result as $key => $value)
-                $output->write("File $key - Score: $value".PHP_EOL);
+            $output->writeln("File $tmp doesn't exist");
         }
     }
 }

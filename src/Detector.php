@@ -61,7 +61,9 @@ class Detector
                 }
             }
             foreach ($dirs as $dir) {
-                $this->analyzeDirectory($dir);
+                $res = $this->analyzeDirectory($dir);
+                if (is_array($res))
+                    $scores = array_merge($scores, $res);
             }
         } else {
             return "$directory doesn't exist or in not a directory";
@@ -81,8 +83,10 @@ class Detector
     {
         $scores = [];
         foreach ($this->_analyzers as $analyzer) {
-            $scores[] = $analyzer->analyze($string);
+            $res = $analyzer->analyze($string);
+            $scores[] = $res;
         }
+        var_dump($scores);
         return $this->_aggregate($scores);
     }
 
