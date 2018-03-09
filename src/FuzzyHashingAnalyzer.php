@@ -54,7 +54,7 @@ class FuzzyHashingAnalyzer implements Analyzer
     {
         $filename = __DIR__."/../res/". self::FUZZY_HASH_FILE;
         if ($filecontent != null && is_string($filecontent) && file_exists($filename)) {
-            $filecontent = Util::removeAllWhiteSpaces($filecontent);
+            $filecontent = Util::removeAllWhiteSpaces(Util::removeComments($filecontent));
             $hashes = file($filename, FILE_IGNORE_NEW_LINES);
             $currhash = $this->_spamsum->HashString($filecontent)->__toString();
             if ($currhash != null) {

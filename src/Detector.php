@@ -86,7 +86,7 @@ class Detector
             $res = $analyzer->analyze($string);
             $scores[] = $res;
         }
-        var_dump($scores);
+        //var_dump($scores);
         return $this->_aggregate($scores);
     }
 

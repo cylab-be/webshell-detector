@@ -89,6 +89,28 @@ class Util
     }
     
     /**
+     * Removes all comments in a codes
+     * 
+     * @param string $filecontent The code to analyze
+     * 
+     * @return string The code without comment, or null
+     */
+    public static function removeComments($filecontent)
+    {
+        if ($filecontent == null)
+            return null;
+        $tokens = token_get_all($filecontent);
+        $res = '';
+        foreach ($tokens as $token) {
+            if (!is_array($token))
+                $res.= $token;
+            elseif ($token[0] != T_COMMENT && $token[0] != T_DOC_COMMENT)
+                $res.=$token[1];
+        }
+        return $res;
+    }
+    
+    /**
      * Apply the strpos function with an array of parameters
      *
      * @param string $haystack     The string where the research is performed

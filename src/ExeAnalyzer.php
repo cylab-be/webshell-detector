@@ -103,7 +103,7 @@ class ExeAnalyzer implements Analyzer
     private function _searchExecCmdFunctions($tokens)
     {
         $count = 0;
-        $funcs = array("exec", "assert", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system");
+        $funcs = array("exec", "assert", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system", "python_eval");
         foreach ($tokens as $token) {
             if (is_array($token) && $token[0] === T_STRING) {
                 if (in_array($token[1], $funcs))
