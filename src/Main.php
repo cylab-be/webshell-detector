@@ -8,7 +8,7 @@
  * @category None
  * @package  Source
  * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE
  * @link     https://github.com/RUCD/webshell-detector
  */
 require __DIR__ . '/../vendor/autoload.php';

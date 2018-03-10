@@ -1,14 +1,5 @@
 <?php
-/**
- * File Util
- *
- * @file     Util
- * @category None
- * @package  Source
- * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
- * @link     https://github.com/RUCD/webshell-detector
- */
+
 namespace RUCD\WebshellDetector;
 
 /**
@@ -18,7 +9,7 @@ namespace RUCD\WebshellDetector;
  * @category None
  * @package  Source
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class Util
@@ -26,9 +17,9 @@ class Util
 
     /**
      * Computes the average of an array
-     * 
+     *
      * @param array $array The array of numbers to analyze
-     * 
+     *
      * @return number The average
      */
     public static function average($array)
@@ -38,25 +29,26 @@ class Util
         }
         return floatval(array_sum($array))/count($array);
     }
-    
+
     /**
-     * Sometimes, a PHP code starts only with '<?' and token_get_all cannot perform parsing properly (the code will be 
+     * Sometimes, a PHP code starts only with '<?' and token_get_all cannot
+     * perform parsing properly (the code will be
      * considered as HTML code). So we extend the open tag
-     * 
+     *
      * @param string $string The PHP code
-     * 
+     *
      * @return string The code with an extended open tag
      */
     public static function extendOpenTag($string)
     {
         return preg_replace('/<\?[\s*|\n]/', '<?php'.PHP_EOL, $string);
     }
-    
+
     /**
      * Reduce and sort an an array, keeping the most meaningful values
-     * 
+     *
      * @param array $array The array to analyze
-     * 
+     *
      * @return array The new "meaningful" array
      */
     public static function getMeaningfulArray($array)
@@ -67,12 +59,12 @@ class Util
         $b = intval(count($array)*0.9);
         return array_slice($array, $a, $b - $a);
     }
-    
+
     /**
      * Prints the array of tokens
-     * 
+     *
      * @param array $pTokens The array of tokens to print
-     * 
+     *
      * @return void
      */
     public static function printTokens($pTokens)
@@ -88,12 +80,12 @@ class Util
             }
         }
     }
-    
+
     /**
      * Removes all comments in a codes
-     * 
+     *
      * @param string $filecontent The code to analyze
-     * 
+     *
      * @return string The code without comment, or null
      */
     public static function removeComments($filecontent)
@@ -112,13 +104,13 @@ class Util
         }
         return $res;
     }
-    
+
     /**
      * Apply the strpos function with an array of parameters
      *
      * @param string $haystack     The string where the research is performed
      * @param array  $arrayOfWords words to search in the haystack
-     * 
+     *
      * @return int|boolean
      */
     public static function strposOnArray($haystack, $arrayOfWords)
@@ -139,7 +131,7 @@ class Util
      * Removes all carriage returns and/or line feeds
      *
      * @param string $string The string to analyze
-     * 
+     *
      * @return NULL|$string
      */
     public static function removeCRLF($string)
@@ -151,7 +143,7 @@ class Util
      * Removes whites spaces if the are repeateds
      *
      * @param string $string The string to analyze
-     * 
+     *
      * @return NULL|string without repeated white spaces
      */
     public static function removeMultiWhiteSpaces($string)
@@ -163,7 +155,7 @@ class Util
      * Removes all whites spaces
      *
      * @param string $string The string to analyze
-     * 
+     *
      * @return NULL|string whitout any white spaces
      */
     public static function removeAllWhiteSpaces($string)
@@ -175,7 +167,7 @@ class Util
      * Remove white spaces outside strings
      *
      * @param array $tokens List of tokens
-     * 
+     *
      * @return NULL|string
      */
     public static function removeWhiteSpacesOutsideString($tokens)
@@ -192,12 +184,12 @@ class Util
         }
         return $res;
     }
-    
+
     /**
      * Searches for non-ASCII characters, often used in obfuscated files
      *
      * @param string $string The search to analyze
-     * 
+     *
      * @return number Number of non-ASCII chars in the string
      */
     public static function searchNonASCIIChars($string)
@@ -213,12 +205,12 @@ class Util
         }
         return $count;
     }
-    
+
     /**
      * Computes the standard deviation of an array of numbers
-     * 
+     *
      * @param array $array Array of numbers
-     * 
+     *
      * @return number The standard deviation
      */
     public static function standardDeviation($array)

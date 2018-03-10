@@ -1,17 +1,7 @@
 <?php
-/**
- * File SignaturesAnalyzer
- *
- * @file     SignaturesAnalyzer
- * @category None
- * @package  Source
- * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
- * @link     https://github.com/RUCD/webshell-detector
- */
+
 namespace RUCD\WebshellDetector;
 
-use Exception;
 
 /**
  * Class SignaturesAnalyzer implementing Analyzer
@@ -21,7 +11,7 @@ use Exception;
  * @category None
  * @package  Source
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class SignaturesAnalyzer implements Analyzer
@@ -32,11 +22,12 @@ class SignaturesAnalyzer implements Analyzer
 
     /**
      * Iterates over the array of signatures and checks if a pattern matches
-     * 
+     *
      * @param array  $pFingerprints Array of signatures
      * @param string $pFileContent  The content of a file
-     * 
-     * @return NULL|string Returns the first mathing signature, NULL if nothing matches
+     *
+     * @return NULL|string Returns the first mathing signature, NULL if nothing
+     * matches
      */
     private function _compareFingerprints($pFingerprints, $pFileContent)
     {
@@ -51,13 +42,14 @@ class SignaturesAnalyzer implements Analyzer
         }
         return $key;
     }
-    
+
     /**
      * TEST: comes from PHP-Webshell Detector, will be updated. Only for testing
      *
      * @param string $pFileContent The content of a file
-     * 
-     * @return NULL|string Returns NULL if the file content doesn't exist, a string if a flag is found
+     *
+     * @return NULL|string Returns NULL if the file content doesn't exist, a string
+     * if a flag is found
      */
     public function scanFile($pFileContent)
     {
@@ -88,7 +80,9 @@ class SignaturesAnalyzer implements Analyzer
         $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode"];
         foreach ($tokens as $token) {
             if (is_array($token)) {
-                if ($token[0] === T_CONSTANT_ENCAPSED_STRING || $token[0] === T_ENCAPSED_AND_WHITESPACE) {
+                if ($token[0] === T_CONSTANT_ENCAPSED_STRING
+                    || $token[0] === T_ENCAPSED_AND_WHITESPACE
+                ) {
                     $str = substr($token[1], 1, strlen($token[1])-1);
                     $flag = $this->_compareFingerprints($fp_regex, $str);
                     if ($flag != null) {
@@ -126,20 +120,20 @@ class SignaturesAnalyzer implements Analyzer
         }
         return $res;
     }
-    
+
     /**
      * Performs an analysis on a file regarding signatures of known signatures
      * {@inheritDoc}
-     * 
+     *
      * @param string $filecontent The content of the file to analyze
-     * 
+     *
      * @see \RUCD\WebshellDetector\Analyzer::analyze()
-     * 
+     *
      * @return double The score of the file
      */
     public function analyze($filecontent)
     {
         $ret = $this->scanFile($filecontent);
-        return $ret === null ? 0: 1; 
+        return $ret === null ? 0: 1;
     }
 }

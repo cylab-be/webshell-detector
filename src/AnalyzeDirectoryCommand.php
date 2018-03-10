@@ -1,14 +1,5 @@
 <?php
-/**
- * File AnalyzeDirectoryCommand
- *
- * @file     AnalyzeDirectoryCommand
- * @category None
- * @package  Source
- * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
- * @link     https://github.com/RUCD/webshell-detector
- */
+
 namespace RUCD\WebshellDetector;
 
 use Symfony\Component\Console\Command\Command;
@@ -22,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @category None
  * @package  Source
  * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class AnalyzeDirectoryCommand extends Command
@@ -40,7 +31,11 @@ class AnalyzeDirectoryCommand extends Command
         $this
             ->setName('analyze:directory')
             ->setDescription('Analyze a directory.')
-            ->addArgument('directory', InputArgument::REQUIRED, 'The directory to analyze');
+            ->addArgument(
+                'directory',
+                InputArgument::REQUIRED,
+                'The directory to analyze'
+            );
     }
 
     /**

@@ -8,7 +8,7 @@ namespace RUCD\WebshellDetector;
  * @category None
  * @package  Source
  * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class Detector

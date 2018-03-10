@@ -1,14 +1,5 @@
 <?php
-/**
- * File AnalyzeFileCommand
- *
- * @file     AnalyzeFileCommand
- * @category None
- * @package  Source
- * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
- * @link     https://github.com/RUCD/webshell-detector
- */
+
 namespace RUCD\WebshellDetector;
 
 use Symfony\Component\Console\Command\Command;
@@ -22,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @category None
  * @package  Source
  * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class AnalyzeFileCommand extends Command
@@ -42,7 +33,7 @@ class AnalyzeFileCommand extends Command
             ->setDescription('Analyze a file.')
             ->addArgument('file', InputArgument::REQUIRED, 'The file to analyze');
     }
-    
+
     /**
      * Runs the command analyze:directory
      * {@inheritDoc}
