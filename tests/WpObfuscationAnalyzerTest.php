@@ -6,7 +6,7 @@
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
@@ -14,18 +14,19 @@ namespace RUCD\WebshellDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class WpObfuscationAnalyzerTest extending TestCase. Computes a mark regarding obfuscation
+ * Class WpObfuscationAnalyzerTest extending TestCase. Computes a mark regarding
+ * obfuscation
  *
  * @file     WpObfuscationAnalyzerTest
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class WpObfuscationAnalyzerTest extends TestCase
 {
-    
+
     /**
      * Computes min, max and average for each type of dangerous functions
      * WP:
@@ -36,7 +37,7 @@ class WpObfuscationAnalyzerTest extends TestCase
      * Non-ASCII: Min: 1 max: 781 std dev.: 233.79131875619 avg: 155.90243902439
      * Longest S: Min: 40 max: 1663 std dev.: 455.12495964173 avg: 495.6
      * Decode. R: Min: 1 max: 4 std dev.: 0.8887803753209 avg: 1.9583333333333
-     * 
+     *
      * @return void
      */
     public function testObfuscationAnalyzer()
@@ -56,17 +57,24 @@ class WpObfuscationAnalyzerTest extends TestCase
         $arrayNA = Util::getMeaningfulArray($arrayNA);
         $arrayDE = Util::getMeaningfulArray($arrayDE);
         $arrayLO = Util::getMeaningfulArray($arrayLO);
-        echo PHP_EOL."Non-ASCII: Min: ".min($arrayNA)." max: ".max($arrayNA)." std dev.: ".Util::standardDeviation($arrayNA)." avg: ".Util::average($arrayNA);
-        echo PHP_EOL."Longest S: Min: ".min($arrayLO)." max: ".max($arrayLO)." std dev.: ".Util::standardDeviation($arrayLO)." avg: ".Util::average($arrayLO);
-        echo PHP_EOL."Decode. R: Min: ".min($arrayDE)." max: ".max($arrayDE)." std dev.: ".Util::standardDeviation($arrayDE)." avg: ".Util::average($arrayDE);        
+        echo PHP_EOL."Non-ASCII: Min: ".min($arrayNA)." max: ".max($arrayNA).
+                " std dev.: ".Util::standardDeviation($arrayNA).
+                " avg: ".Util::average($arrayNA);
+        echo PHP_EOL."Longest S: Min: ".min($arrayLO)." max: ".max($arrayLO).
+                " std dev.: ".Util::standardDeviation($arrayLO).
+                " avg: ".Util::average($arrayLO);
+        echo PHP_EOL."Decode. R: Min: ".min($arrayDE)." max: ".max($arrayDE).
+                " std dev.: ".Util::standardDeviation($arrayDE).
+                " avg: ".Util::average($arrayDE);
     }
-    
+
     /**
-     * Scans the Wordpress directory, 
+     * Scans the Wordpress directory,
      *
      * @param string $directory The directory to scan, wordpress by default
      *
-     * @return array An array with all values (each item is an 3-array: exec, anonymous, and variable func)
+     * @return array An array with all values (each item is an 3-array: exec,
+     * anonymous, and variable func)
      */
     private function _scanDir($directory = __DIR__.'/res/wordpress/')
     {

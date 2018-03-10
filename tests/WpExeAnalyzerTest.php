@@ -6,7 +6,7 @@
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
@@ -20,12 +20,12 @@ use PHPUnit\Framework\TestCase;
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class WpExeAnalyzerTest extends TestCase
 {
-    
+
     /**
      * Computes min, max and average for each type of dangerous functions
      *
@@ -45,22 +45,28 @@ class WpExeAnalyzerTest extends TestCase
             array_push($arrayAN, $result[1]);
             array_push($arrayVF, $result[2]);
         }
-        
+
         /*$arrayEX = Util::getMeaningfulArray($arrayEX);
         $arrayAN = Util::getMeaningfulArray($arrayAN);
         $arrayVF = Util::getMeaningfulArray($arrayVF);*/
-        
-        echo PHP_EOL."Exec.: Min: ".min($arrayEX)." max: ".max($arrayEX)." std dev.: ".Util::standardDeviation($arrayEX)." avg: ".Util::average($arrayEX);
-        echo PHP_EOL."Anon.: Min: ".min($arrayAN)." max: ".max($arrayAN)." std dev.: ".Util::standardDeviation($arrayAN)." avg: ".Util::average($arrayAN);
-        echo PHP_EOL."VarF.: Min: ".min($arrayVF)." max: ".max($arrayVF)." std dev.: ".Util::standardDeviation($arrayVF)." avg: ".Util::average($arrayVF);
+
+        echo PHP_EOL."Exec.: Min: ".min($arrayEX)." max: ".max($arrayEX)
+                ." std dev.: ".Util::standardDeviation($arrayEX)." avg: "
+                .Util::average($arrayEX);
+        echo PHP_EOL."Anon.: Min: ".min($arrayAN)." max: ".max($arrayAN)
+                ." std dev.: ".Util::standardDeviation($arrayAN)." avg: "
+                .Util::average($arrayAN);
+        echo PHP_EOL."VarF.: Min: ".min($arrayVF)." max: ".max($arrayVF)
+                ." std dev.: ".Util::standardDeviation($arrayVF)." avg: "
+                .Util::average($arrayVF);
     }
-    
+
     /**
      * Scans the Wordpress directory, and searches dangerous functions
-     * 
+     *
      * @param string $directory The directory to scan, wordpress by default
-     * 
-     * @return array An array with all values (each item is an 3-array: exec, anonymous, and variable func)
+     *
+     * @return array An array of [exec, anonymous, and variable func]
      */
     private function _scanDir($directory = __DIR__.'/res/wordpress/')
     {

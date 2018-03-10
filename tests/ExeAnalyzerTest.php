@@ -6,7 +6,7 @@
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class ExeAnalyzerTest extends TestCase
@@ -29,11 +29,12 @@ class ExeAnalyzerTest extends TestCase
      * Performs test on a the object ExeAnalyzer
      *
      * @param string $directory Name of the directory, by default __DIR__/res/
-     * 
+     *
      * @return void
      */
-    public function testExeAnalyzer($directory = __DIR__ . "/res/php-webshells-master/")
-    {
+    public function testExeAnalyzer(
+        $directory = __DIR__ . "/res/php-webshells-master/"
+    ) {
         $analyzer = new ExeAnalyzer();
         $files = scandir($directory);
         $dirs = [];
@@ -49,25 +50,14 @@ class ExeAnalyzerTest extends TestCase
                 if ($result != 0) {
                     echo PHP_EOL."Score: $result File: $file";
                 }
-                $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
+                $this->assertTrue(
+                    $result >= 0 && $result <= 1,
+                    "Result should be between 0 and 1"
+                );
             }
         }
         foreach ($dirs as $dir) {
             $this->testExeAnalyzer($dir);
         }
     }
-    
-    /**
-     * Performs test on a single file
-     *
-     * @return void
-     
-    public function testExeAnalyzerSingleFile()
-    {
-        $detector = new ExeAnalyzer();
-        $score = $detector->analyze(file_get_contents(__DIR__."/res/test.php"));
-        $this->assertTrue($score >= 0 && $score <= 1);
-        echo PHP_EOL."Score: $score";
-    }
-     */ 
 }

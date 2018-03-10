@@ -6,28 +6,29 @@
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
 
 use PHPUnit\Framework\TestCase;
 /**
- * Class EntropyAnalyzerTest extending TestCase. Performs tests on the class EntropyAnalyzerTest
+ * Class EntropyAnalyzerTest extending TestCase. Performs tests on the class
+ * EntropyAnalyzerTest
  *
  * @file     EntropyAnalyzerTest
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class EntropyAnalyzerTest extends TestCase
 {
-    
+
     /**
      * Performs test on a the object EntropyAnalyzerTest
-     * 
+     *
      * @param string $dir Name of the directory, by default __DIR__/res/
      *
      * @return void

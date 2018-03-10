@@ -6,7 +6,7 @@
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
@@ -23,7 +23,7 @@ use webd\language\SpamSum;
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class FuzzyHashingAnalyzerTest extends TestCase
@@ -31,7 +31,7 @@ class FuzzyHashingAnalyzerTest extends TestCase
 
     /**
      * Runs the routine FuzzyHashingAnalyzer::analyze
-     * 
+     *
      * @param string $directory Name of the directory, by default __DIR__/res/
      *
      * @return void
@@ -53,7 +53,10 @@ class FuzzyHashingAnalyzerTest extends TestCase
             } elseif (preg_match('/\.php$/', $file)) {
                 $result = $detector->analyze(file_get_contents($directory.$file));
                 echo PHP_EOL."Score: $result File: $file";
-                $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
+                $this->assertTrue(
+                    $result >= 0 && $result <= 1,
+                    "Result should be between 0 and 1"
+                );
             }
         }
         foreach ($dirs as $dir) {
@@ -63,9 +66,9 @@ class FuzzyHashingAnalyzerTest extends TestCase
 
     /**
      * Writes spamsum hashes in the resource file
-     * 
+     *
      * @param string $dir Name of the the directory to scan
-     * 
+     *
      * @return void
      */
     public function writeInFile($dir = __DIR__ . "/res/")
@@ -75,7 +78,9 @@ class FuzzyHashingAnalyzerTest extends TestCase
         $towrite = '';
         $dirs = [];
         foreach ($files as $file) {
-            if ($file === "." || $file === ".." || $file === "harmless.php" || $file === "test.php") {
+            if ($file === "." || $file === ".." || $file === "harmless.php"
+                || $file === "test.php"
+            ) {
                 continue;
             } elseif (is_dir($dir.$file) && $dir.$file !== 'wordpress') {
                 array_push($dirs, $dir.$file.'/');

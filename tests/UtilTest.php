@@ -6,7 +6,7 @@
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
@@ -14,13 +14,14 @@ namespace RUCD\WebshellDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
- * UtilTest class extending TestCase. Performs some basic tests on utilitarian routines
+ * UtilTest class extending TestCase. Performs some basic tests on utilitarian
+ * routines
  *
  * @file     UtilTest
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class UtilTest extends TestCase
@@ -37,7 +38,7 @@ class UtilTest extends TestCase
 
     /**
      * Tests the routine Util::removeCRLF
-     * 
+     *
      * @return void
      */
     public function testRemoveCRLF()
@@ -49,7 +50,7 @@ class UtilTest extends TestCase
 
     /**
      * Tests the routine Util::removeMultiWhiteSpaces
-     * 
+     *
      * @return void
      */
     public function testRemoveMultiWhiteSpaces()
@@ -61,7 +62,7 @@ class UtilTest extends TestCase
 
     /**
      * Tests the routine Util::removeAllWhiteSpaces
-     * 
+     *
      * @return void
      */
     public function testRemoveAllWhiteSpaces()
@@ -73,13 +74,16 @@ class UtilTest extends TestCase
 
     /**
      * Tests the routine Util::removeWhiteSpacesOutsideString
-     * 
+     *
      * @return void
      */
     public function testRemoveWhiteSpacesOutsideString()
     {
         foreach ($this->_strings as $string) {
-            $this->assertTrue(Util::removeWhiteSpacesOutsideString(token_get_all($string)) !== $string);
+            $this->assertTrue(
+                Util::removeWhiteSpacesOutsideString(token_get_all($string))
+                !== $string
+            );
         }
     }
 }

@@ -1,12 +1,12 @@
 <?php
 /**
  * File WpEntropyTest.php
- * 
+ *
  * @file     WpEntropyTest
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 namespace RUCD\WebshellDetector;
@@ -20,14 +20,15 @@ use PHPUnit\Framework\TestCase;
  * @category None
  * @package  Tests
  * @author   Enzo Borel <borelenzo@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
+ * @license  https://github.com/RUCD/webshell-detector/blob/master/LICENSE MIT
  * @link     https://github.com/RUCD/webshell-detector
  */
 class WpEntropyTest extends TestCase
 {
-    
+
     /**
-     * Computes min, max and average. For now, prints 'Min: 4.0269868333593, max: 5.5184645933068
+     * Computes min, max and average. For now, prints 'Min: 4.0269868333593,
+     * max: 5.5184645933068
      *
      * @return void
      */
@@ -46,14 +47,14 @@ class WpEntropyTest extends TestCase
                 $max = $result;
             }
         }
-        echo PHP_EOL."Min: $min, max: $max"; 
+        echo PHP_EOL."Min: $min, max: $max";
     }
-    
+
     /**
      * Scans directory and computes entropy for each file
-     * 
+     *
      * @param string $directory The directory to scan
-     * 
+     *
      * @return array An array containing all values
      */
     private function _scanDir($directory = __DIR__.'/res/wordpress/')
@@ -69,7 +70,9 @@ class WpEntropyTest extends TestCase
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
-                $result = $analyzer->computeEntropy(file_get_contents($directory.$file));
+                $result = $analyzer->computeEntropy(
+                    file_get_contents($directory.$file)
+                );
                 array_push($scores, $result);
                 $this->assertTrue($result >= 0, "Result should be greater than 0");
             }
@@ -77,6 +80,6 @@ class WpEntropyTest extends TestCase
         foreach ($dirs as $dir) {
             $scores = array_merge($scores, $this->_scanDir($dir));
         }
-        return $scores;   
+        return $scores;
     }
 }
