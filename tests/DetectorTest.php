@@ -33,17 +33,18 @@ class DetectorTest extends TestCase
     public function testAnalyzeDirectory()
     {
         $detector = new Detector();
-        $scores = $detector->analyzeDirectory(__DIR__."/res/");
-        $this->assertTrue(
-            count($scores) > 0
-        );
+        $results_count = 0;
+        foreach ($detector->analyzeDirectory(__DIR__."/res/") as $file => $score) {
+            $results_count++;
+        }
+        $this->assertTrue($results_count > 0);
     }
-    
+
     /**
      * Performs test on a single file
-     * 
+     *
      * @return void
-     
+
     public function testAnalyzeFile()
     {
         $detector = new Detector();

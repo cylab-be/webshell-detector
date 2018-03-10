@@ -30,9 +30,9 @@ class AnalyzeDirectoryCommand extends Command
     /**
      * Configures the command analyze:directory
      * {@inheritDoc}
-     * 
+     *
      * @see \Symfony\Component\Console\Command\Command::configure()
-     * 
+     *
      * @return void
      */
     protected function configure()
@@ -46,31 +46,24 @@ class AnalyzeDirectoryCommand extends Command
     /**
      * Runs the command analyze:directory
      * {@inheritDoc}
-     * 
+     *
      * @param InputInterface  $input  stdin reader
      * @param OutputInterface $output stdout writer
-     * 
+     *
      * @see \Symfony\Component\Console\Command\Command::execute()
-     * 
+     *
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $directory = $input->getArgument('directory');
+        $directory = realpath($input->getArgument('directory'));
+        if ($directory === null) {
+            throw new Exception("Invalid directory!");
+        }
+
         $detector = new Detector();
-        if ($directory[strlen($directory)-1] !== "/")
-            $directory.="/";
-        $tmp = getcwd().'/'.$directory;
-        if (file_exists($tmp)) {
-            $result = $detector->analyzeDirectory($tmp);
-            if (is_string($result)) {
-                $output->writeln($result);
-            } else {
-                foreach ($result as $key => $value)
-                    $output->write("File $key - Score: $value".PHP_EOL);
-            }
-        } else {
-            $output->writeln("File $tmp doesn't exist");
+        foreach ($detector->analyzeDirectory($directory) as $file => $score) {
+            $output->write("$file : $score" . PHP_EOL);
         }
     }
 }

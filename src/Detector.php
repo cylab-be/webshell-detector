@@ -1,15 +1,6 @@
 <?php
-/**
- * File Detector
- *
- * @file     Dectector
- * @category None
- * @package  Source
- * @author   Thibault Debatty <thibault.debatty@gmail.com>
- * @license  https://raw.githubusercontent.com/RUCD/webshell-detector/master/LICENSE Webshell-detector
- * @link     https://github.com/RUCD/webshell-detector
- */
 namespace RUCD\WebshellDetector;
+
 /**
  * Class Detector. Entry point containing all analyzers
  *
@@ -41,34 +32,34 @@ class Detector
      * Recursively scan a directory, and scan all files.
      *
      * @param string $directory Name of the directory to scan
-     * 
-     * @return array The array containing all scores
+     *
+     * @return array a generator of entries $file => $score
      */
     public function analyzeDirectory($directory)
     {
-        $scores = [];
-        if (is_dir($directory)) {
-            $files = scandir($directory);
-            $dirs = [];
-            foreach ($files as $file) {
-                if ($file !== ".." && $file !== ".") {
-                    if (is_dir($directory.$file)) {
-                        array_push($dirs, $directory.$file.'/');
-                    } elseif (preg_match('/\.php$/', $file)) {
-                        $score = $this->analyzeString(file_get_contents($directory.$file));
-                        $scores[str_replace(__DIR__, "", $directory.$file)] = $score;
-                    }
-                }
-            }
-            foreach ($dirs as $dir) {
-                $res = $this->analyzeDirectory($dir);
-                if (is_array($res))
-                    $scores = array_merge($scores, $res);
-            }
-        } else {
-            return "$directory doesn't exist or in not a directory";
+
+        if (!is_dir($directory)) {
+            throw new Exception("$directory is not a directory!");
         }
-        return $scores;
+
+        $files = scandir($directory);
+        foreach ($files as $file) {
+            if ($file === ".." || $file === ".") {
+                continue;
+            }
+
+            if (is_dir($directory . $file)) {
+                $this->analyzeDirectory($directory . $file);
+
+            } elseif (preg_match('/\.php$/', $file)) {
+                $score = $this->analyzeString(
+                    file_get_contents(
+                        $directory . $file
+                    )
+                );
+                yield $directory . $file => $score;
+            }
+        }
     }
 
     /**
@@ -76,7 +67,7 @@ class Detector
      * suspicious).
      *
      * @param string $string The string to analyzer
-     * 
+     *
      * @return float The score
      */
     public function analyzeString($string)
@@ -92,9 +83,9 @@ class Detector
 
     /**
      * Returns a mark regarding the harmfulness of submitted scores
-     * 
+     *
      * @param array $scores The computed scores
-     * 
+     *
      * @return float The final score
      */
     private function _aggregate($scores)
