@@ -77,11 +77,13 @@ class SignaturesAnalyzer implements Analyzer
             $fp_regex['/' . preg_quote($fingerprint, '/') . '/'] = $shell;
         }
         $flag = $this->_compareFingerprints($fp_regex, $pFileContent);
-        if ($flag != null)
+        if ($flag != null) {
             return $flag;
+        }
         $flag = $this->_compareFingerprints($fp_regex, base64_encode($pFileContent));
-        if ($flag != null)
+        if ($flag != null) {
             return $flag;
+        }
         $tokens = token_get_all(Util::extendOpenTag($pFileContent));
         $decode = ["base64_decode", "gzuncompress", "gzinflate", "gzdecode"];
         foreach ($tokens as $token) {
@@ -89,15 +91,17 @@ class SignaturesAnalyzer implements Analyzer
                 if ($token[0] === T_CONSTANT_ENCAPSED_STRING || $token[0] === T_ENCAPSED_AND_WHITESPACE) {
                     $str = substr($token[1], 1, strlen($token[1])-1);
                     $flag = $this->_compareFingerprints($fp_regex, $str);
-                    if ($flag != null)
+                    if ($flag != null) {
                         return $flag;
+                    }
                     foreach ($decode as $decodefunc) {
                         $param = $flag = null;
                         $param = @$decodefunc($str);
                         if ($param != null) {
                             $flag = $this->_compareFingerprints($fp_regex, $param);
-                            if ($flag != null)
+                            if ($flag != null) {
                                 return $flag;
+                            }
                         }
                     }
                 }

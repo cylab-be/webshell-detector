@@ -53,26 +53,29 @@ class ExeAnalyzer implements Analyzer
         $anonymous = $scores[1];
         $varfunc = $scores[2];
         
-        if ($exec < self::MIN_EXEC)
+        if ($exec < self::MIN_EXEC) {
             $exec = 0;
-        elseif ($exec > self::MAX_EXEC)
+        } elseif ($exec > self::MAX_EXEC) {
             $exec = 1;
-        else 
+        } else { 
             $exec = ($exec - self::MIN_EXEC) / (self::MAX_EXEC - self::MIN_EXEC);
+        }
         
-        if ($anonymous < self::MIN_ANONYMOUS)
+        if ($anonymous < self::MIN_ANONYMOUS) {
             $anonymous = 0;
-        elseif ($anonymous > self::MAX_ANONYMOUS)
+        } elseif ($anonymous > self::MAX_ANONYMOUS) {
             $anonymous = 1;
-        else
+        } else {
             $anonymous = ($anonymous - self::MIN_ANONYMOUS) / (self::MAX_ANONYMOUS - self::MIN_ANONYMOUS);
+        }
         
-        if ($varfunc < self::MIN_VARFUNC)
+        if ($varfunc < self::MIN_VARFUNC) {
             $varfunc = 0;
-        elseif ($varfunc > self::MAX_VARFUNC)
+        } elseif ($varfunc > self::MAX_VARFUNC) {
             $varfunc = 1;
-        else
+        } else {
             $varfunc = ($varfunc - self::MIN_VARFUNC) / (self::MAX_VARFUNC - self::MIN_VARFUNC);
+        }
         
         return ($exec * 3 + $varfunc + $anonymous * 2)/6.0;
     }
@@ -106,13 +109,15 @@ class ExeAnalyzer implements Analyzer
         $funcs = array("exec", "assert", "passthru", "popen", "proc_open", "pcntl_exec", "shell_exec", "system", "python_eval");
         foreach ($tokens as $token) {
             if (is_array($token) && $token[0] === T_STRING) {
-                if (in_array($token[1], $funcs))
+                if (in_array($token[1], $funcs)) {
                     $count++;
+                }
             }
-            elseif ($token[0] === T_EVAL)
+            elseif ($token[0] === T_EVAL) {
                 $count++;
-            elseif ($token === "`")
+            } elseif ($token === "`") {
                 $count+=0.5;
+            }
         }
         return $count;
     }
@@ -154,8 +159,9 @@ class ExeAnalyzer implements Analyzer
             "usort");
         foreach ($tokens as $token) {
             if (is_array($token) && $token[0] === T_STRING) {
-                if (in_array($token[1], $funcs))
+                if (in_array($token[1], $funcs)) {
                     $count++;
+                }
             }
         }
         return $count;
@@ -187,30 +193,32 @@ class ExeAnalyzer implements Analyzer
                 if (is_array($token) && $token[0] === T_VARIABLE) {
                     $stack[] = [1, $token[1]]; //new nested variable
                 } else {
-                    if ($token === "(")
+                    if ($token === "(") {
                         $nestedParenthesis++;
-                    elseif ($token === ")") {
-                        if ($nestedParenthesis != 0)
+                    } elseif ($token === ")") {
+                        if ($nestedParenthesis != 0) {
                             $nestedParenthesis--;
-                        else {
+                        } else {
                             array_pop($stack);
                             $matches++;
-                            if (empty($stack))
+                            if (empty($stack)) {
                                 $stack = array([0, ""]);
+                            }
                         }
                     }
                 }
             } elseif (end($stack)[0] === 1) {
                 //look for left parenthesis
-                if (is_array($token) && $token[0] === T_WHITESPACE)
+                if (is_array($token) && $token[0] === T_WHITESPACE) {
                     continue;
-                elseif ($token === "(") {
+                } elseif ($token === "(") {
                     $stack[key($stack)][0] = 2;
                     $stack[key($stack)][1].='(';
                 } else {
                     array_pop($stack);
-                    if (empty($stack))
+                    if (empty($stack)) {
                         $stack = array([0, ""]);
+                    }
                 }
             }
         }

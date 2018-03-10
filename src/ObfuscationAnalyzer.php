@@ -55,32 +55,36 @@ class ObfuscationAnalyzer implements Analyzer
      */
     public function analyze($fileContent)
     {
-        if ($fileContent === null || ! is_string($fileContent))
+        if ($fileContent === null || ! is_string($fileContent)) {
             return self::EXIT_ERROR;
+        }
         $score = $this->getScores($fileContent);
         $nonascii = $score[0];
         $longest = $score[1];
         $decode = $score[2];        
-        if ($nonascii < self::ASCII_MIN)
+        if ($nonascii < self::ASCII_MIN) {
             $nonascii = 0.0;
-        elseif ($nonascii > self::ASCII_MAX)
+        } elseif ($nonascii > self::ASCII_MAX) {
             $nonascii = 1.0;
-        else
+        } else {
             $nonascii = ($nonascii - self::ASCII_MIN)/(self::ASCII_MAX-self::ASCII_MIN);
+        }
         
-        if ($longest < self::LONGEST_MIN)
+        if ($longest < self::LONGEST_MIN) {
             $longest = 0.0;
-        elseif ($longest > self::LONGEST_MAX)
+        } elseif ($longest > self::LONGEST_MAX) {
             $longest = 1.0;
-        else 
+        } else { 
             $longest = ($longest - self::LONGEST_MIN)/(self::LONGEST_MAX-self::LONGEST_MIN);
+        }
         
-        if ($decode < self::DECODE_MIN)
+        if ($decode < self::DECODE_MIN) {
             $decode = 0.0;
-        elseif ($decode > self::DECODE_MAX)
+        } elseif ($decode > self::DECODE_MAX) {
             $decode = 1.0;
-        else 
+        } else { 
             $decode = ($decode- self::DECODE_MIN)/(self::DECODE_MAX-self::DECODE_MIN);
+        }
         
         return ($nonascii * self::LOW + self::MEDIUM * $longest + self::SEVERE * $decode) / 6.0;
     }

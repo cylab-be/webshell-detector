@@ -50,12 +50,14 @@ class EntropyAnalyzer implements Analyzer
     public function analyze($fileContent)
     {
         $entropy = $this->computeEntropy($fileContent);
-        if ($entropy == self::EXIT_ERROR)
+        if ($entropy == self::EXIT_ERROR) {
             return $entropy;
-        if ($entropy >= self::ENTROPY_MAX)
+        }
+        if ($entropy >= self::ENTROPY_MAX) {
             return 1;
-        elseif ($entropy <= self::ENTROPY_MIN)
+        } elseif ($entropy <= self::ENTROPY_MIN) {
             return 0;
+        }
         return ($entropy - self::ENTROPY_MIN) / (self::ENTROPY_MAX - self::ENTROPY_MIN);
     }
     

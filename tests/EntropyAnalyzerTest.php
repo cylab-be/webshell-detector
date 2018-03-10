@@ -39,8 +39,9 @@ class EntropyAnalyzerTest extends TestCase
         $dirs = [];
         echo PHP_EOL."Scanning $dir";
         foreach ($files as $file) {
-            if ($file === "." || $file === "..")
+            if ($file === "." || $file === "..") {
                 continue;
+            }
             if (is_dir($dir.$file)) {
                 array_push($dirs, $dir.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {

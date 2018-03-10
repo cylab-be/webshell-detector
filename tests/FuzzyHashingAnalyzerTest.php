@@ -45,8 +45,9 @@ class FuzzyHashingAnalyzerTest extends TestCase
         $dirs = [];
         echo PHP_EOL."Scanning $directory";
         foreach ($files as $file) {
-            if ($file === "." || $file === "..")
+            if ($file === "." || $file === "..") {
                 continue;
+            }
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
@@ -74,11 +75,11 @@ class FuzzyHashingAnalyzerTest extends TestCase
         $towrite = '';
         $dirs = [];
         foreach ($files as $file) {
-            if ($file === "." || $file === ".." || $file === "harmless.php" || $file === "test.php")
+            if ($file === "." || $file === ".." || $file === "harmless.php" || $file === "test.php") {
                 continue;
-            elseif (is_dir($dir.$file) && $dir.$file !== 'wordpress')
+            } elseif (is_dir($dir.$file) && $dir.$file !== 'wordpress') {
                 array_push($dirs, $dir.$file.'/');
-            elseif (preg_match('/\.php$/', $file)) {
+            } elseif (preg_match('/\.php$/', $file)) {
                 $text = file_get_contents($dir . $file);
                 $text = Util::removeAllWhiteSpaces(Util::removeComments($text));
                 $res = $spamsum->Hash($text)->__toString();

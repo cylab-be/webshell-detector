@@ -33,8 +33,9 @@ class WpEntropyTest extends TestCase
      */
     public function testEntropy()
     {
-        if (!file_exists(__DIR__.'/res/wordpress/'))
+        if (!file_exists(__DIR__.'/res/wordpress/')) {
             return;
+        }
         $res = $this->_scanDir();
         $min = 10.0;
         $max = 0.0;
@@ -62,8 +63,9 @@ class WpEntropyTest extends TestCase
         $files = scandir($directory);
         $dirs = [];
         foreach ($files as $file) {
-            if ($file === "." || $file === "..")
+            if ($file === "." || $file === "..") {
                 continue;
+            }
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {

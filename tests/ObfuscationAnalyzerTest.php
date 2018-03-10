@@ -41,8 +41,9 @@ class ObfuscationAnalyzerTest extends TestCase
         $dirs = [];
         echo PHP_EOL."Scanning $directory".PHP_EOL;
         foreach ($files as $file) {
-            if ($file === "." || $file === "..")
+            if ($file === "." || $file === "..") {
                 continue;
+            }
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {
@@ -52,8 +53,9 @@ class ObfuscationAnalyzerTest extends TestCase
                 $this->assertTrue($result >= 0 && $result <= 1, "Result should be between 0 and 1");
             }
         }
-        foreach ($dirs as $dir)
+        foreach ($dirs as $dir) {
             $this->testObfuscationAnalyzer($dir);
+        }
     }
     
     /**

@@ -33,8 +33,9 @@ class Util
      */
     public static function average($array)
     {
-        if (!is_array($array) || count($array) == 0)
+        if (!is_array($array) || count($array) == 0) {
             return 0;
+        }
         return floatval(array_sum($array))/count($array);
     }
     
@@ -97,15 +98,17 @@ class Util
      */
     public static function removeComments($filecontent)
     {
-        if ($filecontent == null)
+        if ($filecontent == null) {
             return null;
+        }
         $tokens = token_get_all($filecontent);
         $res = '';
         foreach ($tokens as $token) {
-            if (!is_array($token))
+            if (!is_array($token)) {
                 $res.= $token;
-            elseif ($token[0] != T_COMMENT && $token[0] != T_DOC_COMMENT)
+            } elseif ($token[0] != T_COMMENT && $token[0] != T_DOC_COMMENT) {
                 $res.=$token[1];
+            }
         }
         return $res;
     }
@@ -182,8 +185,9 @@ class Util
             return null;
         }
         foreach ($tokens as $x) {
-            if (is_array($x) && $x[0] === T_WHITESPACE)
+            if (is_array($x) && $x[0] === T_WHITESPACE) {
                 continue;
+            }
             $res[] = $x;
         }
         return $res;

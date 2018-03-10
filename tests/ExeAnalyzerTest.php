@@ -39,8 +39,9 @@ class ExeAnalyzerTest extends TestCase
         $dirs = [];
         echo PHP_EOL."Scanning $directory";
         foreach ($files as $file) {
-            if ($file === "." || $file === "..")
+            if ($file === "." || $file === "..") {
                 continue;
+            }
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {

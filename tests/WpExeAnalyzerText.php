@@ -33,8 +33,9 @@ class WpExeAnalyzerTest extends TestCase
      */
     public function testExeAnalyzer()
     {
-        if (!file_exists(__DIR__.'/res/wordpress/'))
+        if (!file_exists(__DIR__.'/res/wordpress/')) {
             return;
+        }
         $res = $this->_scanDir();
         $arrayEX = [];
         $arrayAN = [];
@@ -68,8 +69,9 @@ class WpExeAnalyzerTest extends TestCase
         $files = scandir($directory);
         $dirs = [];
         foreach ($files as $file) {
-            if ($file === "." || $file === "..")
+            if ($file === "." || $file === "..") {
                 continue;
+            }
             if (is_dir($directory.$file)) {
                 array_push($dirs, $directory.$file.'/');
             } elseif (preg_match('/\.php$/', $file)) {

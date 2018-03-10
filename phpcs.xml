@@ -4,6 +4,7 @@
     <file>src</file>
     <file>tests</file>
     <exclude-pattern>/tests/res/*</exclude-pattern>
-    <arg value="np"/>
-    <rule ref="PEAR"/>
+    <rule ref="PEAR">
+        <exclude name="PEAR.Commenting.FileComment"/>
+    </rule>
 </ruleset>
