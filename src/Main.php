@@ -17,7 +17,7 @@ require __DIR__ . '/autoload.php';
 
 use Symfony\Component\Console\Application;
 
-$application = new Application();
+$application = new Application("PHP WebShell detector", "@package_version@");
 $application->add(new RUCD\WebshellDetector\AnalyzeDirectoryCommand());
 $application->add(new RUCD\WebshellDetector\AnalyzeFileCommand());
 $application->run();
