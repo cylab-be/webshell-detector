@@ -5,6 +5,7 @@ namespace RUCD\WebshellDetector;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class AnalyzeDirectoryCommand. Defines the command analyze:directory
@@ -18,6 +19,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class AnalyzeDirectoryCommand extends Command
 {
+
+    const DEFAULT_THRESHOLD = 0.4;
+
     /**
      * Configures the command analyze:directory
      * {@inheritDoc}
@@ -35,6 +39,13 @@ class AnalyzeDirectoryCommand extends Command
                 'directory',
                 InputArgument::REQUIRED,
                 'The directory to analyze'
+            )
+            ->addOption(
+                'threshold',
+                't',
+                InputOption::VALUE_OPTIONAL,
+                'The minimum score to display result',
+                self::DEFAULT_THRESHOLD
             );
     }
 
@@ -56,9 +67,13 @@ class AnalyzeDirectoryCommand extends Command
             throw new Exception("Invalid directory!");
         }
 
+        $threshold = $input->getOption("threshold");
+
         $detector = new Detector();
         foreach ($detector->analyzeDirectory($directory) as $file => $score) {
-            $output->write("$file : $score" . PHP_EOL);
+            if ($score >= $threshold) {
+                $output->write("$file : $score" . PHP_EOL);
+            }
         }
     }
 }

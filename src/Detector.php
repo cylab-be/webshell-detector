@@ -48,16 +48,16 @@ class Detector
                 continue;
             }
 
-            if (is_dir($directory . $file)) {
-                $this->analyzeDirectory($directory . $file);
+            $file = $directory . DIRECTORY_SEPARATOR . $file;
+
+            if (is_dir($file)) {
+                $this->analyzeDirectory($file);
 
             } elseif (preg_match('/\.php$/', $file)) {
                 $score = $this->analyzeString(
-                    file_get_contents(
-                        $directory . $file
-                    )
+                    file_get_contents($file)
                 );
-                yield $directory . $file => $score;
+                yield $file => $score;
             }
         }
     }
