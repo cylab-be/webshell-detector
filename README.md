@@ -22,18 +22,19 @@ echo $detector->analyzeFile("strange_file.php");
 
 ### From the command line
 
-```composer global require rucd/webshell-detector```
+Download the runnable PHAR from the [Releases pages](https://github.com/RUCD/webshell-detector/releases).
 
-This will install webshell-detector to your global vendor binaries directory
-(usually **~/.config/composer/vendor/bin**). If this directory is part of your path,
-you can run it directly:
+To run:
 
-```webshell-detector <filename>```
+```
+webshell-detector.phar analyze:directory /path/to/directory
+```
 
-Or, if the global vendor binaries directory is not part of your path:
+You can modify the "sensitivity" of the detector, by modifying the threshold for displaying files. This will display the suspiciousness score of every files:
 
-```~/.config/composer/vendor/bin/webshell-detector <filename>```
+```
+webshell-detector.phar analyze:directory -t 0.0 /path/to/directory
+```
 
-
-
+The default threshold used by the tool is 0.4
 
