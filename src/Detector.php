@@ -51,9 +51,12 @@ class Detector
             $file = $directory . DIRECTORY_SEPARATOR . $file;
 
             if (is_dir($file)) {
-                $this->analyzeDirectory($file);
+                yield from $this->analyzeDirectory($file);
+                continue;
 
-            } elseif (preg_match('/\.php$/', $file)) {
+            }
+
+            if (preg_match('/\.php$/', $file)) {
                 $score = $this->analyzeString(
                     file_get_contents($file)
                 );
