@@ -30,6 +30,8 @@ To run:
 webshell-detector.phar analyze:directory /path/to/directory
 ```
 
+![](./webshell-detector.png)
+
 You can modify the "sensitivity" of the detector, by modifying the threshold for displaying files. This will display the suspiciousness score of every files:
 
 ```
