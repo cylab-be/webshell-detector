@@ -1,8 +1,8 @@
 {
-	"name" : "rucd/webshell-detector",
+	"name" : "cylab-be/webshell-detector",
 	"type" : "library",
 	"description" : "Webshell detector",
-	"homepage" : "https://github.com/RUCD/webshell-detector",
+	"homepage" : "https://github.com/cylab-be/webshell-detector",
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Enzo Borel",
