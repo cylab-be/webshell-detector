@@ -1,7 +1,10 @@
 # webshell-detector
 
 [![Build Status](https://travis-ci.org/RUCD/webshell-detector.svg?branch=master)](https://travis-ci.org/RUCD/webshell-detector)
-[![Latest Stable Version](https://poser.pugx.org/rucd/webshell-detector/v/stable)](https://packagist.org/packages/rucd/webshell-detector) [![Total Downloads](https://poser.pugx.org/rucd/webshell-detector/downloads)](https://packagist.org/packages/rucd/webshell-detector) [![Latest Unstable Version](https://poser.pugx.org/rucd/webshell-detector/v/unstable)](https://packagist.org/packages/rucd/webshell-detector) [![License](https://poser.pugx.org/rucd/webshell-detector/license)](https://packagist.org/packages/rucd/webshell-detector)
+[![Latest Stable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/stable)](https://packagist.org/packages/rucd/webshell-detector)
+[![Total Downloads](https://poser.pugx.org/cylab-be/webshell-detector/downloads)](https://packagist.org/packages/rucd/webshell-detector)
+[![Latest Unstable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/unstable)](https://packagist.org/packages/rucd/webshell-detector)
+[![License](https://poser.pugx.org/cylab-be/webshell-detector/license)](https://packagist.org/packages/rucd/webshell-detector)
 
 Developement now taks place at https://gitlab.cylab.be/cylab/webshell-detector
 
@@ -12,7 +15,7 @@ or you can run it from the command line.
 
 ### As a library
 
-```composer require rucd/webshell-detector```
+```composer require cylab-be/webshell-detector```
 
 ```php
 require_once "vendor/autoload.php";
@@ -25,7 +28,7 @@ echo $detector->analyzeFile("strange_file.php");
 
 ### From the command line
 
-Download the runnable PHAR from the [Releases pages](https://github.com/RUCD/webshell-detector/releases).
+Download the runnable PHAR from the [Releases pages](https://github.com/cylab-be/webshell-detector/releases).
 
 To run:
 
