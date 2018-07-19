@@ -90,7 +90,11 @@ class SignaturesAnalyzer implements Analyzer
                     }
                     foreach ($decode as $decodefunc) {
                         $param = $flag = null;
-                        $param = @$decodefunc($str);
+                        try {
+                            $param = $decodefunc($str);
+                        } catch (\Exception $e) {
+                            continue;
+                        }
                         if ($param != null) {
                             $flag = $this->_compareFingerprints($fp_regex, $param);
                             if ($flag != null) {

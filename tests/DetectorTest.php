@@ -39,4 +39,23 @@ class DetectorTest extends TestCase
         }
         $this->assertTrue($results_count > 0);
     }
+
+    /**
+     * Check that we don't get an error if we analyze a PHP file with an open comment
+     * block.
+     */
+    public function testComment()
+    {
+        set_error_handler(function($errno, $errstr, $errfile, $errline, array $errcontext) {
+            // error was suppressed with the @-operator
+            //if (0 === error_reporting()) {
+            //    return false;
+            //}
+
+            throw new  \ErrorException($errstr, 0, $errno, $errfile, $errline);
+        });
+        $detector = new Detector();
+        $detector->analyzeString(file_get_contents(__DIR__ . "/res/comment.php"));
+
+    }
 }
