@@ -1,8 +1,0 @@
-language: php
-php:
-  - '7.1'
-before_script:
-  - composer install --dev
-script: vendor/bin/phpunit && vendor/bin/phpcs
-notifications:
-    slack: cylab-be:9G7YN9rr7PernXgkfvCzHB2a
