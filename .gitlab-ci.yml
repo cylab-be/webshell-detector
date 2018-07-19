@@ -7,6 +7,13 @@ before_script:
   - apt-get install git -yqq
   # Install composer
   - curl -sS https://getcomposer.org/installer | php
+  # Install PHP-ZIP extension (used by composer)
+  - apt-get install -yqq libzip-dev
+  - docker-php-ext-install zip
+  # Install xdebug extension (used for phpunit code coverage)
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+
   # Install all project dependencies
   - php composer.phar install
 
