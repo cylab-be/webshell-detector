@@ -13,9 +13,10 @@ before_script:
   # Install xdebug extension (used for phpunit code coverage)
   - pecl install xdebug
   - docker-php-ext-enable xdebug
-
   # Install all project dependencies
   - php composer.phar install
+  # Increase memory limit
+  - echo "memory_limit = -1" > /usr/local/etc/php/conf.d/memory-limit-php.ini
 
 test:
   script:
