@@ -1,6 +1,6 @@
 # webshell-detector
 
-[![Build Status](https://travis-ci.org/RUCD/webshell-detector.svg?branch=master)](https://travis-ci.org/RUCD/webshell-detector)
+[![pipeline status](https://gitlab.cylab.be/cylab/webshell-detector/badges/master/pipeline.svg)](https://gitlab.cylab.be/cylab/webshell-detector/commits/master)
 [![Latest Stable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/stable)](https://packagist.org/packages/rucd/webshell-detector)
 [![Total Downloads](https://poser.pugx.org/cylab-be/webshell-detector/downloads)](https://packagist.org/packages/rucd/webshell-detector)
 [![Latest Unstable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/unstable)](https://packagist.org/packages/rucd/webshell-detector)
