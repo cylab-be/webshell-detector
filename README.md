@@ -1,10 +1,10 @@
 # webshell-detector
 
 [![pipeline status](https://gitlab.cylab.be/cylab/webshell-detector/badges/master/pipeline.svg)](https://gitlab.cylab.be/cylab/webshell-detector/commits/master)
-[![Latest Stable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/stable)](https://packagist.org/packages/rucd/webshell-detector)
-[![Total Downloads](https://poser.pugx.org/cylab-be/webshell-detector/downloads)](https://packagist.org/packages/rucd/webshell-detector)
-[![Latest Unstable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/unstable)](https://packagist.org/packages/rucd/webshell-detector)
-[![License](https://poser.pugx.org/cylab-be/webshell-detector/license)](https://packagist.org/packages/rucd/webshell-detector)
+[![Latest Stable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/stable)](https://packagist.org/packages/cylab-be/webshell-detector)
+[![Total Downloads](https://poser.pugx.org/cylab-be/webshell-detector/downloads)](https://packagist.org/packages/cylab-be/webshell-detector)
+[![Latest Unstable Version](https://poser.pugx.org/cylab-be/webshell-detector/v/unstable)](https://packagist.org/packages/cylab-be/webshell-detector)
+[![License](https://poser.pugx.org/cylab-be/webshell-detector/license)](https://packagist.org/packages/cylab-be/webshell-detector)
 
 Developement now taks place at https://gitlab.cylab.be/cylab/webshell-detector
 
