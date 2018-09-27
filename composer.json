@@ -25,7 +25,8 @@
 	"require" : {
 		"webd/language" : "dev-master",
 		"symfony/finder": "^3.4",
-		"symfony/console": "^3"
+		"symfony/console": "^3",
+		"cylab-be/wowa-training": "^0.0.1"
 	},
 	"bin" : [
 		"bin/webshell-detector"
