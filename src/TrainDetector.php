@@ -34,7 +34,10 @@ class TrainDetector
     /**
      * Recursively scan a directory, and scan all files.
      *
-     * @param string $directory Name of the directory to scan
+     * @param string $directory    Name of the directory to scan
+     * @param string $dataFile     File name where scores will be saved
+     * @param string $expectedFile File name where expected results 
+     *                             for wowa-training are saved
      *
      * @return array a generator of entries $file => $score
      */
@@ -59,10 +62,9 @@ class TrainDetector
             }
 
             if (preg_match('/\.php$/', $file)) {
-                if(preg_match('~/res/~', $file)) {
+                if (preg_match('~/res/~', $file)) {
                     $this->_addDataToFile($expectedFile, 1);
-                }
-                else {
+                } else {
                     $this->_addDataToFile($expectedFile, 0);
                 }
                 $score = $this->analyzeString(
@@ -77,12 +79,11 @@ class TrainDetector
      * Analyze a string and return a score between 0 (harmless) and 1 (highly
      * suspicious).
      *
-     * @param string $string The string to analyzer
+     * @param string $string      The string to analyzer
+     * @param string $fileToStore File name where scores are saved
      *
      * @return float The score
      */
-
-    
     public function analyzeString($string, $fileToStore)
     {
         $scores = [];
@@ -107,14 +108,21 @@ class TrainDetector
         return array_sum($scores) / count($scores);
         //return WOWA::wowa($this->w, $this->p, $scores);
     }
-    
-    private function _addDataToFile($fileName, $data) {
+    /**
+     * Add data in file to be used in wowa-training
+     * 
+     * @param string $fileName File name to save data
+     * @param type   $data     data to save (scores or expected)
+     * 
+     * @return none 
+     */
+    private function _addDataToFile($fileName, $data) 
+    {
         if (!file_exists($fileName)) {
             $dataArray = [];
             $dataArray[] = $data;
             file_put_contents($fileName, serialize($dataArray));
-        }
-        else {
+        } else {
             $oldData = unserialize(file_get_contents($fileName));
             $oldData[] = $data;
             file_put_contents($fileName, serialize($oldData));
