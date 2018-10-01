@@ -37,9 +37,9 @@ $data = iterator_to_array(
 //var_dump(unserialize(file_get_contents($dataFile)));
 //var_dump(unserialize(file_get_contents($expectedFile)));
 
-echo "PHP files analyzed !\n Beginning of wowa-training \n";
+echo "PHP files analyzed !\nBeginning of wowa-training \n";
 $fileNumber = count(unserialize(file_get_contents($dataFile)));
-echo "There are : ";
+echo "There are : $fileNumber analyzed!\n";
 
 $logger = new Logger('wowa-training-test');
 $logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
