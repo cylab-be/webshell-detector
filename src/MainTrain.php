@@ -17,7 +17,7 @@ use Monolog\Handler\StreamHandler;
 
 
 
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 
 $dataFile = tempnam(__DIR__ . "/../trainer_files", 'data_file_');
 $expectedFile = tempnam(__DIR__ . "/../trainer_files", 'expected_file_');
