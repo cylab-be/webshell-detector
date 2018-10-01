@@ -17,7 +17,7 @@ use Monolog\Handler\StreamHandler;
 
 
 
-//error_reporting(E_ERROR);
+error_reporting(E_ERROR);
 
 $dataFile = tempnam(__DIR__ . "/../trainer_files", 'data_file_');
 $expectedFile = tempnam(__DIR__ . "/../trainer_files", 'expected_file_');
@@ -38,6 +38,8 @@ $data = iterator_to_array(
 //var_dump(unserialize(file_get_contents($expectedFile)));
 
 echo "PHP files analyzed !\n Beginning of wowa-training \n";
+$fileNumber = count(unserialize(file_get_contents($dataFile)));
+echo "There are : ";
 
 $logger = new Logger('wowa-training-test');
 $logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
