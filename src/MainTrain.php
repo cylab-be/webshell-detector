@@ -34,9 +34,6 @@ $data = iterator_to_array(
     )
 );
 
-//$dataFile = unserialize(file_get_contents(__DIR__ . "/../trainer_files/data_file"));
-//$expectedFile = unserialize(file_get_contents(__DIR__ . "/../trainer_files/expected_file"));
-
 //var_dump(unserialize(file_get_contents($dataFile)));
 //var_dump(unserialize(file_get_contents($expectedFile)));
 
@@ -68,10 +65,14 @@ file_put_contents($weights, serialize($result));
 var_dump($result);
 
 file_put_contents('Comparison.txt', "Expected       WOWA        Average\n");
-for($i = 0; $i < count($data); $i++) {
+for ($i = 0; $i < count($data); $i++) {
     $wowa = WOWA::wowa($result->weights_w, $result->weights_p, $data[$i]);
     $average = array_sum($data[$i]) / count($data[$i]);
-    file_put_contents('Comparison.txt', "$expected[$i]      $wowa   $average\n", FILE_APPEND);
+    file_put_contents(
+        'Comparison.txt',
+        "$expected[$i]      $wowa   $average\n",
+        FILE_APPEND
+    );
     if ($expected[$i] === 1) {
         echo "$expected[$i] : $wowa : $average\n";
     }  

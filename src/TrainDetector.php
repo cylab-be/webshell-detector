@@ -62,7 +62,9 @@ class TrainDetector
             }
 
             if (preg_match('/\.php$/', $file)) {
-                if (preg_match('~/res/php-webshells-master~', $file) || preg_match('~/res/webshells_modified~', $file) ) {
+                if (preg_match('~/res/php-webshells-master~', $file)  
+                    || preg_match('~/res/webshells_modified~', $file) 
+                ) {
                     $this->_addDataToFile($expectedFile, 1);
                 } else {
                     $this->_addDataToFile($expectedFile, 0);
