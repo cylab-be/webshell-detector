@@ -68,7 +68,7 @@ var_dump($result);
 
 file_put_contents('Comparison.txt', "Expected       WOWA        Average\n");
 for ($i = 0; $i < count($data); $i++) {
-    $wowa = WOWA::wowa($result->weights_w, $result->weights_p, $data[$i]);
+    $wowa = WOWA::wowa($result->weights_w, $result->weights_p, unserialize(file_get_contents($dataFile))[$i]);
     $average = array_sum($data[$i]) / count($data[$i]);
     file_put_contents(
         'Comparison.txt',
