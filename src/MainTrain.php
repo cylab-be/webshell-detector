@@ -53,9 +53,11 @@ $maxGenerationNumber = $argv[4];
 $generationInitialPopulationMethod = $argv[5];
 
 if ($generationInitialPopulationMethod == 'RANDOM') {
-    $generationInitialPopulationMethod = TrainerParameters::INITIAL_POPULATION_GENERATION_RANDOM;
+    $generationInitialPopulationMethod 
+        = TrainerParameters::INITIAL_POPULATION_GENERATION_RANDOM;
 } elseif ($generationInitialPopulationMethod == 'QUASI_RANDOM') {
-    $generationInitialPopulationMethod = TrainerParameters::INITIAL_POPULATION_GENERATION_QUASI_RANDOM;
+    $generationInitialPopulationMethod 
+        = TrainerParameters::INITIAL_POPULATION_GENERATION_QUASI_RANDOM;
 }
 
 $parameters = new TrainerParameters(
@@ -77,12 +79,17 @@ var_dump($result);
 
 file_put_contents('Comparison.txt', "Expected       WOWA        Average\n");
 for ($i = 0; $i < count($data); $i++) {
-    $wowa = WOWA::wowa($result->weights_w, $result->weights_p, unserialize(file_get_contents($dataFile))[$i]);
-    $average = array_sum(unserialize(file_get_contents($dataFile))[$i]) / count(unserialize(file_get_contents($dataFile))[$i]);
+    $wowa = WOWA::wowa(
+        $result->weights_w, 
+        $result->weights_p, 
+        unserialize(file_get_contents($dataFile))[$i]
+    );
+    $average = array_sum(unserialize(file_get_contents($dataFile))[$i]) / 
+            count(unserialize(file_get_contents($dataFile))[$i]);
     $expected = unserialize(file_get_contents($expectedFile))[$i];
     file_put_contents(
         'Comparison.txt',
-              "$expected    $wowa   $average\n",
+        "$expected    $wowa   $average\n",
         FILE_APPEND
     );
     if ($expected[$i] === 1) {
