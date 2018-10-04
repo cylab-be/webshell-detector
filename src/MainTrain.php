@@ -45,18 +45,27 @@ $logger = new Logger('wowa-training-test');
 $logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
 
 
-$populationSize = 120;
-$crossoverRate = 50;
-$mutationRate = 19;
+$populationSize = $argv[1];
+$crossoverRate = $argv[2];
+$mutationRate = $argv[3];
 $selectionMethod = TrainerParameters::SELECTION_METHOD_RWS;
-$maxGenerationNumber = 120;
+$maxGenerationNumber = $argv[4];
+$generationInitialPopulationMethod = $argv[5];
+
+if ($generationInitialPopulationMethod == 'RANDOM') {
+    $generationInitialPopulationMethod = TrainerParameters::INITIAL_POPULATION_GENERATION_RANDOM;
+} elseif ($generationInitialPopulationMethod == 'QUASI_RANDOM') {
+    $generationInitialPopulationMethod = TrainerParameters::INITIAL_POPULATION_GENERATION_QUASI_RANDOM;
+}
+
 $parameters = new TrainerParameters(
     $logger, 
     $populationSize, 
     $crossoverRate, 
     $mutationRate, 
     $selectionMethod, 
-    $maxGenerationNumber
+    $maxGenerationNumber,
+    $generationInitialPopulationMethod
 );
 $trainer = new Trainer($parameters);
 $result = $trainer->run(

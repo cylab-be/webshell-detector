@@ -4,15 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3429611144846bc574d10596f17afc4d",
+    "content-hash": "f39d759ecc71dd74f9351f0b83d601bc",
     "packages": [
         {
             "name": "cylab-be/wowa-training",
-            "version": "0.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.cylab.be/cylab/wowa-training.git",
-                "reference": "aed6d7b099c904fa83b953480970378334a52702"
+                "reference": "4cf3dbdc123d0652aff710b0e9bd41ab960e20f9"
             },
             "require": {
                 "psr/log": "^1.0",
@@ -39,7 +39,7 @@
                     "email": "thibault.debatty@gmail.com"
                 }
             ],
-            "time": "2018-09-12T12:47:38+00:00"
+            "time": "2018-10-04T09:34:30+00:00"
         },
         {
             "name": "psr/log",
@@ -2904,7 +2904,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "webd/language": 20
+        "webd/language": 20,
+        "cylab-be/wowa-training": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
