@@ -28,7 +28,7 @@ echo __DIR__;
 echo "\n";
 $analyzedData = iterator_to_array(
     $detector->analyzeDirectory(
-        __DIR__ . "/..", 
+        __DIR__ . "/../..", 
         $dataFile, 
         $expectedFile 
     )
@@ -225,3 +225,5 @@ for ($triggerValue = 0.05; $triggerValue < 0.95; $triggerValue+=0.05) {
     $averageFalseNegativeCounter = 0;
     
 }
+
+echo "End of statistical analysis\n";
