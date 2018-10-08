@@ -28,7 +28,7 @@ echo __DIR__;
 echo "\n";
 $analyzedData = iterator_to_array(
     $detector->analyzeDirectory(
-        __DIR__ . "/..", 
+        __DIR__ . "/../..", 
         $dataFile, 
         $expectedFile 
     )
