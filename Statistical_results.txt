@@ -1,0 +1,756 @@
+_____________________________
+|TRIGGER VALUE        : 0.05 |
+|____________________________|
+
+WOWA
+Wowa true positive : 198 
+Wowa true negative : 11713 
+Wowa false positive : 549
+Wowa false negative : 8
+Wowa true positive rate : 0.96116504854369
+Wowa true negative rate : 0.95522753221334
+Wowa false positive rate : 0.044772467786658
+Wowa false negative rate : 0.038834951456311
+Wowa precision : 0.26506024096386
+Wowa negative predictive value : 0.99931746438017
+Wowa false discovery rate : 0.73493975903614
+Wowa false omission rate : 0.00068253561982767
+Wowa accuracy : 0.95532563362207
+Wowa F1 score : 0.41552990556139
+
+AVERAGE
+Average true positive : 206 
+Average true negative : 340 
+Average false positive : 11922
+Average false negative : 0
+Average true positive rate : 1
+Average true negative rate : 0.027727939977165
+Average false positive rate : 0.97227206002283
+Average false negative rate : 0
+Average precision : 0.016985488126649
+Average negative predictive value : 1
+Average false discovery rate : 0.98301451187335
+Average false omission rate : 0
+Average accuracy : 0.043792107795958
+Average F1 score : 0.033403599805416
+
+Malicous file from WOWA and AVERAGE : 198
+No malicous file from WOWA and AVERAGE : 340
+
+Bad malicious detection for Wowa and Average : 0
+Bad not malicious detection for Wowa and Average : 549
+
+_____________________________
+|TRIGGER VALUE        : 0.1 |
+|____________________________|
+
+WOWA
+Wowa true positive : 186 
+Wowa true negative : 11901 
+Wowa false positive : 361
+Wowa false negative : 20
+Wowa true positive rate : 0.90291262135922
+Wowa true negative rate : 0.97055945196542
+Wowa false positive rate : 0.029440548034578
+Wowa false negative rate : 0.097087378640777
+Wowa precision : 0.3400365630713
+Wowa negative predictive value : 0.99832228839862
+Wowa false discovery rate : 0.6599634369287
+Wowa false omission rate : 0.0016777116013758
+Wowa accuracy : 0.96944177093359
+Wowa F1 score : 0.49402390438247
+
+AVERAGE
+Average true positive : 204 
+Average true negative : 3158 
+Average false positive : 9104
+Average false negative : 2
+Average true positive rate : 0.99029126213592
+Average true negative rate : 0.25754363072908
+Average false positive rate : 0.74245636927092
+Average false negative rate : 0.0097087378640777
+Average precision : 0.021916630855178
+Average negative predictive value : 0.99936708860759
+Average false discovery rate : 0.97808336914482
+Average false omission rate : 0.00063291139240507
+Average accuracy : 0.26965030478024
+Average F1 score : 0.042884170695817
+
+Malicous file from WOWA and AVERAGE : 185
+No malicous file from WOWA and AVERAGE : 3146
+
+Bad malicious detection for Wowa and Average : 1
+Bad not malicious detection for Wowa and Average : 349
+
+_____________________________
+|TRIGGER VALUE        : 0.15 |
+|____________________________|
+
+WOWA
+Wowa true positive : 167 
+Wowa true negative : 12223 
+Wowa false positive : 39
+Wowa false negative : 39
+Wowa true positive rate : 0.81067961165049
+Wowa true negative rate : 0.99681944217909
+Wowa false positive rate : 0.0031805578209101
+Wowa false negative rate : 0.18932038834951
+Wowa precision : 0.81067961165049
+Wowa negative predictive value : 0.99681944217909
+Wowa false discovery rate : 0.18932038834951
+Wowa false omission rate : 0.0031805578209101
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.81067961165049
+
+AVERAGE
+Average true positive : 203 
+Average true negative : 9481 
+Average false positive : 2781
+Average false negative : 3
+Average true positive rate : 0.98543689320388
+Average true negative rate : 0.77320176153972
+Average false positive rate : 0.22679823846028
+Average false negative rate : 0.014563106796116
+Average precision : 0.068029490616622
+Average negative predictive value : 0.99968367777309
+Average false discovery rate : 0.93197050938338
+Average false omission rate : 0.00031632222690847
+Average accuracy : 0.776708373436
+Average F1 score : 0.12727272727273
+
+Malicous file from WOWA and AVERAGE : 167
+No malicous file from WOWA and AVERAGE : 9479
+
+Bad malicious detection for Wowa and Average : 3
+Bad not malicious detection for Wowa and Average : 37
+
+_____________________________
+|TRIGGER VALUE        : 0.2 |
+|____________________________|
+
+WOWA
+Wowa true positive : 167 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 39
+Wowa true positive rate : 0.81067961165049
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.18932038834951
+Wowa precision : 0.99404761904762
+Wowa negative predictive value : 0.99682926829268
+Wowa false discovery rate : 0.0059523809523809
+Wowa false omission rate : 0.0031707317073171
+Wowa accuracy : 0.99679178697466
+Wowa F1 score : 0.89304812834225
+
+AVERAGE
+Average true positive : 203 
+Average true negative : 11606 
+Average false positive : 656
+Average false negative : 3
+Average true positive rate : 0.98543689320388
+Average true negative rate : 0.946501386397
+Average false positive rate : 0.053498613603001
+Average false negative rate : 0.014563106796116
+Average precision : 0.23632130384168
+Average negative predictive value : 0.99974157980877
+Average false discovery rate : 0.76367869615832
+Average false omission rate : 0.0002584201912309
+Average accuracy : 0.94714469040744
+Average F1 score : 0.381220657277
+
+Malicous file from WOWA and AVERAGE : 167
+No malicous file from WOWA and AVERAGE : 11606
+
+Bad malicious detection for Wowa and Average : 3
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.25 |
+|____________________________|
+
+WOWA
+Wowa true positive : 159 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 47
+Wowa true positive rate : 0.77184466019417
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.22815533980583
+Wowa precision : 0.99375
+Wowa negative predictive value : 0.99618134546636
+Wowa false discovery rate : 0.00625
+Wowa false omission rate : 0.0038186545336366
+Wowa accuracy : 0.99615014436959
+Wowa F1 score : 0.86885245901639
+
+AVERAGE
+Average true positive : 199 
+Average true negative : 12151 
+Average false positive : 111
+Average false negative : 7
+Average true positive rate : 0.96601941747573
+Average true negative rate : 0.9909476431251
+Average false positive rate : 0.009052356874898
+Average false negative rate : 0.033980582524272
+Average precision : 0.64193548387097
+Average negative predictive value : 0.99942424740911
+Average false discovery rate : 0.35806451612903
+Average false omission rate : 0.00057575259088671
+Average accuracy : 0.99053577157523
+Average F1 score : 0.77131782945736
+
+Malicous file from WOWA and AVERAGE : 159
+No malicous file from WOWA and AVERAGE : 12151
+
+Bad malicious detection for Wowa and Average : 7
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.3 |
+|____________________________|
+
+WOWA
+Wowa true positive : 159 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 47
+Wowa true positive rate : 0.77184466019417
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.22815533980583
+Wowa precision : 0.99375
+Wowa negative predictive value : 0.99618134546636
+Wowa false discovery rate : 0.00625
+Wowa false omission rate : 0.0038186545336366
+Wowa accuracy : 0.99615014436959
+Wowa F1 score : 0.86885245901639
+
+AVERAGE
+Average true positive : 195 
+Average true negative : 12233 
+Average false positive : 29
+Average false negative : 11
+Average true positive rate : 0.94660194174757
+Average true negative rate : 0.99763496982548
+Average false positive rate : 0.0023650301745229
+Average false negative rate : 0.053398058252427
+Average precision : 0.87053571428571
+Average negative predictive value : 0.99910160078406
+Average false discovery rate : 0.12946428571429
+Average false omission rate : 0.00089839921594248
+Average accuracy : 0.99679178697466
+Average F1 score : 0.90697674418605
+
+Malicous file from WOWA and AVERAGE : 159
+No malicous file from WOWA and AVERAGE : 12233
+
+Bad malicious detection for Wowa and Average : 11
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.35 |
+|____________________________|
+
+WOWA
+Wowa true positive : 159 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 47
+Wowa true positive rate : 0.77184466019417
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.22815533980583
+Wowa precision : 0.99375
+Wowa negative predictive value : 0.99618134546636
+Wowa false discovery rate : 0.00625
+Wowa false omission rate : 0.0038186545336366
+Wowa accuracy : 0.99615014436959
+Wowa F1 score : 0.86885245901639
+
+AVERAGE
+Average true positive : 189 
+Average true negative : 12260 
+Average false positive : 2
+Average false negative : 17
+Average true positive rate : 0.91747572815534
+Average true negative rate : 0.99983689447072
+Average false positive rate : 0.00016310552927745
+Average false negative rate : 0.08252427184466
+Average precision : 0.98952879581152
+Average negative predictive value : 0.99861529689664
+Average false discovery rate : 0.010471204188482
+Average false omission rate : 0.001384703103364
+Average accuracy : 0.99847609881296
+Average F1 score : 0.95214105793451
+
+Malicous file from WOWA and AVERAGE : 159
+No malicous file from WOWA and AVERAGE : 12260
+
+Bad malicious detection for Wowa and Average : 17
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.4 |
+|____________________________|
+
+WOWA
+Wowa true positive : 151 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 55
+Wowa true positive rate : 0.73300970873786
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.26699029126214
+Wowa precision : 0.99342105263158
+Wowa negative predictive value : 0.99553426437155
+Wowa false discovery rate : 0.006578947368421
+Wowa false omission rate : 0.0044657356284508
+Wowa accuracy : 0.99550850176452
+Wowa F1 score : 0.84357541899441
+
+AVERAGE
+Average true positive : 184 
+Average true negative : 12260 
+Average false positive : 2
+Average false negative : 22
+Average true positive rate : 0.89320388349515
+Average true negative rate : 0.99983689447072
+Average false positive rate : 0.00016310552927745
+Average false negative rate : 0.10679611650485
+Average precision : 0.98924731182796
+Average negative predictive value : 0.99820876078815
+Average false discovery rate : 0.010752688172043
+Average false omission rate : 0.0017912392118548
+Average accuracy : 0.99807507218479
+Average F1 score : 0.93877551020408
+
+Malicous file from WOWA and AVERAGE : 151
+No malicous file from WOWA and AVERAGE : 12260
+
+Bad malicious detection for Wowa and Average : 22
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.45 |
+|____________________________|
+
+WOWA
+Wowa true positive : 151 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 55
+Wowa true positive rate : 0.73300970873786
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.26699029126214
+Wowa precision : 0.99342105263158
+Wowa negative predictive value : 0.99553426437155
+Wowa false discovery rate : 0.006578947368421
+Wowa false omission rate : 0.0044657356284508
+Wowa accuracy : 0.99550850176452
+Wowa F1 score : 0.84357541899441
+
+AVERAGE
+Average true positive : 176 
+Average true negative : 12260 
+Average false positive : 2
+Average false negative : 30
+Average true positive rate : 0.85436893203883
+Average true negative rate : 0.99983689447072
+Average false positive rate : 0.00016310552927745
+Average false negative rate : 0.14563106796117
+Average precision : 0.98876404494382
+Average negative predictive value : 0.99755899104963
+Average false discovery rate : 0.01123595505618
+Average false omission rate : 0.0024410089503661
+Average accuracy : 0.99743342957972
+Average F1 score : 0.91666666666667
+
+Malicous file from WOWA and AVERAGE : 149
+No malicous file from WOWA and AVERAGE : 12260
+
+Bad malicious detection for Wowa and Average : 28
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.5 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 160 
+Average true negative : 12261 
+Average false positive : 1
+Average false negative : 46
+Average true positive rate : 0.77669902912621
+Average true negative rate : 0.99991844723536
+Average false positive rate : 8.1552764638726E-5
+Average false negative rate : 0.22330097087379
+Average precision : 0.99378881987578
+Average negative predictive value : 0.9962622897538
+Average false discovery rate : 0.0062111801242236
+Average false omission rate : 0.0037377102462014
+Average accuracy : 0.99623034969522
+Average F1 score : 0.87193460490463
+
+Malicous file from WOWA and AVERAGE : 126
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 43
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.55 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 141 
+Average true negative : 12261 
+Average false positive : 1
+Average false negative : 65
+Average true positive rate : 0.68446601941748
+Average true negative rate : 0.99991844723536
+Average false positive rate : 8.1552764638726E-5
+Average false negative rate : 0.31553398058252
+Average precision : 0.99295774647887
+Average negative predictive value : 0.99472659419114
+Average false discovery rate : 0.0070422535211268
+Average false omission rate : 0.0052734058088594
+Average accuracy : 0.99470644850818
+Average F1 score : 0.81034482758621
+
+Malicous file from WOWA and AVERAGE : 121
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 57
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.6 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 120 
+Average true negative : 12261 
+Average false positive : 1
+Average false negative : 86
+Average true positive rate : 0.58252427184466
+Average true negative rate : 0.99991844723536
+Average false positive rate : 8.1552764638726E-5
+Average false negative rate : 0.41747572815534
+Average precision : 0.99173553719008
+Average negative predictive value : 0.99303474528225
+Average false discovery rate : 0.0082644628099173
+Average false omission rate : 0.0069652547177452
+Average accuracy : 0.99302213666987
+Average F1 score : 0.73394495412844
+
+Malicous file from WOWA and AVERAGE : 109
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 66
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.65 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 86 
+Average true negative : 12261 
+Average false positive : 1
+Average false negative : 120
+Average true positive rate : 0.41747572815534
+Average true negative rate : 0.99991844723536
+Average false positive rate : 8.1552764638726E-5
+Average false negative rate : 0.58252427184466
+Average precision : 0.98850574712644
+Average negative predictive value : 0.99030772958566
+Average false discovery rate : 0.011494252873563
+Average false omission rate : 0.0096922704143445
+Average accuracy : 0.99029515559833
+Average F1 score : 0.58703071672355
+
+Malicous file from WOWA and AVERAGE : 83
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 74
+Bad not malicious detection for Wowa and Average : 1
+
+_____________________________
+|TRIGGER VALUE        : 0.7 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 60 
+Average true negative : 12262 
+Average false positive : 0
+Average false negative : 146
+Average true positive rate : 0.29126213592233
+Average true negative rate : 1
+Average false positive rate : 0
+Average false negative rate : 0.70873786407767
+Average precision : 1
+Average negative predictive value : 0.98823339780787
+Average false discovery rate : 0
+Average false omission rate : 0.011766602192134
+Average accuracy : 0.98829002245749
+Average F1 score : 0.45112781954887
+
+Malicous file from WOWA and AVERAGE : 60
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 77
+Bad not malicious detection for Wowa and Average : 0
+
+_____________________________
+|TRIGGER VALUE        : 0.75 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 28 
+Average true negative : 12262 
+Average false positive : 0
+Average false negative : 178
+Average true positive rate : 0.13592233009709
+Average true negative rate : 1
+Average false positive rate : 0
+Average false negative rate : 0.86407766990291
+Average precision : 1
+Average negative predictive value : 0.98569131832797
+Average false discovery rate : 0
+Average false omission rate : 0.014308681672026
+Average accuracy : 0.98572345203722
+Average F1 score : 0.23931623931624
+
+Malicous file from WOWA and AVERAGE : 28
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 77
+Bad not malicious detection for Wowa and Average : 0
+
+_____________________________
+|TRIGGER VALUE        : 0.8 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 5 
+Average true negative : 12262 
+Average false positive : 0
+Average false negative : 201
+Average true positive rate : 0.024271844660194
+Average true negative rate : 1
+Average false positive rate : 0
+Average false negative rate : 0.97572815533981
+Average precision : 1
+Average negative predictive value : 0.98387226189521
+Average false discovery rate : 0
+Average false omission rate : 0.01612773810479
+Average accuracy : 0.98387872954764
+Average F1 score : 0.04739336492891
+
+Malicous file from WOWA and AVERAGE : 5
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 77
+Bad not malicious detection for Wowa and Average : 0
+
+_____________________________
+|TRIGGER VALUE        : 0.85 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 2 
+Average true negative : 12262 
+Average false positive : 0
+Average false negative : 204
+Average true positive rate : 0.0097087378640777
+Average true negative rate : 1
+Average false positive rate : 0
+Average false negative rate : 0.99029126213592
+Average precision : 1
+Average negative predictive value : 0.9836354885288
+Average false discovery rate : 0
+Average false omission rate : 0.016364511471202
+Average accuracy : 0.98363811357074
+Average F1 score : 0.019230769230769
+
+Malicous file from WOWA and AVERAGE : 2
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 77
+Bad not malicious detection for Wowa and Average : 0
+
+_____________________________
+|TRIGGER VALUE        : 0.9 |
+|____________________________|
+
+WOWA
+Wowa true positive : 129 
+Wowa true negative : 12261 
+Wowa false positive : 1
+Wowa false negative : 77
+Wowa true positive rate : 0.62621359223301
+Wowa true negative rate : 0.99991844723536
+Wowa false positive rate : 8.1552764638726E-5
+Wowa false negative rate : 0.37378640776699
+Wowa precision : 0.99230769230769
+Wowa negative predictive value : 0.9937591181715
+Wowa false discovery rate : 0.0076923076923077
+Wowa false omission rate : 0.0062408818284974
+Wowa accuracy : 0.99374398460058
+Wowa F1 score : 0.76785714285714
+
+AVERAGE
+Average true positive : 1 
+Average true negative : 12262 
+Average false positive : 0
+Average false negative : 205
+Average true positive rate : 0.0048543689320388
+Average true negative rate : 1
+Average false positive rate : 0
+Average false negative rate : 0.99514563106796
+Average precision : 1
+Average negative predictive value : 0.98355658939601
+Average false discovery rate : 0
+Average false omission rate : 0.016443410603995
+Average accuracy : 0.98355790824511
+Average F1 score : 0.0096618357487923
+
+Malicous file from WOWA and AVERAGE : 1
+No malicous file from WOWA and AVERAGE : 12261
+
+Bad malicious detection for Wowa and Average : 77
+Bad not malicious detection for Wowa and Average : 0
+

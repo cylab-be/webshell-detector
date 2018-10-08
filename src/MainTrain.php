@@ -28,7 +28,7 @@ echo __DIR__;
 echo "\n";
 $analyzedData = iterator_to_array(
     $detector->analyzeDirectory(
-        __DIR__ . "/../..", 
+        __DIR__ . "/..", 
         $dataFile, 
         $expectedFile 
     )
@@ -77,7 +77,17 @@ $result = $trainer->run($data, $expected);
 file_put_contents($weightFile, serialize($result));
 var_dump($result);
 
+//$data = unserialize(file_get_contents(__DIR__ . "/../trainer_files/data_file_s3HOfm"));
+//$expected = unserialize(file_get_contents(__DIR__ . "/../trainer_files/expected_file_jG9C2M"));
+//
+//$result = new RUCD\Training\Solution();
+//$result->weights_w = array(0.0015686208709128, 0.81609962234305, 0.1566542800825, 0.0080763702019774, 0.017601106501563);
+//$result->weights_p = array(0.20521495661322, 0.54284862595585, 0, 0.25020780186282, 0.0017286155681124);
+
 echo "Beginning of statistical analysis\n";
+echo count($data) . "\n";
+echo count($expected) . "\n";
+echo array_sum($expected) . "\n";
 
 $wowaTruePositiveCounter = 0;
 $wowaTrueNegativeCounter = 0;
@@ -89,8 +99,15 @@ $wowaFalseNegativeCounter = 0;
 $averageFalsePositiveCounter = 0;
 $averageFalseNegativeCounter = 0;
 
+$maliciousCounterWowaAndAverage = 0;
+$notMalciousCounterWowaAndAverage = 0;
+$badMaliciousDetectionWowaAndAverage = 0;
+$badNotMaliciousDetectionWowaAndAverage = 0;
 
-for ($triggerValue = 0.05; $triggerValue < 0.95; $triggerValue+=0.05) {
+
+
+
+for ($triggerValue = 0.05; $triggerValue <= 0.95; $triggerValue+=0.05) {
     for ($i = 0; $i < count($data); $i++) {
         $wowa = WOWA::wowa(
             $result->weights_w, 
@@ -98,37 +115,41 @@ for ($triggerValue = 0.05; $triggerValue < 0.95; $triggerValue+=0.05) {
             $data[$i]
         );
         $average = array_sum($data[$i]) / count($data[$i]);
-        if ($expected[$i] === 1 && $average > $triggerValue && $wowa > $triggerValue) {
+        if ($expected[$i] === 1 && $average >= $triggerValue && $wowa >= $triggerValue) {
             $averageTruePositiveCounter++;
             $wowaTruePositiveCounter++;
+            $maliciousCounterWowaAndAverage++;
         }
-        elseif ($expected[$i] === 1 && $average < $triggerValue && $wowa > $triggerValue) {
+        elseif ($expected[$i] === 1 && $average < $triggerValue && $wowa >= $triggerValue) {
             $wowaTruePositiveCounter++;
             $averageFalseNegativeCounter++;
         }
-        elseif ($expected[$i] === 1 && $average > $triggerValue && $wowa < $triggerValue) {
+        elseif ($expected[$i] === 1 && $average >= $triggerValue && $wowa < $triggerValue) {
             $averageTruePositiveCounter++;
             $wowaFalseNegativeCounter++;
         }
         elseif ($expected[$i] === 1 && $average < $triggerValue && $wowa < $triggerValue) {
             $averageFalseNegativeCounter++;
             $wowaFalseNegativeCounter++;
+            $badMaliciousDetectionWowaAndAverage++;
         }
         elseif ($expected[$i] === 0 && $average < $triggerValue && $wowa < $triggerValue) {
             $averageTrueNegativeCounter++;
             $wowaTrueNegativeCounter++;
+            $notMalciousCounterWowaAndAverage++;
         }
-        elseif ($expected[$i] === 0 && $average < $triggerValue && $wowa > $triggerValue) {
+        elseif ($expected[$i] === 0 && $average < $triggerValue && $wowa >= $triggerValue) {
             $averageTrueNegativeCounter++;
             $wowaFalsePositiveCounter++;
         }
-        elseif ($expected[$i] === 0 && $average > $triggerValue && $wowa < $triggerValue) {
+        elseif ($expected[$i] === 0 && $average >= $triggerValue && $wowa < $triggerValue) {
             $wowaTrueNegativeCounter++;
             $averageFalsePositiveCounter++;
         }
-        elseif ($expected[$i] === 0 && $average > $triggerValue && $wowa > $triggerValue) {
+        elseif ($expected[$i] === 0 && $average >= $triggerValue && $wowa >= $triggerValue) {
             $averageFalsePositiveCounter++;
             $wowaFalsePositiveCounter++;
+            $badNotMaliciousDetectionWowaAndAverage++;
         }
     }
     //Positive conditions
@@ -215,6 +236,12 @@ for ($triggerValue = 0.05; $triggerValue < 0.95; $triggerValue+=0.05) {
     file_put_contents('Statistical_results.txt', "Average accuracy : $averageAccuracy\n", FILE_APPEND);
     file_put_contents('Statistical_results.txt', "Average F1 score : $averageF1\n\n", FILE_APPEND);
     
+    file_put_contents('Statistical_results.txt', "Malicous file from WOWA and AVERAGE : $maliciousCounterWowaAndAverage\n", FILE_APPEND);
+    file_put_contents('Statistical_results.txt', "No malicous file from WOWA and AVERAGE : $notMalciousCounterWowaAndAverage\n\n", FILE_APPEND);
+    file_put_contents('Statistical_results.txt', "Bad malicious detection for Wowa and Average : $badMaliciousDetectionWowaAndAverage\n", FILE_APPEND);
+    file_put_contents('Statistical_results.txt', "Bad not malicious detection for Wowa and Average : $badNotMaliciousDetectionWowaAndAverage\n\n", FILE_APPEND);
+    
+    $wowaTruePositiveCounter = 0;
     $wowaTrueNegativeCounter = 0;
     $averageTruePositiveCounter = 0;
     $averageTrueNegativeCounter = 0;
@@ -223,6 +250,11 @@ for ($triggerValue = 0.05; $triggerValue < 0.95; $triggerValue+=0.05) {
     $wowaFalseNegativeCounter = 0;
     $averageFalsePositiveCounter = 0;
     $averageFalseNegativeCounter = 0;
+    
+    $maliciousCounterWowaAndAverage = 0;
+    $notMalciousCounterWowaAndAverage = 0;
+    $badMaliciousDetectionWowaAndAverage = 0;
+    $badNotMaliciousDetectionWowaAndAverage = 0;
     
 }
 
