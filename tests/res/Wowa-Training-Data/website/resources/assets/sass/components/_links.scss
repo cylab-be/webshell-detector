@@ -1,0 +1,8 @@
+a {
+  &.red-link {
+    @apply .text-red;
+  }
+  &:hover {
+    @apply .no-underline;
+  }
+}
