@@ -28,7 +28,7 @@ echo __DIR__;
 echo "\n";
 $analyzedData = iterator_to_array(
     $detector->analyzeDirectory(
-        __DIR__ . "/../..", 
+        __DIR__ . "/../tests/res/Wowa-Training-Data", 
         $dataFile, 
         $expectedFile 
     )
@@ -99,10 +99,6 @@ $wowaFalseNegativeCounter = 0;
 $averageFalsePositiveCounter = 0;
 $averageFalseNegativeCounter = 0;
 
-$maliciousCounterWowaAndAverage = 0;
-$notMalciousCounterWowaAndAverage = 0;
-$badMaliciousDetectionWowaAndAverage = 0;
-$badNotMaliciousDetectionWowaAndAverage = 0;
 
 
 
@@ -118,7 +114,7 @@ for ($triggerValue = 0.05; $triggerValue <= 0.95; $triggerValue+=0.05) {
         if ($expected[$i] === 1 && $average >= $triggerValue && $wowa >= $triggerValue) {
             $averageTruePositiveCounter++;
             $wowaTruePositiveCounter++;
-            $maliciousCounterWowaAndAverage++;
+            
         }
         elseif ($expected[$i] === 1 && $average < $triggerValue && $wowa >= $triggerValue) {
             $wowaTruePositiveCounter++;
@@ -131,12 +127,12 @@ for ($triggerValue = 0.05; $triggerValue <= 0.95; $triggerValue+=0.05) {
         elseif ($expected[$i] === 1 && $average < $triggerValue && $wowa < $triggerValue) {
             $averageFalseNegativeCounter++;
             $wowaFalseNegativeCounter++;
-            $badMaliciousDetectionWowaAndAverage++;
+            
         }
         elseif ($expected[$i] === 0 && $average < $triggerValue && $wowa < $triggerValue) {
             $averageTrueNegativeCounter++;
             $wowaTrueNegativeCounter++;
-            $notMalciousCounterWowaAndAverage++;
+            
         }
         elseif ($expected[$i] === 0 && $average < $triggerValue && $wowa >= $triggerValue) {
             $averageTrueNegativeCounter++;
@@ -149,7 +145,7 @@ for ($triggerValue = 0.05; $triggerValue <= 0.95; $triggerValue+=0.05) {
         elseif ($expected[$i] === 0 && $average >= $triggerValue && $wowa >= $triggerValue) {
             $averageFalsePositiveCounter++;
             $wowaFalsePositiveCounter++;
-            $badNotMaliciousDetectionWowaAndAverage++;
+            
         }
     }
     //Positive conditions
