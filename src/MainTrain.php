@@ -21,14 +21,14 @@ error_reporting(E_ERROR | E_NOTICE | E_PARSE);
 echo "Beginning of webshell analysis \n";
 $dataFile = tempnam(__DIR__ . "/../trainer_files", 'data_file_');
 $expectedFile = tempnam(__DIR__ . "/../trainer_files", 'expected_file_');
-$weightFile = tempnam(__DIR__ . "/../trainer_files", 'weights_');
+//$weightFile = tempnam(__DIR__ . "/../trainer_files", 'weights_');
 
 $detector = new TrainDetector();
 echo __DIR__;
 echo "\n";
 $analyzedData = iterator_to_array(
     $detector->analyzeDirectory(
-        __DIR__ . "/../tests/res/Wowa-Training-Data", 
+        __DIR__ . "/../..", 
         $dataFile, 
         $expectedFile 
     )
